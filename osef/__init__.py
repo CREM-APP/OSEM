@@ -7,4 +7,8 @@
 
 __version__ = "0.0.1"
 
-from osef.kbob import *
+# direct use
+from osef.kbob import kbob
+
+# submodules
+import osef.models as models
