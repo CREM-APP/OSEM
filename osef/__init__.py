@@ -7,4 +7,4 @@
 
 __version__ = "0.0.1"
 
-from osef.kbob import *
+from osef.kbob import kbob
