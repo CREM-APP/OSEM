@@ -8,14 +8,14 @@ def xls_to_csv(filename, year, filename_trans="translation_term_kbob.csv"):
     terminology (i.e., the last column of the xlsx file with technology names) will be transformed to a hyphen.
 
     Usage::
-    * Load the kbon data in xlsx. It is usually in a .zip file at the address :
+    * Load the kbob data in an Excel file. It is usually in a .zip file at the address :
     https://www.kbob.admin.ch/kbob/fr/home/publikationen/nachhaltiges-bauen/oekobilanzdaten_baubereich.html
-    * Check that the downloaded kbob in in kWh and not Mj as both are available
-    * use    xls_to_csv("my_kbob", 2018)
+    * Check that the downloaded kbob in in kWh and not MJ as both are available
+    * use xls_to_csv("my_kbob", 2018)
 
     :param filename: string - the xlsx file with the kbob
     :param year: can be a int, float, or string - will be added to the name of the created csv files
-    :param filename_trans: string - filename of a csv file which translate kbob terminology in german, french and english
+    :param filename_trans: string - name of the csv file which translate kbob terminology in german, french and english
     :return: none
     """
 
@@ -58,6 +58,7 @@ def main():
     filename = "Liste Oekobilanzdaten im Baubereich 2009-1-2016-gerundet-kWh.xlsx"
     year = "2016"
     xls_to_csv(filename, year)
+
 
 if __name__ == '__main__':
     main()
