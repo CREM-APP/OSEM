@@ -13,9 +13,10 @@ class Kbob:
     def __init__(self, year_id=None):
 
         # default parameter
+        self.data_folder = "data"
         self.version_default = str(2016)
-        self.basename_unit = "data/kbob_unit"
-        self.basename_kbob = "data/kbob_data"
+        self.basename_unit = "kbob_unit"
+        self.basename_kbob = "kbob_data"
         self.cutoff = 0.3
 
         #  kbob creation
@@ -109,9 +110,8 @@ class Kbob:
         """
         This function loads the kbob data and the units related to it
         """
-        path_osef = os.path.dirname(os.path.dirname(os.getcwd()))  # to see if better exist with import
-        filename_kbob = os.path.join(path_osef, self.basename_kbob + self.version + ".csv")
-        filename_unit = os.path.join(path_osef, self.basename_unit + self.version + ".json")
+        filename_kbob = os.path.join(self.data_folder, self.basename_kbob + self.version + ".csv")
+        filename_unit = os.path.join(self.data_folder, self.basename_unit + self.version + ".json")
 
         kbob = pd.read_csv(filename_kbob)
         kbob.set_index("English_Name", inplace=True)
