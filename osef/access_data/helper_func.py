@@ -13,7 +13,8 @@ def find_string(choice, options, cutoff=0.3):
 
     name_found = difflib.get_close_matches(choice, options, cutoff=cutoff)
     if len(name_found) > 1:
-        print('Warning: More than one option match the query. The chosen option is ' + name_found[0] + '.')
+        pass
+        # print('Warning: More than one option match the query. The chosen option is ' + name_found[0] + '.')
     elif len(name_found) == 0:
         print('Error: no match found')
         return None

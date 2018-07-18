@@ -4,7 +4,7 @@ from osef.access_data.helper_func import find_string
 import numpy as np
 
 
-class Price():
+class Price:
     """
     This class loads and manipulate the price data
     """

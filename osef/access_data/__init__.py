@@ -7,4 +7,5 @@
 
 from osef.access_data.kbob import Kbob
 from osef.access_data.price import Price
+from osef.access_data.political_obj import PoliticalObj
 from osef.access_data.helper_func import find_string
