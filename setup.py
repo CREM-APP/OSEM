@@ -21,6 +21,7 @@ setup(
 
     long_description=open('README.md').read(),
 
+    # TODO: read from requirements.txt
     install_requires=["pandas"],
 
     include_package_data=True,
