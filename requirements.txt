@@ -2,3 +2,5 @@ pandas
 scipy
 thermo
 networkx
+numpy
+thermo
