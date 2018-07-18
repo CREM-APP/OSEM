@@ -21,7 +21,7 @@ setup(
 
     long_description=open('README.md').read(),
 
-    # TODO: read from requirements.txt
+    # TODO: read from requirements.txt (or read/fill requirements.txt from steup.py ?)
     install_requires=["pandas"],
 
     include_package_data=True,

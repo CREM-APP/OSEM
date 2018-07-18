@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    This module allow to use base methods of OSEF for energy technologies models.
+    This module allow to use methods of OSEF for energy technologies models.
 """
 
 

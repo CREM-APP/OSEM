@@ -12,3 +12,4 @@ from osef.kbob import kbob
 
 # submodules
 import osef.models as models
+import osef.networks as networks

@@ -5,9 +5,7 @@ from osef.models.base import Model
 
 
 class Bath(Model):
-    def __init__(
-        self, vol, area, k=200.0, t_bath_init=50.0, fluid="water", start="1/1/2000"
-    ):
+    def __init__(self, vol, area, k=200.0, t_bath_init=50.0, fluid="water", start="1/1/2000"):
         super().__init__(start)
         self.vol = vol  # [m3]
         self.A = area  # [m2]
@@ -23,11 +21,7 @@ class Bath(Model):
         self.t_amb = 20.0
 
     def model(self, y, time):
-        dydt = (
-            self.p_heat
-            - self.k * self.A * (y - self.t_amb)
-            - self.m_dot_fresh * self.fluid.Cp * (y - self.t_fresh)
-        )
+        dydt = self.p_heat - self.k * self.A * (y - self.t_amb) - self.m_dot_fresh * self.fluid.Cp * (y - self.t_fresh)
         dydt /= self.vol * self.fluid.rho * self.fluid.Cp
         return dydt
 
