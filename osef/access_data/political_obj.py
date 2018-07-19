@@ -19,6 +19,8 @@ class PoliticalObj:
         self.db_obj = pd.read_csv(os.path.join(self.data_folder, self.basename), sep=';')
         self.db_obj.set_index("political_framework", inplace=True)
 
+    # TODO: return dict with described values
+    # TODO: change method name (obj can refer to object)
     def get_obj(self, politic_type, obj_type, return_year=True):
         """
         This function return the political objective
@@ -30,6 +32,7 @@ class PoliticalObj:
         # match the strings proposed by the user
         obj_found = find_string(obj_type, self.db_obj.columns[:-4], self.cutoff)
         politic_found = find_string(politic_type, self.db_obj.index, self.cutoff)
+        # TODO: add warning to logs
         if not politic_found or not obj_found:
             return None, None, None
 
@@ -44,16 +47,23 @@ class PoliticalObj:
         else:
             return obj_value
 
+    # TODO: switch to property
+    # TODO: return str and remove print
+    # TODO: add tests
     def print_politic_framework(self):
         """
         This function print the available political framework (what a suprise!)
         """
         print(self.db_obj.index.values)
 
+    # TODO: switch to property
+    # TODO: return str and remove print
+    # TODO: add tests
     def print_obj_type(self):
         """
         This function types the type of objective available
         """
+        # TODO: remove -4 (Why 4? What happen if you add objectives ?)
         print(self.db_obj.columns[:-4].values)
 
 

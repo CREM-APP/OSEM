@@ -7,6 +7,8 @@
 
 __version__ = "0.0.1"
 
+# TODO: create proper logger
+
 # # direct use
 # from osef.kbob import kbob
 

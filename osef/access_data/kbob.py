@@ -3,8 +3,6 @@ import os
 from osef.access_data.helper_func import find_string
 
 
-# TODO: wrong usage of files names and folders
-# FileNotFoundError: File b'/home/pablo/data/price_liste.csv' does not exist
 class Kbob:
     """
     This class loads and manipulate the kbob data
@@ -26,6 +24,7 @@ class Kbob:
             self.version = self.version_default
         self.data, self.unit = self._load_kbob()
 
+    # TODO: change variable name: choice_type is ambiguous
     def get_value(self, choice_tech, choice_type):
         """
         This function load one value of the kbob as a function of the user choice
@@ -35,10 +34,13 @@ class Kbob:
         """
         tech_found = find_string(choice_tech, self.data.index, self.cutoff)
         type_found = find_string(choice_type, self.data.columns, self.cutoff)
+        # TODO: create else adding warning to logs
         if tech_found and type_found:
             val_kbob = self.data.loc[tech_found, type_found]
             return val_kbob
 
+    # TODO: switch to one method with language as option (+ german ?)
+    # TODO: change variable name: choice_type is ambiguous
     def get_value_french(self, choice_tech, choice_type):
         """
         This function load one value of the kbob as a function of the user choice with french technology.
@@ -48,6 +50,7 @@ class Kbob:
         """
         tech_found = find_string(choice_tech, self.data["French_Name"], self.cutoff)
         type_found = find_string(choice_type, self.data.columns, self.cutoff)
+        # TODO: create else adding warning to logs
         if tech_found and type_found:
             val_kbob = self.data.loc[self.data["French_Name"] == tech_found, type_found][0]
             return val_kbob
@@ -58,18 +61,24 @@ class Kbob:
         :return: the unit as string
         """
         name_found = find_string(choice_col, self.data.columns, self.cutoff)
+        # TODO: create else adding warning to logs
         if name_found:
             # print("Unit for " + name_found + " is " + self.unit[name_found].values[0] + '.')
             return self.unit[name_found].values[0]
 
+    # TODO: delete redundant method
     def print_units(self, choice_col):
         """
         This function return the units of the different data type
         """
         name_found = find_string(choice_col, self.data.columns, self.cutoff)
+        # TODO: create else adding warning to logs
         if name_found:
             print("Unit for " + name_found + " is " + self.unit[name_found].values[0] + '.')
 
+    # TODO: switch to property
+    # TODO: remove print
+    # TODO: add tests
     def print_available_technology(self):
         """
         print the names of the available heating technology and fuels
@@ -78,6 +87,9 @@ class Kbob:
             print('The available technology are:')
             print(list(self.data.index))
 
+    # TODO: switch to property
+    # TODO: remove print
+    # TODO: add tests
     def print_available_datatype(self):
         """
         print the name of the available datatype (primary energy, Co2, etc.)
@@ -86,12 +98,16 @@ class Kbob:
             print('The available data type are :')
             print(list(self.data.columns)[:-1])
 
+    # TODO: switch to property
+    # TODO: remove print
+    # TODO: add tests
     def print_version(self):
         """
         Return the version (year) of the kbob used
         """
         print("The current kbob version is " + self.version)
 
+    # TODO: add tests
     def change_to_default_version(self):
         """
         change the loaded kbob to the default version
@@ -99,6 +115,7 @@ class Kbob:
         self.version = self.version_default
         self.data, self.unit = self._load_kbob()
 
+    # TODO: add tests
     def change_version(self, version_new):
         """
         change the loaded kbob to the version chosen
@@ -106,6 +123,7 @@ class Kbob:
         self.version = version_new
         self.data, self.unit = self._load_kbob()
 
+    # TODO: add tests
     def _load_kbob(self):
         """
         This function loads the kbob data and the units related to it

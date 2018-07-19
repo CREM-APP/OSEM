@@ -30,7 +30,9 @@ class Price:
         # get the chosen technology
         tech_found = find_string(tech_choice, self.db_price.index, self.cutoff)
         if not tech_found:
+            # TODO: add warning to logs
             return
+        # TODO: remove print, add warning to logs
         if size_unit < self.db_price.loc[tech_found, "lim_min"] or \
                 size_unit > self.db_price.loc[tech_found, "lim_max"]:
                     print('Warning: the size given is out of the chosen range')
@@ -51,6 +53,7 @@ class Price:
         # get the chosen technology
         tech_found = find_string(tech_choice, self.db_price.index, self.cutoff)
         if not tech_found:
+            # TODO: add warning to logs
             return
 
         # compute the polynomial function which represent the cost
@@ -68,15 +71,18 @@ class Price:
 
         return poly_str
 
+    # TODO: change print to return in docstring
     def get_units(self, choice_col):
         """
         This function print the units for the price of the different heating technology
         :return:
         """
         name_found = find_string(choice_col, self.db_price.index, self.cutoff)
+        # TODO: create else adding warning to logs
         if name_found:
             return self.db_price.loc[name_found, "unit"]
 
+    # TODO: delete redundant method
     def print_units(self, choice_col):
         """
         This function print the units for the price of the different heating technology
@@ -86,6 +92,9 @@ class Price:
         if name_found:
             print("Unit for " + name_found + " is " + self.db_price.loc[name_found, "unit"] + '.')
 
+    # TODO: switch to property
+    # TODO: remove print
+    # TODO: add tests
     def print_available_technology(self):
         """
         print the names of the available heating technology and fuels with a price
@@ -94,6 +103,7 @@ class Price:
             print('The available technology are:')
             print(list(self.db_price.index))
 
+    # TODO: add tests
     def _get_poly(self, func_type, tech_found):
         """
         This function return the terms of the cost function which is a polynomial
@@ -104,6 +114,7 @@ class Price:
         try:
             func_type = int(func_type)
         except ValueError:
+            # TODO: remove print, add error to logs
             print('Error: Type of function not recognized')
             return
         ppar = np.zeros(func_type + 1)
