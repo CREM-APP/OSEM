@@ -18,7 +18,7 @@ class Kbob:
         self.version_default = 2016
         self.basename_unit = "kbob_unit"
         self.basename_kbob = "kbob_data"
-        self.cutoff = 0.3
+        self.cutoff = 0.6
 
         #  kbob creation
         if year_id:
