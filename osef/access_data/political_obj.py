@@ -19,7 +19,7 @@ class PoliticalObj:
         self.db_obj = pd.read_csv(os.path.join(path_osef, self.basename), sep=';')
         self.db_obj.set_index("political_framework", inplace=True)
 
-    def get_obj(self, politic_type, obj_type, return_year=True):
+    def get_objective(self, politic_type, obj_type, return_year=True):
         """
         This function return the political objective
         :param obj_type: string - the type of objective (C02 emisson, primary energy, etc.)
@@ -50,7 +50,7 @@ class PoliticalObj:
         """
         print(self.db_obj.index.values)
 
-    def print_obj_type(self):
+    def print_objective_type(self):
         """
         This function types the type of objective available
         """
