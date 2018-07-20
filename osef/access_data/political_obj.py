@@ -34,15 +34,16 @@ class PoliticalObj:
             return None, None, None
 
         # get the objective
-        obj_value = self.db_obj.loc[politic_found, obj_found]
+        objective_value = self.db_obj.loc[politic_found, obj_found]
 
         # year
         if return_year:
             year_ref = self.db_obj.loc[politic_found, "reference_year"]
             year_obj = self.db_obj.loc[politic_found, "objective_year"]
-            return obj_value, year_ref, year_obj
+            objective_dict = {'value': objective_value, 'year_ref':year_ref, 'year_obj': year_obj}
+            return objective_dict
         else:
-            return obj_value
+            return objective_value
 
     def print_politic_framework(self):
         """

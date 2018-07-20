@@ -13,4 +13,8 @@ def test_kbob():
     assert kbob.get_value("Oil", "EP_Renew") == 0.00902
     assert kbob.get_value("Oil", "EP_Renew_si") == 0.0
     assert kbob.get_value_french("Mazout", "EP_Renew") == 0.00902
+    kbob.change_version(2222)
+    assert kbob.print_version() == '2222'
+    kbob.change_to_default_version()
+    assert kbob.print_version() == '2016'
 

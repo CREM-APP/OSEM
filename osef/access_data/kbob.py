@@ -91,6 +91,8 @@ class Kbob:
         Return the version (year) of the kbob used
         """
         print("The current kbob version is " + self.version)
+        
+        return self.version
 
     def change_to_default_version(self):
         """
@@ -103,7 +105,7 @@ class Kbob:
         """
         change the loaded kbob to the version chosen
         """
-        self.version = version_new
+        self.version = str(version_new)
         self.data, self.unit = self._load_kbob()
 
     def _load_kbob(self):
