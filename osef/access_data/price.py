@@ -18,7 +18,7 @@ class Price:
         self.basename_price = "price_liste.csv"
 
         # load data
-        self.db_price = pd.read_csv(os.path.join(self.data_folder, self.basename_price), sep=';')
+        self.db_price = pd.read_csv(os.path.join(self.data_folder, self.basename_price), sep=";")
         self.db_price.set_index("technology", inplace=True)
 
     def price_total(self, tech_choice, size_unit):
@@ -33,9 +33,8 @@ class Price:
             # TODO: add warning to logs
             return
         # TODO: remove print, add warning to logs
-        if size_unit < self.db_price.loc[tech_found, "lim_min"] or \
-                size_unit > self.db_price.loc[tech_found, "lim_max"]:
-                    print('Warning: the size given is out of the chosen range')
+        if size_unit < self.db_price.loc[tech_found, "lim_min"] or size_unit > self.db_price.loc[tech_found, "lim_max"]:
+            print("Warning: the size given is out of the chosen range")
 
         # compute the polynomial function of order func_type which represent the cost
         func_type = self.db_price.loc[tech_found, "order_formula"]
@@ -61,7 +60,7 @@ class Price:
         ppar = self._get_poly(func_type, tech_found)
 
         # print the cost by unit
-        poly_str = 'Cost[CHF]='
+        poly_str = "Cost[CHF]="
         for i in range(func_type):
             if str(func_type - i):
                 poly_str += str(ppar[i]) + "x +"
@@ -90,7 +89,7 @@ class Price:
         """
         name_found = find_string(choice_col, self.db_price.index, self.cutoff)
         if name_found:
-            print("Unit for " + name_found + " is " + self.db_price.loc[name_found, "unit"] + '.')
+            print("Unit for " + name_found + " is " + self.db_price.loc[name_found, "unit"] + ".")
 
     # TODO: switch to property
     # TODO: remove print
@@ -99,8 +98,8 @@ class Price:
         """
         print the names of the available heating technology and fuels with a price
         """
-        with pd.option_context('display.max_rows', None):
-            print('The available technology are:')
+        with pd.option_context("display.max_rows", None):
+            print("The available technology are:")
             print(list(self.db_price.index))
 
     # TODO: add tests
@@ -115,7 +114,7 @@ class Price:
             func_type = int(func_type)
         except ValueError:
             # TODO: remove print, add error to logs
-            print('Error: Type of function not recognized')
+            print("Error: Type of function not recognized")
             return
         ppar = np.zeros(func_type + 1)
         for i in range(func_type + 1):
@@ -124,7 +123,3 @@ class Price:
 
 
 price = Price()
-
-
-
-

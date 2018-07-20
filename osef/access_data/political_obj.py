@@ -16,7 +16,7 @@ class PoliticalObj:
         self.basename = "political_obj.csv"
 
         # load data
-        self.db_obj = pd.read_csv(os.path.join(self.data_folder, self.basename), sep=';')
+        self.db_obj = pd.read_csv(os.path.join(self.data_folder, self.basename), sep=";")
         self.db_obj.set_index("political_framework", inplace=True)
 
     # TODO: return dict with described values
@@ -65,5 +65,3 @@ class PoliticalObj:
         """
         # TODO: remove -4 (Why 4? What happen if you add objectives ?)
         print(self.db_obj.columns[:-4].values)
-
-

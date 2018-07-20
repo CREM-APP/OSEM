@@ -114,4 +114,3 @@ class Kbob:
     def _check_language(self, language):
         if language not in self.LANG:
             raise ValueError("The requested language {} is not supported.".format(language))
-
