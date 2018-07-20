@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 import json
 
@@ -25,40 +24,26 @@ def xls_to_csv(filename, year, filename_trans="kbob_translation_term.csv"):
     # name of the files to load and create
     sheetname = "Energie Energie"
     name_base_csv = "kbob_data"
-    filename_unit = "kbob_unit" + str(year)+".json"
+    filename_unit = "kbob_unit{}.json".format(year)
 
-    # load kbob
-    if not filename.endswith((".xls", ".xlsx", ".ods")):
-        print('Error: Need an Excel file')
-        return
-    if os.path.isfile(filename):
-        df_kbob = pd.read_excel(filename, sheet_name=sheetname, skiprows=6, usecols=[4, 5, 6, 7, 8, 9, 11])
-    else:
-        print('Error: File not found')
-        return
-    if "kWh" not in filename:
-        print('Warning: The kbob loaded here should be in kWh. Please check units.')
+    # Load raw-excel
+    df_kbob = pd.read_excel(filename, sheet_name=sheetname, skiprows=6, usecols=[4, 5, 6, 7, 8, 9, 11])
 
-    # rename column
+    # rename columns
     with open(filename_unit, 'r') as fp:
         col_unit = json.load(fp)
-    column_name = col_unit.keys()
+
+    df_kbob.rename(columns={k: v for k, v in zip(df_kbob.columns, col_unit.keys())}, inplace=True)
+
+    df_kbob["FRA"] = df_kbob["FRA"].str.replace(',', ' -')
     df_kbob.dropna(inplace=True)
-    df_kbob.columns = column_name
-    df_kbob["French_Name"] = df_kbob["French_Name"].str.replace(',', ' -')
 
-    # get index in english terminology
+    # add language
     trans_data = pd.read_csv(filename_trans, header=0)
-    if (trans_data["French_Name"].values != df_kbob["French_Name"].values).any():
-        print('Warning: Some kbob terminology have changed : ')
-        print(df_kbob.loc[~df_kbob["French_Name"].isin(trans_data["French_Name"].values), "French_Name"])
-    if len(trans_data["French_Name"]) != len(df_kbob["French_Name"]):
-        print('Error: Missing terminology in translation file')
-        return
-    df_kbob.index = trans_data["English_Name"]
+    df_kbob = pd.merge(df_kbob, trans_data, on="FRA")
 
-    # save
-    df_kbob.to_csv(name_base_csv + str(year) + ".csv")
+    # export
+    df_kbob.to_csv("{}{}.csv".format(name_base_csv, year))
 
 
 def main():
