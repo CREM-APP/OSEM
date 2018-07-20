@@ -12,13 +12,13 @@ class Price:
     def __init__(self):
 
         # parameter
+        self.data_folder = "data"
         self.cutoff = 0.3
         self.precision = 5
-        self.basename_price = "data/price_liste.csv"
-        path_osef = os.path.dirname(os.path.dirname(os.getcwd()))
+        self.basename_price = "price_liste.csv"
 
         # load data
-        self.db_price = pd.read_csv(os.path.join(path_osef, self.basename_price), sep=';')
+        self.db_price = pd.read_csv(os.path.join(self.data_folder, self.basename_price), sep=';')
         self.db_price.set_index("technology", inplace=True)
 
     def price_total(self, tech_choice, size_unit):

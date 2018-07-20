@@ -11,7 +11,7 @@ def tau_model(y, t, io, tau, p_nom):
 def normalize(v, y_min=0.0, y_max=1.0, x_min=0, x_max=1):
     v = np.array([min(vx, x_max) for vx in v])
     v = np.array([max(vx, x_min) for vx in v])
-    return (y_max - y_min)/(x_max - x_min)*(v - x_min)
+    return (y_max - y_min) / (x_max - x_min) * (v - x_min)
 
 
 class Model:

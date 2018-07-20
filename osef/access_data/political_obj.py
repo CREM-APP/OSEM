@@ -11,12 +11,12 @@ class PoliticalObj:
     def __init__(self):
 
         # parameter
+        self.data_folder = "data"
         self.cutoff = 0.3
-        self.basename = "data/political_obj.csv"
-        path_osef = os.path.dirname(os.path.dirname(os.getcwd()))
+        self.basename = "political_obj.csv"
 
         # load data
-        self.db_obj = pd.read_csv(os.path.join(path_osef, self.basename), sep=';')
+        self.db_obj = pd.read_csv(os.path.join(self.data_folder, self.basename), sep=';')
         self.db_obj.set_index("political_framework", inplace=True)
 
     def get_objective(self, politic_type, obj_type, return_year=True):
