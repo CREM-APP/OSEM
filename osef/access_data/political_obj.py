@@ -12,14 +12,17 @@ class PoliticalObj:
 
         # parameter
         self.data_folder = "data"
-        self.cutoff = 0.3
+        self.cutoff = 0.55
         self.basename = "political_obj.csv"
+        self.column_not_print = ['reference_year', 'objective_year' , 'note' , 'reference']
 
         # load data
-        self.db_obj = pd.read_csv(os.path.join(self.data_folder, self.basename), sep=';')
+        self.db_obj = pd.read_csv(os.path.join(self.data_folder, self.basename), sep=";")
         self.db_obj.set_index("political_framework", inplace=True)
+        self.name_objective = [c for c in self.db_obj.columns if c not in self.column_not_print]
 
     def get_objective(self, politic_type, obj_type, return_year=True):
+
         """
         This function return the political objective
         :param obj_type: string - the type of objective (C02 emisson, primary energy, etc.)
@@ -28,13 +31,11 @@ class PoliticalObj:
         """
 
         # match the strings proposed by the user
-        obj_found = find_string(obj_type, self.db_obj.columns[:-4], self.cutoff)
+        objective_found = find_string(obj_type, self.name_objective, self.cutoff)
         politic_found = find_string(politic_type, self.db_obj.index, self.cutoff)
-        if not politic_found or not obj_found:
-            return None, None, None
 
         # get the objective
-        objective_value = self.db_obj.loc[politic_found, obj_found]
+        objective_value = self.db_obj.loc[politic_found, objective_found]
 
         # year
         if return_year:
@@ -45,16 +46,14 @@ class PoliticalObj:
         else:
             return objective_value
 
-    def print_politic_framework(self):
+    def get_politic_framework(self):
         """
-        This function print the available political framework (what a suprise!)
+        This function get the available political framework
         """
-        print(self.db_obj.index.values)
+        return list(self.db_obj.index.values)
 
-    def print_objective_type(self):
+    def get_all_objectives(self):
         """
-        This function types the type of objective available
+        This function get the type of objective available
         """
-        print(self.db_obj.columns[:-4].values)
-
-
+        return list(self.name_objective)

@@ -1,56 +1,49 @@
-import pandas as pd
 import os
+import pandas as pd
+
 from osef.access_data.helper_func import find_string
 
 
-# TODO: wrong usage of files names and folders
-# FileNotFoundError: File b'/home/pablo/data/price_liste.csv' does not exist
 class Kbob:
     """
     This class loads and manipulate the kbob data
     """
 
+    LANG = ["ENG", "FRA", "GER"]
+
     def __init__(self, year_id=None):
 
         # default parameter
         self.data_folder = "data"
-        self.version_default = str(2016)
+        self.version_default = '2016'
         self.basename_unit = "kbob_unit"
         self.basename_kbob = "kbob_data"
-        self.cutoff = 0.3
+        self.filename_trans_ind = "kbob_translation_indicator.csv"
+        self.cutoff = 0.55
 
         #  kbob creation
         if year_id:
             self.version = year_id
         else:
             self.version = self.version_default
-        self.data, self.unit = self._load_kbob()
+        self.data, self.unit, self.index_translation = self._load_kbob()
 
-    def get_value(self, choice_tech, choice_type):
+    def get_value(self, techno, indicator, language="ENG"):
         """
         This function load one value of the kbob as a function of the user choice
-        :param choice_tech: string - the technology chosen
-        :param choice_type: string - the data type
-        :return:
-        """
-        tech_found = find_string(choice_tech, self.data.index, self.cutoff)
-        type_found = find_string(choice_type, self.data.columns, self.cutoff)
-        if tech_found and type_found:
-            val_kbob = self.data.loc[tech_found, type_found]
-            return val_kbob
 
-    def get_value_french(self, choice_tech, choice_type):
+        :param techno: string - the technology chosen
+        :param indicator: string - the requested indicator
+        :param language: string - the requested language
+        :return: float - the value of the indicator
         """
-        This function load one value of the kbob as a function of the user choice with french technology.
-        :param choice_tech: string - the technology chosen in French
-        :param choice_type: string - the data type
-        :return:
-        """
-        tech_found = find_string(choice_tech, self.data["French_Name"], self.cutoff)
-        type_found = find_string(choice_type, self.data.columns, self.cutoff)
-        if tech_found and type_found:
-            val_kbob = self.data.loc[self.data["French_Name"] == tech_found, type_found][0]
-            return val_kbob
+        self._check_language(language)
+
+        tech_found = find_string(techno, self.data[language].values.tolist(), self.cutoff)
+        indi_found_lang = find_string(indicator, self.index_translation[language], self.cutoff)
+
+        indi_found = self.index_translation.loc[self.index_translation[language] == indi_found_lang, 'ENG'].values[0]
+        return self.data.loc[self.data[language] == tech_found, indi_found].values[0]
 
     def get_units(self, choice_col):
         """
@@ -58,67 +51,64 @@ class Kbob:
         :return: the unit as string
         """
         name_found = find_string(choice_col, self.data.columns, self.cutoff)
-        if name_found:
-            # print("Unit for " + name_found + " is " + self.unit[name_found].values[0] + '.')
-            return self.unit[name_found].values[0]
+        if not name_found:
+            raise ValueError("The requested data {} does not match any entry.".format(choice_col))
 
-    def print_units(self, choice_col):
-        """
-        This function return the units of the different data type
-        """
-        name_found = find_string(choice_col, self.data.columns, self.cutoff)
-        if name_found:
-            print("Unit for " + name_found + " is " + self.unit[name_found].values[0] + '.')
+        return self.unit[name_found].values[0]
 
-    def print_available_technology(self):
+    def get_available_technologies(self, language="ENG"):
         """
-        print the names of the available heating technology and fuels
+        The function return the available technology
+        :param language: string - the requested language
+        :return a list of available technology
         """
-        with pd.option_context('display.max_rows', None):
-            print('The available technology are:')
-            print(list(self.data.index))
+        self._check_language(language)
+        return list(self.data[language].values)
 
-    def print_available_datatype(self):
+    def get_available_indicators(self, language="ENG"):
         """
-        print the name of the available datatype (primary energy, Co2, etc.)
+        Give access to the names of the available indicators in different language
+        :return: a list of available indicators
         """
-        with pd.option_context('display.max_rows', None):
-            print('The available data type are :')
-            print(list(self.data.columns)[:-1])
+        self._check_language(language)
+        return list(self.index_translation[language])
 
-    def print_version(self):
+    @property
+    def kbob_version(self):
         """
         Return the version (year) of the kbob used
         """
-        print("The current kbob version is " + self.version)
-        
+
         return self.version
 
     def change_to_default_version(self):
         """
-        change the loaded kbob to the default version
+        Restore the loaded kbob to the default version
         """
         self.version = self.version_default
-        self.data, self.unit = self._load_kbob()
+        self.data, self.unit, self.index_translation = self._load_kbob()
 
     def change_version(self, version_new):
         """
-        change the loaded kbob to the version chosen
+        Change the loaded kbob to the version chosen
         """
         self.version = str(version_new)
-        self.data, self.unit = self._load_kbob()
+        self.data, self.unit, self.index_translation = self._load_kbob()
 
     def _load_kbob(self):
         """
         This function loads the kbob data and the units related to it
         """
-        filename_kbob = os.path.join(self.data_folder, self.basename_kbob + self.version + ".csv")
-        filename_unit = os.path.join(self.data_folder, self.basename_unit + self.version + ".json")
+        filename_kbob = os.path.join(self.data_folder, self.basename_kbob+self.version+'.csv')
+        filename_trans = os.path.join(self.data_folder, self.filename_trans_ind)
+        filename_unit = os.path.join(self.data_folder, self.basename_unit+self.version+'.json')
 
-        kbob = pd.read_csv(filename_kbob)
-        kbob.set_index("English_Name", inplace=True)
-        kbob["EP_Percent_Renew"] = 100 * (kbob["EP_Renew"] / kbob["EP_Global"])
+        kbob = pd.read_csv(filename_kbob, index_col=0)
         unit = pd.read_json(filename_unit, lines=True)
+        index_translation = pd.read_csv(filename_trans, header=0)
 
-        return kbob, unit
+        return kbob, unit, index_translation
 
+    def _check_language(self, language):
+        if language not in self.LANG:
+            raise ValueError("The requested language {} is not supported.".format(language))
