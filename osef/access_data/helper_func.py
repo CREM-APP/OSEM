@@ -1,7 +1,7 @@
 import difflib
 # a list of useful function
 
-
+#TODO DevMaster: no need to call it helper_func.py, helper.py is sufficient so this file will have all the helper functions
 def find_string(choice, options, cutoff=0.3):
     """
     This function find the closest match in a list of string and send warning of error if not found.

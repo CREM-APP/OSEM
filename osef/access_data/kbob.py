@@ -4,6 +4,7 @@ from osef.access_data.helper_func import find_string
 
 
 # TODO: wrong usage of files names and folders
+#TODO DevMaster: let's keep all the constant in a constants.py file
 # FileNotFoundError: File b'/home/pablo/data/price_liste.csv' does not exist
 class Kbob:
     """
