@@ -1,7 +1,8 @@
 import os
 import pandas as pd
-from osef.access_data.helper_func import find_string
 import numpy as np
+from osef.general.helper import find_string
+import osef.general.conf as conf
 
 
 class Price:
@@ -12,13 +13,13 @@ class Price:
     def __init__(self):
 
         # parameter
-        self.data_folder = "data"
-        self.cutoff = 0.55
-        self.precision = 5
-        self.basename_price = "price_liste.csv"
+        self._data_folder = conf.data_folder
+        self._cutoff = conf.cutoff
+        self._precision = conf.precision_price
+        self._basename_price = conf.basename_price
 
         # load data
-        self.db_price = pd.read_csv(os.path.join(self.data_folder, self.basename_price), sep=";")
+        self.db_price = pd.read_csv(os.path.join(self._data_folder, self._basename_price), sep=";")
         self.db_price.set_index("technology", inplace=True)
 
     def price_total(self, tech_choice, size_unit):
@@ -28,7 +29,7 @@ class Price:
         :param size_unit: float - the number of unit or the power of the installation
         """
         # get the chosen technology
-        tech_found = find_string(tech_choice, self.db_price.index, self.cutoff)
+        tech_found = find_string(tech_choice, self.db_price.index, self._cutoff)
 
         if size_unit < self.db_price.loc[tech_found, "lim_min"] or size_unit > self.db_price.loc[tech_found, "lim_max"]:
             raise Warning("the size given is out of the chosen range")
@@ -46,7 +47,7 @@ class Price:
         :param tech_choice: string - the technology chosen
         """
         # get the chosen technology
-        tech_found = find_string(tech_choice, self.db_price.index, self.cutoff)
+        tech_found = find_string(tech_choice, self.db_price.index, self._cutoff)
 
         # compute the polynomial function which represent the cost
         func_type = self.db_price.loc[tech_found, "order_formula"]
@@ -68,7 +69,7 @@ class Price:
         This function get the units for the price of the different heating technology
         :return: string- the unit
         """
-        name_found = find_string(choice_col, self.db_price.index, self.cutoff)
+        name_found = find_string(choice_col, self.db_price.index, self._cutoff)
         return self.db_price.loc[name_found, "unit"]
 
     def get_available_technology(self):
@@ -90,5 +91,5 @@ class Price:
             raise ValueError("The function {} is not recognized".format(func_type))
         ppar = np.zeros(func_type + 1)
         for i in range(func_type + 1):
-            ppar[i] = round(self.db_price.loc[tech_found, "price_chf_" + str(i)], self.precision)
+            ppar[i] = round(self.db_price.loc[tech_found, "price_chf_" + str(i)], self._precision)
         return ppar.tolist()

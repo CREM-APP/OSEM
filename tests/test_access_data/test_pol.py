@@ -1,9 +1,9 @@
 import pytest
-from osef.access_data import PoliticalObj
+from osef.access_data import PoliticalObjective
 
 
 def test_pol():
-    pol = PoliticalObj()
+    pol = PoliticalObjective()
     assert pol.get_objective("2000 W 2050", "renewable", False) == 65
     assert pol.get_objective("Paris agreement", "CO2_reduction", False) == 30
     assert pol.get_objective("2000 W 2050", "renewable") == {'value': 65, 'year_ref': 2005, 'year_obj': 2050}

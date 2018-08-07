@@ -1,4 +1,5 @@
 import pytest
+import os
 from osef.access_data import Kbob
 
 
@@ -44,9 +45,15 @@ def test_available_indicators():
     assert "FRA" not in kbob.get_available_indicators()
 
 
+def test_filename():
+    kbob = Kbob()
+    print(kbob.get_filenames())
+    assert kbob.get_filenames() == {'kbob': os.path.join("data", "kbob_data2016.csv"),
+                                    'unit':  os.path.join("data", "kbob_unit2016.json"),
+                                    'translation':  os.path.join("data", "kbob_translation_indicator.csv")}
 def test_kbob_version():
     kbob = Kbob()
     kbob.change_version(2222)
-    assert kbob.kbob_version == '2222'
+    assert kbob.get_kbob_version() == '2222'
     kbob.change_to_default_version()
-    assert kbob.kbob_version == '2016'
+    assert kbob.get_kbob_version() == '2016'

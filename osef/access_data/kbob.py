@@ -1,7 +1,8 @@
 import os
 import pandas as pd
 
-from osef.access_data.helper_func import find_string
+from osef.general.helper import find_string
+import osef.general.conf as conf
 
 
 class Kbob:
@@ -14,18 +15,18 @@ class Kbob:
     def __init__(self, year_id=None):
 
         # default parameter
-        self.data_folder = "data"
-        self.version_default = '2016'
-        self.basename_unit = "kbob_unit"
-        self.basename_kbob = "kbob_data"
-        self.filename_trans_ind = "kbob_translation_indicator.csv"
-        self.cutoff = 0.55
+        self._data_folder = conf.data_folder
+        self._version_default = conf.version_default
+        self._basename_unit = conf.basename_unit
+        self._basename_kbob = conf.basename_kbob
+        self._filename_trans_ind = conf.filename_trans_ind
+        self._cutoff = conf.cutoff
 
         #  kbob creation
         if year_id:
             self.version = year_id
         else:
-            self.version = self.version_default
+            self.version = self._version_default
         self.data, self.unit, self.index_translation = self._load_kbob()
 
     def get_value(self, techno, indicator, language="ENG"):
@@ -39,8 +40,8 @@ class Kbob:
         """
         self._check_language(language)
 
-        tech_found = find_string(techno, self.data[language].values.tolist(), self.cutoff)
-        indi_found_lang = find_string(indicator, self.index_translation[language], self.cutoff)
+        tech_found = find_string(techno, self.data[language].values.tolist(), self._cutoff)
+        indi_found_lang = find_string(indicator, self.index_translation[language], self._cutoff)
 
         indi_found = self.index_translation.loc[self.index_translation[language] == indi_found_lang, 'ENG'].values[0]
         return self.data.loc[self.data[language] == tech_found, indi_found].values[0]
@@ -50,7 +51,7 @@ class Kbob:
         This function return the units of the different data type
         :return: the unit as string
         """
-        name_found = find_string(choice_col, self.data.columns, self.cutoff)
+        name_found = find_string(choice_col, self.data.columns, self._cutoff)
         if not name_found:
             raise ValueError("The requested data {} does not match any entry.".format(choice_col))
 
@@ -73,19 +74,19 @@ class Kbob:
         self._check_language(language)
         return list(self.index_translation[language])
 
-    @property
-    def kbob_version(self):
+    def get_kbob_version(self):
         """
         Return the version (year) of the kbob used
         """
 
         return self.version
 
+
     def change_to_default_version(self):
         """
         Restore the loaded kbob to the default version
         """
-        self.version = self.version_default
+        self.version = self._version_default
         self.data, self.unit, self.index_translation = self._load_kbob()
 
     def change_version(self, version_new):
@@ -95,17 +96,26 @@ class Kbob:
         self.version = str(version_new)
         self.data, self.unit, self.index_translation = self._load_kbob()
 
+    def get_filenames(self):
+        """
+        Return the namre of the files used to load the kbob (dict of string)
+        """
+        filename_kbob = os.path.join(self._data_folder, self._basename_kbob + self.version + '.csv')
+        filename_unit = os.path.join(self._data_folder, self._basename_unit + self.version + '.json')
+        filename_trans = os.path.join(self._data_folder, self._filename_trans_ind)
+
+        return {'kbob': filename_kbob, 'unit': filename_unit, 'translation': filename_trans}
+
     def _load_kbob(self):
         """
         This function loads the kbob data and the units related to it
         """
-        filename_kbob = os.path.join(self.data_folder, self.basename_kbob+self.version+'.csv')
-        filename_trans = os.path.join(self.data_folder, self.filename_trans_ind)
-        filename_unit = os.path.join(self.data_folder, self.basename_unit+self.version+'.json')
 
-        kbob = pd.read_csv(filename_kbob, index_col=0)
-        unit = pd.read_json(filename_unit, lines=True)
-        index_translation = pd.read_csv(filename_trans, header=0)
+        filenames_kbob = self.get_filenames()
+
+        kbob = pd.read_csv(filenames_kbob['kbob'], index_col=0)
+        unit = pd.read_json(filenames_kbob['unit'], lines=True)
+        index_translation = pd.read_csv(filenames_kbob['translation'], header=0)
 
         return kbob, unit, index_translation
 

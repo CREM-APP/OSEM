@@ -1,9 +1,9 @@
 import os
 import pandas as pd
-from osef.access_data.helper_func import find_string
+from osef.general.helper import find_string
+import osef.general.conf as conf
 
-
-class PoliticalObj:
+class PoliticalObjective:
     """
     This class load the political objectives
     """
@@ -11,15 +11,15 @@ class PoliticalObj:
     def __init__(self):
 
         # parameter
-        self.data_folder = "data"
-        self.cutoff = 0.55
-        self.basename = "political_obj.csv"
-        self.column_not_print = ['reference_year', 'objective_year' , 'note' , 'reference']
+        self._data_folder = conf.data_folder
+        self._cutoff = conf.cutoff
+        self._basename_pol = conf.basename_pol
+        self._column_not_print = conf.column_not_print
 
         # load data
-        self.db_obj = pd.read_csv(os.path.join(self.data_folder, self.basename), sep=";")
+        self.db_obj = pd.read_csv(os.path.join(self._data_folder, self._basename_pol), sep=";")
         self.db_obj.set_index("political_framework", inplace=True)
-        self.name_objective = [c for c in self.db_obj.columns if c not in self.column_not_print]
+        self.name_objective = [c for c in self.db_obj.columns if c not in self._column_not_print]
 
     def get_objective(self, politic_type, obj_type, return_year=True):
 
@@ -27,12 +27,12 @@ class PoliticalObj:
         This function return the political objective
         :param obj_type: string - the type of objective (C02 emisson, primary energy, etc.)
         :param politic_type: string - the name of the political frame work
-        :param return_year: bool- if True return the reference and ojective year
+        :param return_year: bool- if True return the reference and objective year
         """
 
         # match the strings proposed by the user
-        objective_found = find_string(obj_type, self.name_objective, self.cutoff)
-        politic_found = find_string(politic_type, self.db_obj.index, self.cutoff)
+        objective_found = find_string(obj_type, self.name_objective, self._cutoff)
+        politic_found = find_string(politic_type, self.db_obj.index, self._cutoff)
 
         # get the objective
         objective_value = self.db_obj.loc[politic_found, objective_found]
