@@ -21,7 +21,7 @@ column_not_print_pol = ['reference_year', 'objective_year', 'note', 'reference']
 # price
 precision_price = 5  # to which precision the price in CHF must be calculated
 basename_price = "price_database.xlsx"
-column_not_print_price = ["confidence", "reference", "notes"]  # columns which are not type of price
+column_not_print_price = ["units", "reference", "note"]  # columns which are not a type of price
 ref_col = "reference"
 nb_point_graph = 50
 ###############################################################

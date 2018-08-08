@@ -22,7 +22,7 @@ class Price:
         self._precision = conf.precision_price
         self._basename_price = conf.basename_price
         self._column_not_print = conf.column_not_print_price
-        self._ref_col = conf.ref_col  # name of the colonne with the references
+        self._ref_col = conf.ref_col  # name of the column with the references
         self._nb_point_graph = conf.nb_point_graph
 
         # data
@@ -58,7 +58,6 @@ class Price:
         # get reference for price which exists (not null)
         db_techno = self.db_price[techno_correct]
         reference = db_techno.loc[~db_techno[price_correct].isnull(), self._ref_col]
-
         return reference
 
     def get_units(self, techno_choice):
@@ -83,15 +82,15 @@ class Price:
         :param size_unit: float - the size of unit (only one unit)
         :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
                [log, spline] or a function
-        :param param_lim_inter: list of float - the computed parameters for the interpolations, used if the same
-               computation is done many times.
+        :param param_lim_inter: list of float, optional - the computed parameters for the interpolations, used if the
+               same computation is done many times.
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
-        :return: float
+        :return: the price as float
         """
 
         # get interpolation parameter
         if not param_lim_inter:
-            param_inter, lim_param = self.get_interpolation_param(techno_choice, price_choice, interp_choice,
+            param_inter, lim_param = self._get_interpolation_param(techno_choice, price_choice, interp_choice,
                                                                   bounds=bounds)
         else:
             param_inter = param_lim_inter[0]
@@ -113,7 +112,7 @@ class Price:
         else:
             raise ValueError("The interpolation choice {} is not known.".format(str(interp_choice)))
 
-        return price
+        return np.float(price)
 
     def get_price_for_many_units(self, techno_choice, price_choice, size_units, interp_choice=1, bounds=None):
         """
@@ -127,8 +126,11 @@ class Price:
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
         :return: list of float with the price
         """
-        param_inter, lim_param = self.get_interpolation_param(techno_choice, price_choice, interp_choice, bounds=bounds)
 
+        # get interpolation parameter
+        param_inter, lim_param = self._get_interpolation_param(techno_choice, price_choice, interp_choice, bounds=bounds)
+
+        # compute price for each size without re-computing the interpolation parameters
         all_price = []
         for s in size_units:
             price_here = self.get_price(techno_choice, price_choice, s, interp_choice, [param_inter, lim_param])
@@ -136,10 +138,10 @@ class Price:
 
         return all_price
 
-    def get_interpolation_param(self, techno_choice, price_choice, interp_choice=1, bounds=None):
+    def _get_interpolation_param(self, techno_choice, price_choice, interp_choice=1, bounds=None):
         """
         This function returns the parameter for the interpolation. The interpolation choice can be an int if polynomial,
-        a function (least-square fitting) or the string spline or log
+        a function (least-square fitting) or the string "spline" or "log"
 
         :param techno_choice: string - the name of the technology of interest
         :param price_choice: string - the type of price (CAPEX, OPEX, etc)
@@ -155,12 +157,10 @@ class Price:
         # get data without nan
         price_here = db_techno[price_correct].dropna()
         unit_here = price_here.index
-        lim_param = [min(unit_here), max(unit_here)]
 
         # get parameters for the different interpolation
         if isinstance(interp_choice, int):    # polynomial
             param_inter = np.polyfit(unit_here, price_here, interp_choice)
-
         elif interp_choice == 'spline':  # smooth interpolation
             if len(price_here) <= 3:
                 order_spline = len(price_here)-1
@@ -169,14 +169,18 @@ class Price:
             if len(list(set(unit_here))) != len(unit_here):
                 raise ValueError("Spline interpolation needs unique values.")
             param_inter = interpolate.splrep(unit_here, price_here, k=order_spline)
-
         elif interp_choice == 'log':  # logarithmic
             param_inter = curve_fit(func_log, unit_here, price_here, bounds=([-np.inf, 0, -np.inf], np.inf))
-
         elif callable(interp_choice):  # custom function
-            param_inter = curve_fit(interp_choice, unit_here, price_here, bounds=bounds)
+            if bounds:
+                param_inter = curve_fit(interp_choice, unit_here, price_here, bounds=bounds)
+            else:
+                param_inter = curve_fit(interp_choice, unit_here, price_here)
         else:
             raise ValueError("The interpolation choice {} is not known.".format(str(interp_choice)))
+
+        # interpolation range
+        lim_param = [min(unit_here), max(unit_here)]
 
         return param_inter, lim_param
 
@@ -186,7 +190,8 @@ class Price:
         for the interpolation.
         :param techno_choice: string - the name of the technology of interest
         :param price_choice: string - the type of price (CAPEX, OPEX, etc)
-        :param show: If True, show the figure one screen and pause the execution, if False, return the figure
+        :param show: Bool - If True, show the figure one screen and pause the execution
+        :return: the matplotlib figure
         """
         # find correct string
         techno_correct, price_correct = self._get_techno_and_price(techno_choice, price_choice)
@@ -212,21 +217,24 @@ class Price:
         :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
                [log, spline] or a function
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
-        :param show: If True, show the figure one screen and pause the execution, if False, return the figure
+        :param show: bool - If True, show the figure one screen and pause the execution
+        :return: the matplotlib figure
         """
 
         # get interpolation parameter
-        param_inter, lim_param = self.get_interpolation_param(techno_choice, price_choice, interp_choice)
+        param_inter, lim_param = self._get_interpolation_param(techno_choice, price_choice, interp_choice)
 
         # get interpolated price
         size_units = np.linspace(lim_param[0], lim_param[1], self._nb_point_graph)
         prices_inter = self.get_price_for_many_units(techno_choice, price_choice, size_units, bounds=bounds)
 
         # plot the price
-        self.create_fig_price(techno_choice, price_choice, False)
+        figprice = self.create_fig_price(techno_choice, price_choice, False)
         plt.plot(size_units, prices_inter)
         if show:
             plt.show()
+
+        return figprice
 
     def _get_techno_and_price(self, techno_choice, price_choice):
         """
@@ -249,11 +257,12 @@ class Price:
                  + A dict with the technology as keys and the units as values.
         """
 
-        path = r'W:\Enerapi\code\OSEF\data'
-        list_techno = pd.read_excel(os.path.join(path, self._basename_price), sheet_name=0, index_col=0)
+        list_techno = pd.read_excel(os.path.join(self._data_folder, self._basename_price), sheet_name=0, index_col=0)
         units = list_techno.iloc[:, 0].to_dict()
 
-        db_price = pd.read_excel(os.path.join(path, self._basename_price), sheet_name=None, index_col=0)
+        # keep the two sheetname to make it run with pandas version < 0.21.0
+        db_price = pd.read_excel(os.path.join(self._data_folder, self._basename_price), sheet_name=None, index_col=0,
+                                 sheetname=None)
         del db_price[list(db_price.keys())[0]]
 
         return db_price, units
