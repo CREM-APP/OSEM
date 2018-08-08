@@ -14,12 +14,12 @@ class PoliticalObjective:
         self._data_folder = conf.data_folder
         self._cutoff = conf.cutoff
         self._basename_pol = conf.basename_pol
-        self._column_not_print = conf.column_not_print
+        self._column_not_print = conf.column_not_print_pol
 
         # load data
         self.db_obj = pd.read_csv(os.path.join(self._data_folder, self._basename_pol), sep=";")
         self.db_obj.set_index("political_framework", inplace=True)
-        self.name_objective = [c for c in self.db_obj.columns if c not in self._column_not_print]
+        self._name_objective = [c for c in self.db_obj.columns if c not in self._column_not_print]
 
     def get_objective(self, politic_type, obj_type, return_year=True):
 
@@ -31,7 +31,7 @@ class PoliticalObjective:
         """
 
         # match the strings proposed by the user
-        objective_found = find_string(obj_type, self.name_objective, self._cutoff)
+        objective_found = find_string(obj_type, self._name_objective, self._cutoff)
         politic_found = find_string(politic_type, self.db_obj.index, self._cutoff)
 
         # get the objective
@@ -56,4 +56,4 @@ class PoliticalObjective:
         """
         This function get the type of objective available
         """
-        return list(self.name_objective)
+        return list(self._name_objective)

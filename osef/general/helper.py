@@ -1,4 +1,5 @@
 import difflib
+import numpy as np
 
 
 def find_string(choice, options, cutoff=0.3):
@@ -17,3 +18,16 @@ def find_string(choice, options, cutoff=0.3):
 
     name_found = name_found[0]
     return name_found
+
+
+def func_log(x, paramfit1, paramfit2, paramfit3):
+    """
+    This is a function which calculate the log with some free parameters. It is useful to do a logarithmic interpolation
+    using the scipy module curve_fit.
+    :param x: np.array - data on which is done the interpolation
+    :param paramfit1: the first parameter to fit. must be a float.
+    :param paramfit2: the second parameter to fit
+    :param paramfit3: the third parameter to fit
+    """
+
+    return paramfit1 * np.log(paramfit2 * x) + paramfit3

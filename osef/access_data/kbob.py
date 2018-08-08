@@ -81,7 +81,6 @@ class Kbob:
 
         return self.version
 
-
     def change_to_default_version(self):
         """
         Restore the loaded kbob to the default version

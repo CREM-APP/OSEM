@@ -16,10 +16,12 @@ filename_trans_ind = "kbob_translation_indicator.csv"   # name of the file with 
 
 # political objectives
 basename_pol = "political_obj.csv"
-column_not_print = ['reference_year', 'objective_year', 'note', 'reference']  # colonnes which are not objectives
+column_not_print_pol = ['reference_year', 'objective_year', 'note', 'reference']  # columns which are not objectives
 
 # price
 precision_price = 5  # to which precision the price in CHF must be calculated
-basename_price = "price_liste.csv"
-
+basename_price = "price_database.xlsx"
+column_not_print_price = ["confidence", "reference", "notes"]  # columns which are not type of price
+ref_col = "reference"
+nb_point_graph = 50
 ###############################################################
