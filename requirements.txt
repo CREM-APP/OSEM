@@ -4,3 +4,4 @@ thermo
 networkx
 numpy
 thermo
+xlrd
