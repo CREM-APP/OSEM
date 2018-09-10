@@ -3,6 +3,7 @@ import pandas as pd
 from osef.general.helper import find_string
 import osef.general.conf as conf
 
+
 class PoliticalObjective:
     """
     This class load the political objectives
@@ -21,17 +22,17 @@ class PoliticalObjective:
         self.db_obj.set_index("political_framework", inplace=True)
         self._name_objective = [c for c in self.db_obj.columns if c not in self._column_not_print]
 
-    def get_objective(self, politic_type, obj_type, return_year=True):
+    def get_objective(self, politic_type, objective_type, return_year=True):
 
         """
         This function return the political objective
-        :param obj_type: string - the type of objective (C02 emisson, primary energy, etc.)
+        :param objective_type: string - the type of objective (C02 emisson, primary energy, etc.)
         :param politic_type: string - the name of the political frame work
         :param return_year: bool- if True return the reference and objective year
         """
 
         # match the strings proposed by the user
-        objective_found = find_string(obj_type, self._name_objective, self._cutoff)
+        objective_found = find_string(objective_type, self._name_objective, self._cutoff)
         politic_found = find_string(politic_type, self.db_obj.index, self._cutoff)
 
         # get the objective

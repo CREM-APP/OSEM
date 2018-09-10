@@ -1,5 +1,6 @@
 import difflib
 import numpy as np
+from scipy.stats import linregress
 
 
 def find_string(choice, options, cutoff=0.3):
@@ -20,7 +21,7 @@ def find_string(choice, options, cutoff=0.3):
     return name_found
 
 
-def func_log(x, paramfit1, paramfit2, paramfit3):
+def func_logarithm(x, paramfit1, paramfit2, paramfit3):
     """
     This is a function which calculate the log with some free parameters. It is useful to do a logarithmic interpolation
     using the scipy module curve_fit.
@@ -31,3 +32,12 @@ def func_log(x, paramfit1, paramfit2, paramfit3):
     """
 
     return paramfit1 * np.log(paramfit2 * x) + paramfit3
+
+
+def rsquared(x, y):
+    """
+    this function return the coefficent of determination (R^2) for two array
+    """
+
+    slope, intercept, r_value, p_value, std_err = linregress(x, y)
+    return round(r_value**2,4)

@@ -15,7 +15,7 @@ class Kbob:
     def __init__(self, year_id=None):
 
         # default parameter
-        self._data_folder = conf.data_folder
+        self._data_folder = conf.data_folder_kbob
         self._version_default = conf.version_default
         self._basename_unit = conf.basename_unit
         self._basename_kbob = conf.basename_kbob
