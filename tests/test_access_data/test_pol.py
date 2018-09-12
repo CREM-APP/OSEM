@@ -9,4 +9,5 @@ def test_pol():
     assert pol.get_objective(politic_type="2000 W 2050", objective_type="renewable") == {'value': 65, 'year_ref': 2005,
                                                                                          'year_obj': 2050}
     assert pol.get_politic_framework() == ['Paris agreement', '3x20_2020', '3x20_2030', 'societe_2000_W_2020',
-                                           'societe_2000_W_2035', 'societe_2000_W_2050']
+                                           'societe_2000_W_2035', 'societe_2000_W_2050','strategie_energetique_2050',
+                                           'strategie_energetique_2050']
