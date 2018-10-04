@@ -4,7 +4,7 @@ import os
 ############################################################
 # default variables for all the modules
 data_folder = "data"
-cutoff = 0.55  # used to compare string, 1 is a perfect match on the string, with 0 all string match.
+cutoff = 0.45  # used to compare string, 1 is a perfect match on the string, with 0 all string match.
 
 ##############################################################
 # default variables for the acesss data feature
@@ -29,4 +29,10 @@ ref_col = "reference"
 myind = "myind"
 nb_point_graph = 50
 warning_ignore = '.*Covariance of the parameters could not be estimated.*'
+
+# kpi
+temp_building = [[50, 25, 25], [70, 60, 45]]  # # [[%percent building], [temperature]]
+filename_eff = 'kpi_efficiency_heating.csv'
+temp_ext = 25  # exterior temperature °C
+
 ###############################################################

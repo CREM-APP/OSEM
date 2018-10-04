@@ -6,7 +6,7 @@ import osef.general.conf as conf
 
 class PoliticalObjective:
     """
-    This class load the political objectives
+    This class loads the political objectives
     """
 
     def __init__(self):

@@ -3,6 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="ef77d417-f9b5-4297-bb09-2e8537f01791" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/data/data_kbob/kbob_data2016.csv" afterPath="$PROJECT_DIR$/data/data_kbob/kbob_data2016.csv" />
+      <change beforePath="$PROJECT_DIR$/data/data_kbob/kbob_unit2016.json" afterPath="$PROJECT_DIR$/data/data_kbob/kbob_unit2016.json" />
+      <change beforePath="$PROJECT_DIR$/data/data_kbob/kbob_unit2222.json" afterPath="$PROJECT_DIR$/data/data_kbob/kbob_unit2222.json" />
+      <change beforePath="$PROJECT_DIR$/data/data_kbob/kbob_xls_to_csv.py" afterPath="$PROJECT_DIR$/data/data_kbob/kbob_xls_to_csv.py" />
+      <change beforePath="$PROJECT_DIR$/osef/__init__.py" afterPath="$PROJECT_DIR$/osef/__init__.py" />
+      <change beforePath="$PROJECT_DIR$/osef/access_data/__init__.py" afterPath="$PROJECT_DIR$/osef/access_data/__init__.py" />
+      <change beforePath="$PROJECT_DIR$/osef/access_data/kbob.py" afterPath="$PROJECT_DIR$/osef/access_data/kbob.py" />
+      <change beforePath="$PROJECT_DIR$/osef/access_data/political_objective.py" afterPath="$PROJECT_DIR$/osef/access_data/political_objective.py" />
+      <change beforePath="$PROJECT_DIR$/osef/general/conf.py" afterPath="$PROJECT_DIR$/osef/general/conf.py" />
+      <change beforePath="$PROJECT_DIR$/tests/test_access_data/test_price.py" afterPath="$PROJECT_DIR$/tests/test_access_data/test_price.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="kbob.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/osef/access_data/kbob.py">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/osef/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="55" column="97" lean-forward="false" selection-start-line="55" selection-start-column="78" selection-end-line="55" selection-end-column="97" />
+            <state relative-caret-position="272">
+              <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -26,21 +36,77 @@
       <file leaf-file-name="political_objective.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/osef/access_data/political_objective.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+            <state relative-caret-position="17">
+              <caret line="6" column="25" lean-forward="false" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="kpi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/osef/access_data/kpi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="96" column="31" lean-forward="true" selection-start-line="96" selection-start-column="31" selection-end-line="96" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mytest.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/osef/plot/mytest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="11" lean-forward="true" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="price.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/osef/access_data/price.py">
+      <file leaf-file-name="test_kpi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_kpi.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="242" column="0" lean-forward="false" selection-start-line="242" selection-start-column="0" selection-end-line="242" selection-end-column="0" />
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_price.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_price.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="23" column="68" lean-forward="false" selection-start-line="23" selection-start-column="68" selection-end-line="23" selection-end-column="68" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="helper.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/osef/general/helper.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="5" column="43" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="conf.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/osef/general/conf.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="35" column="40" lean-forward="false" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -76,24 +142,31 @@
         <option value="$PROJECT_DIR$/data/kbob_xls_to_csv.py" />
         <option value="$PROJECT_DIR$/osef/access_data/helper_func.py" />
         <option value="$PROJECT_DIR$/osef/access_data/political_obj.py" />
-        <option value="$PROJECT_DIR$/osef/__init__.py" />
-        <option value="$PROJECT_DIR$/osef/access_data/__init__.py" />
         <option value="$PROJECT_DIR$/tests/test_access_data/test_pol.py" />
-        <option value="$PROJECT_DIR$/osef/access_data/political_objective.py" />
-        <option value="$PROJECT_DIR$/osef/access_data/kbob.py" />
         <option value="$PROJECT_DIR$/osef/general/helper.py" />
         <option value="$PROJECT_DIR$/tests/test_access_data/test_kbob.py" />
-        <option value="$PROJECT_DIR$/osef/general/conf.py" />
         <option value="$PROJECT_DIR$/osef/access_data/price.py" />
+        <option value="$PROJECT_DIR$/osef/access_data/to_erase.py" />
+        <option value="$PROJECT_DIR$/kpi.py" />
+        <option value="$PROJECT_DIR$/osef/access_data/political_objective.py" />
+        <option value="$PROJECT_DIR$/osef/access_data/__init__.py" />
+        <option value="$PROJECT_DIR$/data/data_kbob/kbob_xls_to_csv.py" />
+        <option value="$PROJECT_DIR$/osef/access_data/kbob.py" />
+        <option value="$PROJECT_DIR$/osef/__init__.py" />
+        <option value="$PROJECT_DIR$/osef/plot/__init__.py" />
         <option value="$PROJECT_DIR$/tests/test_access_data/test_price.py" />
+        <option value="$PROJECT_DIR$/tests/test_access_data/test_kpi.py" />
+        <option value="$PROJECT_DIR$/osef/general/conf.py" />
+        <option value="$PROJECT_DIR$/osef/access_data/kpi.py" />
+        <option value="$PROJECT_DIR$/osef/plot/mytest.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="312" />
-    <option name="y" value="205" />
-    <option name="width" value="1288" />
-    <option name="height" value="723" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1552" />
+    <option name="height" value="880" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -111,14 +184,41 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="OSEF" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSEF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSEF" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSEF" type="462c0819:PsiDirectoryNode" />
+              <item name="osef" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OSEF" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OSEF" type="462c0819:PsiDirectoryNode" />
+              <item name="osef" type="462c0819:PsiDirectoryNode" />
+              <item name="access_data" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="last_opened_file_path" value="W:/OSCARS/Prepare_simulation/model_git/OSCARS_testcase/Codes" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="W:\Enerapi\code\OSEF\osef\access_data" />
+      <recent name="W:\Enerapi\code\OSEF\osef" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -132,26 +232,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test_price">
-    <configuration name="kbob_xls_to_csv" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python tests.py.test in test_kpi.py">
+    <configuration name="kbob_xls_to_csv (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data/data_kbob" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="OSEF" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/kbob_xls_to_csv.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/data_kbob/kbob_xls_to_csv.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="political_obj" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="kpi" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -163,43 +263,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="OSEF" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/osef/access_data/political_obj.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="price" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/osef/access_data" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="OSEF" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/osef/access_data/price.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="test_kbob" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/test_access_data" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="OSEF" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_access_data/test_kbob.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/osef/access_data/kpi.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -220,6 +284,24 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_access_data/test_price.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="to_erase" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/osef/access_data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="OSEF" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/osef/access_data/to_erase.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
@@ -266,20 +348,35 @@
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
+    <configuration name="py.test in test_kpi.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/test_access_data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="OSEF" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/test_access_data/test_kpi.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.test_kbob" />
-      <item index="1" class="java.lang.String" itemvalue="Python.political_obj" />
-      <item index="2" class="java.lang.String" itemvalue="Python.kbob_xls_to_csv" />
-      <item index="3" class="java.lang.String" itemvalue="Python.price" />
-      <item index="4" class="java.lang.String" itemvalue="Python.test_price" />
+      <item index="0" class="java.lang.String" itemvalue="Python.test_price" />
+      <item index="1" class="java.lang.String" itemvalue="Python.to_erase" />
+      <item index="2" class="java.lang.String" itemvalue="Python.kpi" />
+      <item index="3" class="java.lang.String" itemvalue="Python.kbob_xls_to_csv (1)" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.py.test in test_kpi.py" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.test_price" />
-        <item index="1" class="java.lang.String" itemvalue="Python.price" />
-        <item index="2" class="java.lang.String" itemvalue="Python.kbob_xls_to_csv" />
-        <item index="3" class="java.lang.String" itemvalue="Python.political_obj" />
-        <item index="4" class="java.lang.String" itemvalue="Python.test_kbob" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.py.test in test_kpi.py" />
+        <item index="1" class="java.lang.String" itemvalue="Python.kbob_xls_to_csv (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Python.kpi" />
+        <item index="3" class="java.lang.String" itemvalue="Python.to_erase" />
+        <item index="4" class="java.lang.String" itemvalue="Python.test_price" />
       </list>
     </recent_temporary>
   </component>
@@ -300,9 +397,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="py_test_for_test_price_test_price - 2018.07.12 at 16h 25m 09s.xml">
-      <configuration name="py.test for test_price.test_price" configurationId="tests" />
-    </history-entry>
     <history-entry file="py_test_for_test_price_test_price - 2018.07.12 at 16h 25m 58s.xml">
       <configuration name="py.test for test_price.test_price" configurationId="tests" />
     </history-entry>
@@ -321,6 +415,9 @@
     <history-entry file="py_test_for_test_price_test_price - 2018.07.12 at 16h 37m 02s.xml">
       <configuration name="py.test for test_price.test_price" configurationId="tests" />
     </history-entry>
+    <history-entry file="py_test_in_test_kpi_py - 2018.09.29 at 15h 45m 38s.xml">
+      <configuration name="py.test in test_kpi.py" configurationId="tests" />
+    </history-entry>
     <history-entry file="py_test_in_test_pol_py - 2018.07.20 at 14h 41m 36s.xml">
       <configuration name="py.test in test_pol.py" configurationId="tests" />
     </history-entry>
@@ -332,13 +429,13 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <frame x="-8" y="-8" width="1696" height="1026" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20566948" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1344994" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16219239" sideWeight="0.51930034" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32997763" sideWeight="0.48069963" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34675616" sideWeight="0.52955365" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.47044632" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32997763" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -378,76 +475,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/osef/access_data/kpi.py</url>
+          <line>125</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/osef/access_data/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="68" lean-forward="false" selection-start-line="4" selection-start-column="68" selection-end-line="4" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osef/access_data/test_pol.py" />
-    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_kbob.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_price.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="54" lean-forward="false" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osef/access_data/political_obj.py" />
-    <entry file="file://$PROJECT_DIR$/data/kbob_xls_to_csv.py" />
-    <entry file="file://$PROJECT_DIR$/osef/access_data/kbob.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="67" column="92" lean-forward="false" selection-start-line="67" selection-start-column="92" selection-end-line="67" selection-end-column="92" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osef/access_data/political_obj.py" />
-    <entry file="file://$PROJECT_DIR$/osef/access_data/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="68" lean-forward="false" selection-start-line="4" selection-start-column="68" selection-end-line="4" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_kbob.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="53" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_price.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="54" lean-forward="false" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osef/access_data/test_pol.py" />
-    <entry file="file://$PROJECT_DIR$/data/kbob_xls_to_csv.py" />
-    <entry file="file://$PROJECT_DIR$/osef/access_data/kbob.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="67" column="92" lean-forward="false" selection-start-line="67" selection-start-column="92" selection-end-line="67" selection-end-column="92" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osef/access_data/political_obj.py" />
     <entry file="file://$PROJECT_DIR$/osef/access_data/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -475,7 +514,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1105">
           <caret line="67" column="92" lean-forward="false" selection-start-line="67" selection-start-column="92" selection-end-line="67" selection-end-column="92" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -523,13 +561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://W:/OSCARS/Prepare_simulation/model_git/OSCARS_testcase/Codes/energy_system_diane_new_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_kbob.py" />
     <entry file="file://$PROJECT_DIR$/osef/models/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -550,38 +581,10 @@
     <entry file="file://$PROJECT_DIR$/data/kbob_xls_to_csv.py" />
     <entry file="file://$PROJECT_DIR$/osef/access_data/helper_func.py" />
     <entry file="file://$PROJECT_DIR$/osef/access_data/political_obj.py" />
-    <entry file="file://$PROJECT_DIR$/osef/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="14" lean-forward="false" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osef/access_data/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" column="43" lean-forward="false" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://W:/OSCARS/Cost/quick_and_dirty_plot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="48" column="23" lean-forward="false" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_kbob.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="58" column="36" lean-forward="false" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osef/general/conf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="30" column="74" lean-forward="false" selection-start-line="30" selection-start-column="74" selection-end-line="30" selection-end-column="74" />
         </state>
       </provider>
     </entry>
@@ -592,57 +595,202 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/data_kbob/kbob_xls_to_csv.py">
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/GeoBuilding/EquivalentSouthArea.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="54" column="84" lean-forward="false" selection-start-line="54" selection-start-column="84" selection-end-line="54" selection-end-column="84" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_price.py">
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/Storage/HotWaterTank/HotWaterTank.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="-1889">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/Storage/ThermalStorage/Layer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/GeoBuilding/DetailedBuildingGeometry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-663">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/GeoBuilding/BuildingGeometry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/NaturalResources/Solar/SolarFunctionRadianceOntoTiltedPlane.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/NaturalResources/Solar/SolarFunctionIncidentAngle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/Storage/ThermalStorage/StratifiedDynamic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-444">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/Storage/ThermalStorage/Storage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../enerapi_old/enerpackage-master-174b86508c6a8db19aac072688623629587526e7/Ener/Storage/ThermalStorage/System.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osef/access_data/to_erase.py" />
     <entry file="file://$PROJECT_DIR$/osef/general/helper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="42" column="30" lean-forward="false" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osef/access_data/kbob.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="55" column="97" lean-forward="false" selection-start-line="55" selection-start-column="78" selection-end-line="55" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_pol.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/osef/access_data/political_objective.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="46" column="13" lean-forward="false" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+        <state relative-caret-position="51">
+          <caret line="5" column="43" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/osef/access_data/price.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-798">
+          <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://W:/OSCARS/Prepare_simulation/model_git/OSCARS_testcase/Codes/energy_system_diane_new_model.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="242" column="0" lean-forward="false" selection-start-line="242" selection-start-column="0" selection-end-line="242" selection-end-column="0" />
+          <caret line="115" column="74" lean-forward="false" selection-start-line="115" selection-start-column="74" selection-end-line="115" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osef/access_data/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="36" lean-forward="true" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osef/plot/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="40" lean-forward="true" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_kbob.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="634">
+          <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_pol.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="12" column="16" lean-forward="false" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_price.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="23" column="68" lean-forward="false" selection-start-line="23" selection-start-column="68" selection-end-line="23" selection-end-column="68" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osef/access_data/kbob.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="53" column="117" lean-forward="true" selection-start-line="53" selection-start-column="117" selection-end-line="53" selection-end-column="117" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/data_kbob/kbob_xls_to_csv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osef/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_access_data/test_kpi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osef/general/conf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="35" column="40" lean-forward="false" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osef/access_data/political_objective.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="6" column="25" lean-forward="false" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osef/access_data/kpi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="96" column="31" lean-forward="true" selection-start-line="96" selection-start-column="31" selection-end-line="96" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osef/plot/mytest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="11" lean-forward="true" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>

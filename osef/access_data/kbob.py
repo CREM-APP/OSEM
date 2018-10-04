@@ -29,7 +29,7 @@ class Kbob:
             self.version = self._version_default
         self.data, self.unit, self.index_translation = self._load_kbob()
 
-    def get_value(self, techno, indicator, language="ENG"):
+    def get_value(self, techno, indicator, language="ENG", ener_type=None):
         """
         This function load one value of the kbob as a function of the user choice
 
@@ -40,10 +40,19 @@ class Kbob:
         """
         self._check_language(language)
 
-        tech_found = find_string(techno, self.data[language].values.tolist(), self._cutoff)
+        # in case we only want useful or final energy
+        if ener_type is not None:
+            all_techno = self.data.loc[self.data["EnerType"] == ener_type, :]
+            all_techno = all_techno[language].values.tolist()
+        else:
+            all_techno = self.data[language].values.tolist()
+
+        # find string
+        tech_found = find_string(techno, all_techno, self._cutoff)
         indi_found_lang = find_string(indicator, self.index_translation[language], self._cutoff)
 
         indi_found = self.index_translation.loc[self.index_translation[language] == indi_found_lang, 'ENG'].values[0]
+
         return self.data.loc[self.data[language] == tech_found, indi_found].values[0]
 
     def get_units(self, choice_col):

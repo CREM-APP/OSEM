@@ -7,5 +7,6 @@
 
 from osef.access_data.kbob import Kbob
 from osef.access_data.price import Price
+from osef.access_data.kpi import Kpi
 from osef.access_data.political_objective import PoliticalObjective
 from osef.general.helper import find_string
