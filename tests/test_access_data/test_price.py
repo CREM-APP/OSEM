@@ -34,9 +34,10 @@ def test_price():
                            interp_choice='logarithm') - 371.503932 < 1e-5
     assert price.get_price(techno_choice="BoilerOil", price_choice="Maintenance", unit_size=20,
                            interp_choice=func_logarithm, bounds=([-np.inf, 0, -np.inf], np.inf)) - 371.503932 < 1e-5
-    assert price.get_price_for_many_units(techno_choice="HeatPumpWaterSoil", price_choice="cost_machine",
-                                          unit_size=[14, 11, 12], interp_choice=1) \
-                                          == [30711.111111111135, 25677.777777777803, 27355.55555555558]
+
+    price_all_unit = np.array(price.get_price_for_many_units(techno_choice="HeatPumpWaterSoil", price_choice="cost_machine",
+                                          unit_size=[14, 11, 12], interp_choice=1) )
+    assert sum(price_all_unit) - sum([30711.111111111135, 25677.777777777803, 27355.55555555558]) < 1e-5
     with pytest.raises(Exception):
         price.get_price(techno_choice="BoilerOil", price_choice="xkcd", unit_size=20, interp_choice=func_logarithm)
 

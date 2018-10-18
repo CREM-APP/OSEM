@@ -29,6 +29,7 @@ class Price:
         self._myind = conf.myind
         self._ref_col = conf.ref_col  # name of the column with the references
         self._nb_point_graph = conf.nb_point_graph
+        self._interp_lim = conf.interp_lim
 
         # data
         self.db_price, self._units = self._load_price_data()
@@ -103,8 +104,8 @@ class Price:
             lim_param = param_lim_inter[1]
 
         # check size
-        if unit_size < lim_param[0] or unit_size > lim_param[1]:
-            raise Warning("The size given is out of the interpolation range.")
+        if unit_size < lim_param[0]*(1-self._interp_lim) or unit_size > lim_param[1]*(1+self._interp_lim):
+            raise Warning("The size given is out of the interpolation range ({},{})".format(lim_param[0], lim_param[1]))
 
         # get price
         if isinstance(interp_choice, int):
@@ -258,7 +259,11 @@ class Price:
         :param price_choice: string - the type of price (CAPEX, OPEX, etc)
         :return:
         """
+
         techno_correct = find_string(techno_choice, self._techno_list, self._cutoff)
+        if price_choice == 'OPEX':
+            price_choice = conf.opex_name
+
         price_type = [c for c in self.db_price[techno_correct].columns if c not in self._column_not_print]
         price_correct = find_string(price_choice, price_type, self._cutoff)
 

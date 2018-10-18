@@ -4,6 +4,7 @@ import os
 ############################################################
 # default variables for all the modules
 data_folder = "data"
+data_folder = r'W:\Enerapi\code\OSEF\data'
 cutoff = 0.45  # used to compare string, 1 is a perfect match on the string, with 0 all string match.
 
 ##############################################################
@@ -28,11 +29,33 @@ column_not_print_price = ["units", "reference", "note"]  # columns which are not
 ref_col = "reference"
 myind = "myind"
 nb_point_graph = 50
+interp_lim = 0.3
 warning_ignore = '.*Covariance of the parameters could not be estimated.*'
+opex_name = 'maintenance'
 
 # kpi
-temp_building = [[50, 25, 25], [70, 60, 45]]  # # [[%percent building], [temperature]]
+temp_building = [[50, 25, 25], [70, 60, 50]]  # # [[%percent building], [temperature]]
 filename_eff = 'kpi_efficiency_heating.csv'
-temp_ext = 25  # exterior temperature °C
+temp_ext = 22  # exterior temperature °C
+
+# meteo data
+data_folder_meteo = os.path.join(data_folder, 'data_meteo_swiss')
+filenames = [i for i in os.listdir(data_folder_meteo) if i != 'data_source.txt']
+nbline_header = 8
 
 ###############################################################
+# defalut value for the plot
+
+# plot kpi
+xlabel = 'Years'
+ylabelco2 = 'CO$_{2}$ emission [kg]'
+ylabelfinal = 'Final Energy [kWh]'
+ylabelprimary = 'Primary Energy [kWh]'
+ylabelrenew = 'Primary Energy [kWh]'
+renew_colname = ['years', 'scenarios','renewable', 'non-renewable']
+fontsize =12
+width = 0.2
+figsize = (8,8)
+
+
+#############################################################
