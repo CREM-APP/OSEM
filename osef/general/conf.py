@@ -41,7 +41,13 @@ temp_ext = 22  # exterior temperature °C
 # meteo data
 data_folder_meteo = os.path.join(data_folder, 'data_meteo_swiss')
 filenames = [i for i in os.listdir(data_folder_meteo) if i != 'data_source.txt']
-nbline_header = 8
+nbline_header = 5  # the number of lines which compsed the header (no empty line)
+line_with_unit = 6  # the index of the line where the unit is (with empty line)
+col_name = ['station_name', 'elev_m', 'coordinates_CH', 'period_reference', 'january', 'february', 'march', 'april',
+            'may', 'june','july', 'august', 'september', 'october', 'november', 'december', 'annual']
+month_name = ['january', 'february', 'march', 'april', 'may', 'june','july', 'august', 'september', 'october',
+              'november', 'december']
+
 
 ###############################################################
 # defalut value for the plot
