@@ -81,11 +81,11 @@ default_solver_option= {'tol_mat_mass': 1e-10,
                         'tol_mat_pres': 1e-10,
                         'maxiter': 1e7,
                         'gtol': 1e-5,
-                        'round_num': 3,
-                        'disp' : True,
+                        'round_num': 5,
+                        'disp' : False,
                         'min_residual': 3,
                         'iter_print': 50
 }
 
-filename_info_solver = 'info_solver_option.json'
+filename_info_solver = 'pandangas_info_solver_option.json'
 

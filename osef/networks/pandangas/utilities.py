@@ -6,7 +6,63 @@ import os
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib import colors as mcolors
+import operator
+import fluids
+from thermo.chemical import Chemical
+
+
 import osef.networks.pandangas.network_creation as net_create
+import osef.networks.pandangas.simulation_tool as simtool
+
+
+def check_network_result(net, lim_mass=1e-4, lim_pres=2):
+    """
+    This functions check if the result of a simulation makes sens. to this end, mass conservation and
+    pressure conservation are computed
+    :param net: A pandagas network which have been simulated (so net.res_bus exists)
+    :param lim_mass: An accecptable error on the mass
+    :return: True if network satisfy the conditions of mass and pressure conservation , False otherwise
+    """
+
+    # check conservation of mass
+    if abs(net.res_bus["m_dot_kg/s"].sum()) > lim_mass:
+        return False
+
+    # check for pressure conservation for each level
+    sorted_levels = sorted(net.levels.items(), key=operator.itemgetter(1))
+    for level, value in sorted_levels:
+        if level in net.bus["level"].unique():
+
+            # get network
+            netnx = create_nxgraph(net, level=level)
+            i_mat = simtool._i_mat(netnx)
+
+            # get ind feeder
+            bus_level = net.bus.loc[net.bus['level'] == level, :]
+            load_level = net.load.loc[net.load["bus"].isin(bus_level.index), :]
+            load_level, total_loads = simtool._scaled_loads(net, load_level, level)
+            m_dot_nodes, ind_feeder = simtool._create_node_mass(netnx, bus_level, load_level)
+
+            # get data for this level
+            level_value = net.levels[level]
+            fluid_type = Chemical("natural gas", T=net.temperature, P=level_value + net.p_atm)
+            materials = _get_data_by_edge(netnx, "mat")
+            roughness = np.array([fluids.material_roughness(m) for m in materials])
+            leng = _get_data_by_edge(netnx, "L_m")
+            diam = _get_data_by_edge(netnx, "D_m")
+            name_pipe = _get_data_by_edge(netnx, "name")
+            m_dot_pipes = net.res_pipe.loc[name_pipe,"m_dot_kg/s"].values
+            p_nodes = net.res_bus.loc[np.array(netnx.nodes),"p_Pa"].values
+
+            # make the matrix multiplication (should be null)
+            mat_pres = simtool.i_mat_for_pressure(i_mat, ind_feeder)
+            p_loss = simtool._dp_from_m_dot_vec(m_dot_pipes, leng, diam, roughness, fluid_type) * (-1)
+            p_loss = np.append(p_loss, [level_value] * len(ind_feeder))
+            res = mat_pres.dot(p_nodes) - p_loss
+            if abs(sum(res)) > lim_pres:
+                return False
+
+    return True
 
 
 def check_for_empty_load(net, default_load=0):
@@ -28,7 +84,7 @@ def check_for_empty_load(net, default_load=0):
         return net
 
     # correct load
-    for i,li in enumerate(load_to_be_corrected.index):
+    for i, li in enumerate(load_to_be_corrected.index):
         net_create.create_load(net, li, p_kW=default_load, name='ADDED_LOAD' + str(i))
     return net
 
@@ -77,7 +133,7 @@ def create_nxgraph(net, level=None, only_in_service=True, directed=True):
     if directed:
         g = nx.MultiDiGraph()
     else:
-        g=nx.Graph()
+        g = nx.Graph()
 
     # create node
     if level is None:
@@ -94,7 +150,7 @@ def create_nxgraph(net, level=None, only_in_service=True, directed=True):
         pipes = pipes.loc[pipes["in_service"]]
     for idx, row in pipes.iterrows():
         if row[0] in g.nodes() or row[1] in g.nodes():
-            g.add_edge(row[0],row[1],name=row.name, type="PIPE", L_m=row[2], D_m=row[3], mat=row[4])
+            g.add_edge(row[0], row[1], name=row.name, type="PIPE", L_m=row[2], D_m=row[3], mat=row[4])
 
     # create edge at station if multi-level network
     if level is None:
@@ -185,7 +241,7 @@ def draw_results(net, pos=None, show=True, maxloading=300):
     # order output
     res_bus_ordered = net.res_bus
     res_bus_ordered = res_bus_ordered.reindex(net_draw.nodes())
-    order_edge = [data['name'] for (u,v,data) in net_draw.edges(data=True)]
+    order_edge = [data['name'] for (u, v, data) in net_draw.edges(data=True)]
     res_pipe_ordered = net.res_pipe
     res_pipe_ordered = res_pipe_ordered.reindex(order_edge)
 
@@ -330,16 +386,14 @@ def check_for_connectivity(net, pos=None, show=True):
     This function check if all the nodes of a pandangaz network are connected. No check for pressure.
     :param net: A pandangas network
     :param show: If True, show an image with the different network when more than one network.
-    :return: None
+    :return: True if all connectec, False otherwise
     """
     net_nx = create_nxgraph(net, directed=False)
     sub_graphs = list(nx.connected_component_subgraphs(net_nx))
     nb_net = len(sub_graphs)
     if nb_net > 1:
-        print(
-            "Warning: There is more than one network in your pandangas network. Number of Network: " + str(nb_net))
 
-        # if we have more than one network, we plot each network separately
+        # plot the different networj (optional)
         if show:
             if not pos:
                 pos = nx.spring_layout(net_nx)
@@ -357,7 +411,12 @@ def check_for_connectivity(net, pos=None, show=True):
             plt.ylabel('y-coordinate [m]')
             plt.show()
 
+        return False
+
     elif nb_net == 1:
-        pass
+        return True
+
+    else:
+        return False
 
 

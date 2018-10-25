@@ -6,7 +6,6 @@ run through each level. It also manage the output from the simulation.
 """
 
 import fluids
-
 from thermo.chemical import Chemical
 from scipy.optimize import minimize
 from scipy.sparse.linalg import lsqr
@@ -22,7 +21,7 @@ import osef.networks.pandangas.simulation_tool as simtool
 global sol0
 
 
-def runpp(net, solver_option=None):
+def runpg(net, solver_option=None):
     """
     This is the main function used to run a pandangas simulation
     :param net: A pandangas network
@@ -45,7 +44,7 @@ def runpp(net, solver_option=None):
     for level, value in sorted_levels:
         if level in net.bus["level"].unique():
 
-            # run simulation
+            # run simulation for one pressure level
             print("Compute level {}".format(level))
             net = _run_sim_by_level(net, level)
 
@@ -84,11 +83,11 @@ def _run_sim_by_level(net, level):
 
     # incidence matrix (so a matrix which says which node are connected to which edge)
     i_mat = simtool._i_mat(netnx)
-    print('get incedence matrix')
+    if net.solver_option['disp']:
+        print('incidence matrix: done.')
 
     # modify i_mat so that the unknown linked with the solver are on the left side of the "equation"
     mat_all, row0, col0 = simtool._i_mat_with_feeder(i_mat, ind_feeder)
-    print('i_mat with feeder')
 
     # get null space for the mass (so that the space with all possible solutions form the matrix)
     z_i_mat = simtool.qr_null(mat_all)
@@ -97,17 +96,18 @@ def _run_sim_by_level(net, level):
     # get one solution to the equation representing mass conservation
     res = lsqr(mat_all, m_dot_nodes, atol=net.solver_option['tol_mat_mass'], btol=net.solver_option['tol_mat_mass'])
     sol0 = res[0]
-    print('solve mass once')
+    if net.solver_option['disp']:
+        print('find null space for the mass equation: done.')
 
     # obtain the pseudo inverse matrix for the pressure equation (so the matrix which find the closest solution)
     mat_pres = simtool.i_mat_for_pressure(i_mat, ind_feeder)
     pinv_pres = pinv(mat_pres)
     p_noms = [level_value]*len(ind_feeder)
-    print('get pinv')
+    if net.solver_option['disp']:
+        print('find pseudo-inverse matrix for the pressure equation: done.')
 
     # if we have more than one possibility as solution, minimize
     if nullity_mass > 0:
-
         m0 = np.random.rand(nullity_mass)
         args_mass = (z_i_mat, sol0, net.v_max, diam, row0, col0, leng, roughness, fluid_type,
                      net.solver_option, pinv_pres, p_noms, mat_pres, mat_all, m_dot_nodes)
@@ -119,10 +119,10 @@ def _run_sim_by_level(net, level):
             # As we have more than on solution, we test many of them to find the one which fits the pressure equ.
             res = minimize(_compute_mass_and_pres, m0, method='BFGS', args=args_mass, options=options)
             # all solution are the  "basic" solution + residual, cf. linear algebra.
+            print(res)
             sol = sol0 + z_i_mat.dot(res.x)
         except SmallEnoughGoodException:
-            sol = sol0 + z_i_mat.dot(m0)
-
+            sol = sol0 + z_i_mat.dot(res.x)
     else:
         sol = sol0
 
@@ -134,9 +134,12 @@ def _run_sim_by_level(net, level):
     v, load_pipes = simtool._v_from_m_dot(diam, m_dot_pipes, fluid_type, net.v_max)
 
     # copmute pressure
+    print(m_dot_pipes)
     p_loss = simtool._dp_from_m_dot_vec(m_dot_pipes, leng, diam, roughness, fluid_type)*(-1)
     p_loss = np.append(p_loss, p_noms)
     p_nodes = pinv_pres.dot(p_loss)
+    if nullity_mass > 0 and net.solver_option['disp']:
+        simtool._print_minimize_state(p_nodes, res.fun, _compute_mass_and_pres.niter)
 
     # output bus
     r_num = net.solver_option['round_num']
@@ -193,20 +196,17 @@ def _compute_mass_and_pres(m0, *args):
     residual = np.sum(np.abs(mat_pres.dot(p_nodes) - p_loss))
 
     if solver_option['disp'] and _compute_mass_and_pres.niter%solver_option['iter_print'] == 0:
-        print("The current maximum loss of pressure: " + str(np.max(p_loss)))
-        print("The current pressure minimum: " + str(np.min(p_nodes)))
-        print("The current pressure maximum: " + str(np.max(p_nodes)))
-        print("The current pressure mean: " + str(np.mean(p_nodes)))
-        print("The current residual is : " + str(residual))
+        simtool._print_minimize_state(p_nodes, residual, _compute_mass_and_pres.niter)
     _compute_mass_and_pres.niter+=1
 
-    if residual < solver_option['min_residual']:
-        raise SmallEnoughGoodException
+    if abs(residual) < solver_option['min_residual']:
+        # raise SmallEnoughGoodException
+        return residual
     else:
         return residual
 
 
-class SmallEnoughGoodException(Exception):
+class SmallEnoughGoodException(Warning):
     """
     The scipy.minimize function cannot be stopped if the function value reach a certain level considered small enough
     (like 100% load for example). So this is a hack to be able to do this anyway. So this class is not an exception, it
@@ -214,10 +214,3 @@ class SmallEnoughGoodException(Exception):
     """
     pass
 
-# import network_for_test
-# net = network_for_test.model_with_eight_bus()
-# runpp(net)
-# print(net.load)
-# print(net.res_feeder)
-# print(net.res_bus)
-# print(net.res_pipe)

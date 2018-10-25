@@ -42,12 +42,15 @@ class _Network:
     """
     def __init__(self):
 
+        # data
+        self._data_folder = conf.data_folder
+
         # default value
         self.levels = conf.default_levels  # Pa
         self.lhv = conf.lhv
         self.v_max = conf.v_max
         self.solver_option = conf.default_solver_option
-        self.solver_info = _load_solver_info(conf.filename_info_solver)
+        self.solver_info = self._load_solver_info()
         self.temperature = conf.temperature  # K
         self.p_atm = conf.p_atm  # Pa
 
@@ -65,6 +68,16 @@ class _Network:
         self.res_station = pd.DataFrame(columns=["m_dot_kg/s", "p_kW", "loading_%"])
 
         self.keys = ["bus", "pipe", "load", "feeder", "station", "res_bus", "res_pipe", "res_feeder", "res_station"]
+
+    def _load_solver_info(self):
+        """
+        This function load a json file which details the information realted to the solver option
+        :return: the info in a string
+        """
+
+        with open(os.path.join(self._data_folder, conf.filename_info_solver), 'r') as f:
+            solver_explanation = json.load(f)
+        return solver_explanation
 
     def __repr__(self):
         """
@@ -352,17 +365,6 @@ def set_solver_option(net, solver_option=None):
         for k in solver_option.keys():
             net.solver_option[k] = solver_option[k]
 
-
-def _load_solver_info(filename_solver):
-    """
-    This function load a json file which details the information realted to the solver option
-    :param filename_solver: the name of this json file
-    :return: the info in a string
-    """
-
-    with open(filename_solver, 'r') as f:
-        solver_explanation = json.load(f)
-    return solver_explanation
 
 def get_solver_info(net):
     """

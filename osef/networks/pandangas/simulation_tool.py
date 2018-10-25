@@ -7,17 +7,19 @@ from scipy.sparse.linalg import lsqr
 from scipy.linalg import qr
 import fluids.vectorized as fvec
 
+
 def _scaled_loads(net, load_level0, level):
     """
     This function passes the loads from kW to kg/s using the LHV parameter and add the load linked
     to the station of the lower pressure network
-    :param the network
+    :param the pandangas network
     :param load_level0: the load from this level in a Dataframe
     :param lhv: param to pass from kW to kg/s
     :param level: the gas level (string)
     :return: load_level with a new column load
     """
 
+    # pass from kWh to kg/sec
     load_level = load_level0.copy()  # avoid warning
     load_level.loc[:, 'load_kg_s'] = (load_level.loc[:, "scaling"] * load_level.loc[:, "p_kW"]) / net.lhv
 
@@ -66,11 +68,7 @@ def _i_mat_with_feeder(i_mat, ind_feeder):
 
     # if a feeder is present at this line,  add a minus one to account fo rit
     for i, f in enumerate(ind_feeder):
-        i_mat[f, col0+i] = 1
-
-    # conservation of mass (not necessary)
-    # load_equ = np.expand_dims(np.array([0]*col0 + [1]*nb_feeder), axis=0)
-    # i_mat = np.append(i_mat, load_equ, axis=0)
+        i_mat[f, col0+i] = -1
 
     return i_mat, row0, col0
 
@@ -172,6 +170,18 @@ def _dp_from_m_dot_vec(m_dot, l, d, e, fluid):
     return fvec.dP_from_K(k, rho=fluid.rho, V=v)
 
 
-
+def _print_minimize_state(p_nodes, residual, iter):
+    """
+    This function print the current state of the minimization for the pressure equation
+    :param p_nodes: the pressure in the nodes
+    :param residual: the resiudal of the pressure equation
+    :param iter: the current iteration
+    """
+    print('----------------------------------------------------------------------')
+    print('Current State for the Minimization for Iteration ' + str(iter))
+    print("The current pressure minimum: " + str(np.min(p_nodes)))
+    print("The current pressure maximum: " + str(np.max(p_nodes)))
+    print("The current pressure mean: " + str(np.mean(p_nodes)))
+    print("The current residual is : " + str(residual))
 
 
