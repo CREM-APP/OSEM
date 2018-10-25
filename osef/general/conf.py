@@ -1,10 +1,10 @@
 # this is the configuration file for OSEM
 import os
+import json
 
 ############################################################
 # default variables for all the modules
 data_folder = "data"
-data_folder = r'W:\Enerapi\code\OSEF\data'
 cutoff = 0.45  # used to compare string, 1 is a perfect match on the string, with 0 all string match.
 
 ##############################################################
@@ -50,7 +50,7 @@ month_name = ['january', 'february', 'march', 'april', 'may', 'june','july', 'au
 
 
 ###############################################################
-# defalut value for the plot
+# default value for the plot
 
 # plot kpi
 xlabel = 'Years'
@@ -65,3 +65,27 @@ figsize = (8,8)
 
 
 #############################################################
+# default value for network
+
+# pandangas
+
+default_levels = {"HP": 5.0E5, "MP": 1.0E5, "BP+": 0.1E5, "BP": 0.025E5}  # Pa
+lhv = 38.1E3  # kJ/kg
+v_max = 2.0  # m/s
+temperature = 10 + 273.15  # K
+p_atm = 101325
+scaling = 1
+min_p_pa = 0.022E5
+mat_default = 'steel'
+default_solver_option= {'tol_mat_mass': 1e-10,
+                        'tol_mat_pres': 1e-10,
+                        'maxiter': 1e7,
+                        'gtol': 1e-5,
+                        'round_num': 3,
+                        'disp' : True,
+                        'min_residual': 3,
+                        'iter_print': 50
+}
+
+filename_info_solver = 'info_solver_option.json'
+

@@ -37,7 +37,7 @@ class Meteo:
         datam = self._meteo_data[met_param]
         station = find_string(station, datam['station_name'], self._cutoff)
 
-        return datam.loc[datam['station_name'] == station, self._col_name[-1]]
+        return datam.loc[datam['station_name'] == station, self._col_name[-1]].iloc[0]
 
     def get_meteo_data_monthly(self, met_param, station, months):
         """
@@ -58,10 +58,10 @@ class Meteo:
         jan_ind = datam.columns.get_loc(conf.month_name[0])
         for m in months:
             if isinstance(m, float) or isinstance(m, int):
-                data_month.append(datam.loc[datam['station_name'] == station,:].iloc[:, jan_ind + m])
+                data_month.append(float(datam.loc[datam['station_name'] == station,:].iloc[:, jan_ind + m]))
             else:
                 m_name = find_string(m, conf.month_name, self._cutoff)
-                data_month.append(datam.loc[datam['station_name'] == station, m_name])
+                data_month.append(datam.loc[datam['station_name'] == station, m_name].iloc[0])
 
         return data_month
 
@@ -72,7 +72,7 @@ class Meteo:
         """
         met_param = find_string(met_param, self._meteo_data.keys(), self._cutoff)
 
-        return self._unit_data[met_param]
+        return self._unit_data[met_param].strip()
 
 
     def get_meteo_parameter(self):
@@ -101,10 +101,10 @@ class Meteo:
         This function finds the station which is the closest to a point described by its coordinates. If an altitude
         and a maximum altitude difference is given, it finds the closest station within the altitude difference.
         :param met_param: the type of meteorological parameter of interest
-        :param coordinates: The coordinates of the study area in the coordinates system CH1903+/LV95
+        :param coordinates: The coordinates of the study area in the coordinate system CH1903+/LV95
         :param altitude: the altitude at the coordinate at the point of interest (optional)
         :param max_alt_diff: the max altitude difference between the station and the point of interest (opt)
-        :return: the characterisitcs of the station (name, altitude, distance, coordinate) in a Series
+        :return: the characteristics of the station (name, altitude, distance, coordinate) in a Series
         """
 
         # get data
