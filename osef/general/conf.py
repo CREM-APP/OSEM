@@ -4,7 +4,9 @@ import json
 
 ############################################################
 # default variables for all the modules
-data_folder = "data"
+# data_folder = "data"
+dir_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+data_folder = os.path.join(dir_path, 'data')
 cutoff = 0.45  # used to compare string, 1 is a perfect match on the string, with 0 all string match.
 
 ##############################################################

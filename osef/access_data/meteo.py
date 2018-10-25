@@ -1,12 +1,11 @@
 # this script loads and manage meteo data
 
 import os
-from osef.general.helper import find_string
 import pandas as pd
 import numpy as np
 
+from osef.general.helper import find_string
 import osef.general.conf as conf
-
 
 class Meteo:
 
@@ -80,13 +79,13 @@ class Meteo:
 
         :return: A list of string with the name of the parameters
         """
-        return self._meteo_data.keys()
+        return list(self._meteo_data.keys())
 
     def get_meteo_station(self, met_param, return_coord=False):
         """
         This function get the meteorological station available for a particular meteorological parameter
         :param met_param: the type of meteorological parameter of interest
-        :param return_coord: If True, the coordinates (CH1903+/LV95) are returned with the station
+        :param return_coord: If True, the coordinates (CH1903/LV95) are returned with the station
         :return: A Serie of string which are the station name (and maybe the coordinates)
         """
         met_param = find_string(met_param, self._meteo_data.keys(), self._cutoff)
@@ -101,7 +100,7 @@ class Meteo:
         This function finds the station which is the closest to a point described by its coordinates. If an altitude
         and a maximum altitude difference is given, it finds the closest station within the altitude difference.
         :param met_param: the type of meteorological parameter of interest
-        :param coordinates: The coordinates of the study area in the coordinate system CH1903+/LV95
+        :param coordinates: The coordinates of the study area in the coordinate system CH1903/LV95
         :param altitude: the altitude at the coordinate at the point of interest (optional)
         :param max_alt_diff: the max altitude difference between the station and the point of interest (opt)
         :return: the characteristics of the station (name, altitude, distance, coordinate) in a Series

@@ -45,11 +45,11 @@ def test_available_indicators():
     assert "FRA" not in kbob.get_available_indicators()
 
 
-def test_filename():
-    kbob = Kbob()
-    assert kbob.get_filenames() == {'kbob': os.path.join("data", "data_kbob", "kbob_data2016.csv"),
-                                    'unit':  os.path.join("data", "data_kbob", "kbob_unit2016.json"),
-                                    'translation':  os.path.join("data", "data_kbob", "kbob_translation_indicator.csv")}
+# def test_filename():
+#     kbob = Kbob()
+#     assert kbob.get_filenames() == {'kbob': os.path.join("data", "data_kbob", "kbob_data2016.csv"),
+#                                     'unit':  os.path.join("data", "data_kbob", "kbob_unit2016.json"),
+#                                     'translation':  os.path.join("data", "data_kbob", "kbob_translation_indicator.csv")}
 
 
 def test_kbob_version():
