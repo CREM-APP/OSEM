@@ -10,7 +10,6 @@ import operator
 import fluids
 from thermo.chemical import Chemical
 
-
 import osef.networks.pandangas.network_creation as net_create
 import osef.networks.pandangas.simulation_tool as simtool
 

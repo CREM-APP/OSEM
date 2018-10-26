@@ -66,14 +66,20 @@ class Kbob:
 
         return self.unit[name_found].values[0]
 
-    def get_available_technologies(self, language="ENG"):
+    def get_available_technologies(self, language="ENG", ener_type=None):
         """
         The function return the available technology
         :param language: string - the requested language
         :return a list of available technology
         """
         self._check_language(language)
-        return list(self.data[language].values)
+
+        if ener_type is not None:
+            all_techno = self.data.loc[self.data["EnerType"] == ener_type, :]
+            return list(all_techno[language].values)
+        else:
+            return list(self.data[language].values)
+
 
     def get_available_indicators(self, language="ENG"):
         """

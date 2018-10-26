@@ -155,10 +155,16 @@ def _scenarios_kpi_plot(data_kpi, fig_name, title_name, ylabel, color=None, xlab
     tech_name = data_kpi.columns[2:]
     year_ind = np.arange(len(years), dtype=float)
 
-    # get color nad font size
+    # get color and font size
     if color is None:
         color = np.random.rand(len(tech_name), 3)
     plt.rcParams.update({'font.size': fontsize})
+
+    # check that each years is present in all scenarios
+    for sce in scenarios:
+        years_sce = data_kpi.loc[data_kpi['scenarios'] == sce, 'years']
+        if np.any(years != years_sce.values):
+            raise ValueError('Each scenarios must be computed for the same years')
 
     # create figure
     plt.figure(figsize=figsize)
