@@ -351,6 +351,54 @@ def save_pandangas_net(net, netname, pathdir=None, save_result=False):
         for id, d in enumerate(dataframe_name):
             dataframe_val[id].to_csv(os.path.join(pathdir, d))
 
+# this function is commented as it would need two additional library which is a lot for OSEF
+# import geopandas as gpd
+# from shapely.geometry import Point, LineString
+#
+# def save_panandgas_as_shp(net, pos, netname, pathdir=None, crs=None):
+#     """
+#     This function save a pandagas as a shapefile
+#     :param net: the pandas gas .net
+#     :param pos: A dict with bus name as key and coordinate as value
+#     :param netname: the name of the netpwork
+#     :param path_dir: the path where to save the file (by default current path)
+#     :param crs: the coordinate system of the file to save
+#     """
+#
+#     # get path and save directory
+#     if pathdir is None:
+#         pathdir = os.path.join(os.getcwd(), netname)
+#     else:
+#         pathdir = os.path.join(pathdir, netname)
+#     if not os.path.isdir(pathdir):
+#         os.makedirs(pathdir)
+#
+#     # get the geometry for the bus
+#     net.res_bus['geometry'] = None
+#     for n in net.res_bus.index:
+#         net.res_bus.loc[n, 'geometry'] = Point(pos[n])
+#
+#     # get the geometry for pipe
+#     net.res_pipe['geometry'] = None
+#     for n in net.res_pipe.index:
+#         bus1 = net.pipe.loc[n, 'from_bus']
+#         bus2 = net.pipe.loc[n, 'to_bus']
+#         net.res_pipe.loc[n, 'geometry'] = LineString([pos[bus1], pos[bus2]])
+#
+#     # save bus
+#     filebus = os.path.join(pathdir, netname + '_bus.shp')
+#     net.res_bus = gpd.GeoDataFrame(net.res_bus, geometry='geometry')
+#     if crs is not None:
+#         net.res_bus.crs = crs
+#     net.res_bus.to_file(filebus, driver='ESRI Shapefile')
+#
+#     # save pipes
+#     filepipe = os.path.join(pathdir, netname + '_pipe.shp')
+#     net.res_pipe = gpd.GeoDataFrame(net.res_pipe, geometry='geometry')
+#     if crs is not None:
+#         net.res_pipe.crs = crs
+#     net.res_pipe.to_file(filepipe, driver='ESRI Shapefile')
+
 
 def load_pandangaz_net(pathdir, get_initial_cond=False):
     """

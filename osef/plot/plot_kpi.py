@@ -128,7 +128,6 @@ def plot_renewable_energy(data_kpi, fig_name, title_name='', ylabel=conf.ylabelr
     _scenarios_kpi_plot(renew_out, fig_name, title_name, ylabel, color, xlabel, fontsize, width, figsize, show)
 
 
-
 def _scenarios_kpi_plot(data_kpi, fig_name, title_name, ylabel, color=None, xlabel=conf.xlabel,
                        fontsize=conf.fontsize, width=conf.width, figsize=conf.figsize, show=True):
     """

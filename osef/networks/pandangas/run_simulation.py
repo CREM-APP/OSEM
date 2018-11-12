@@ -61,7 +61,7 @@ def _run_sim_by_level(net, level):
 
     # gas parameter
     level_value = net.levels[level]
-    fluid_type = Chemical("natural gas", T=net.temperature, P=level_value + net.p_atm)
+    fluid_type = Chemical("natural gas", T=net.temperature, P=level_value * net.corr_pnom + net.p_atm)
 
     # select data for this pressure level
     netnx = uti.create_nxgraph(net, level=level)

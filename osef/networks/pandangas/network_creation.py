@@ -53,6 +53,7 @@ class _Network:
         self.solver_info = self._load_solver_info()
         self.temperature = conf.temperature  # K
         self.p_atm = conf.p_atm  # Pa
+        self.corr_pnom = conf.corr_pnom
 
         # component of the network
         self.bus = pd.DataFrame(columns=["level", "zone", "type"])
