@@ -5,3 +5,5 @@ networkx
 numpy
 thermo
 xlrd
+sqlite3
+fluid

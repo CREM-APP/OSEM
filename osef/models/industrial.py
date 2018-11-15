@@ -3,11 +3,12 @@ from scipy.integrate import odeint
 from thermo.chemical import Chemical
 from osef.models.base import Model
 
-
+#TODO DevMaster: need a clear name for the parameters the purpose is to be understood by everyone missing documentation
 class Bath(Model):
     def __init__(self, vol, area, k=200.0, t_bath_init=50.0, fluid="water", start="1/1/2000"):
         super().__init__(start)
         self.vol = vol  # [m3]
+        #TODO DevMaster: let's use self.area = area  no uppercase please
         self.A = area  # [m2]
         self.k = k  # [W/m2/K]
         self.fluid = Chemical(fluid)

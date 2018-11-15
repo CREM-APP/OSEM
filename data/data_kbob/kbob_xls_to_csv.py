@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import json
 
 
@@ -31,9 +32,10 @@ def xls_to_csv(filename, year, filename_trans_tech="kbob_translation_tech.csv",
     sheetname = "Energie Energie"
     name_base_csv = "kbob_data"
     filename_unit = "kbob_unit{}.json".format(year)
+    name_ener_type = {'utile': 'useful', 'finale': 'final'}
 
     # load raw-excel
-    df_kbob = pd.read_excel(filename, sheet_name=sheetname, skiprows=6, usecols=[4, 5, 6, 7, 8, 9, 11])
+    df_kbob = pd.read_excel(filename, sheet_name=sheetname, skiprows=6, usecols=[4, 5, 6, 7, 8, 9, 10, 11])
     if "kWh" not in filename:
         raise Warning("The kbob loaded here should be in kWh. Please check units.")
 
@@ -45,6 +47,8 @@ def xls_to_csv(filename, year, filename_trans_tech="kbob_translation_tech.csv",
     df_kbob["FRA"] = df_kbob["FRA"].str.replace(',', ' -')
     df_kbob["EP_Percent_Renew"] = 100 * (df_kbob["EP_Renew"] / df_kbob["EP_Global"])
     df_kbob.dropna(inplace=True)
+    for kstr in name_ener_type.keys():
+        df_kbob.loc[df_kbob['EnerType'].str.contains(kstr), 'EnerType'] = name_ener_type[kstr]
 
     # load and test validity of translation
     trans_data_tech = pd.read_csv(filename_trans_tech, header=0)
@@ -56,6 +60,7 @@ def xls_to_csv(filename, year, filename_trans_tech="kbob_translation_tech.csv",
 
     # add language
     df_kbob = pd.merge(df_kbob, trans_data_tech, on="FRA")
+
 
     # export
     df_kbob.to_csv(name_base_csv +year + ".csv")

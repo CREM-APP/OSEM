@@ -15,7 +15,7 @@ class Kbob:
     def __init__(self, year_id=None):
 
         # default parameter
-        self._data_folder = conf.data_folder
+        self._data_folder = conf.data_folder_kbob
         self._version_default = conf.version_default
         self._basename_unit = conf.basename_unit
         self._basename_kbob = conf.basename_kbob
@@ -29,7 +29,7 @@ class Kbob:
             self.version = self._version_default
         self.data, self.unit, self.index_translation = self._load_kbob()
 
-    def get_value(self, techno, indicator, language="ENG"):
+    def get_value(self, techno, indicator, language="ENG", ener_type=None):
         """
         This function load one value of the kbob as a function of the user choice
 
@@ -40,10 +40,19 @@ class Kbob:
         """
         self._check_language(language)
 
-        tech_found = find_string(techno, self.data[language].values.tolist(), self._cutoff)
+        # in case we only want useful or final energy
+        if ener_type is not None:
+            all_techno = self.data.loc[self.data["EnerType"] == ener_type, :]
+            all_techno = all_techno[language].values.tolist()
+        else:
+            all_techno = self.data[language].values.tolist()
+
+        # find string
+        tech_found = find_string(techno, all_techno, self._cutoff)
         indi_found_lang = find_string(indicator, self.index_translation[language], self._cutoff)
 
         indi_found = self.index_translation.loc[self.index_translation[language] == indi_found_lang, 'ENG'].values[0]
+
         return self.data.loc[self.data[language] == tech_found, indi_found].values[0]
 
     def get_units(self, choice_col):
@@ -57,14 +66,20 @@ class Kbob:
 
         return self.unit[name_found].values[0]
 
-    def get_available_technologies(self, language="ENG"):
+    def get_available_technologies(self, language="ENG", ener_type=None):
         """
         The function return the available technology
         :param language: string - the requested language
         :return a list of available technology
         """
         self._check_language(language)
-        return list(self.data[language].values)
+
+        if ener_type is not None:
+            all_techno = self.data.loc[self.data["EnerType"] == ener_type, :]
+            return list(all_techno[language].values)
+        else:
+            return list(self.data[language].values)
+
 
     def get_available_indicators(self, language="ENG"):
         """

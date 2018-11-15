@@ -1,11 +1,14 @@
 import os
 import pandas as pd
 import numpy as np
+import sqlite3
 from scipy import interpolate
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
+from collections import OrderedDict
+import warnings
 
-from osef.general.helper import find_string, func_log
+from osef.general.helper import find_string, func_logarithm, rsquared
 import osef.general.conf as conf
 
 
@@ -22,12 +25,18 @@ class Price:
         self._precision = conf.precision_price
         self._basename_price = conf.basename_price
         self._column_not_print = conf.column_not_print_price
+        self._name_tableunit = conf.name_tableunit
+        self._myind = conf.myind
         self._ref_col = conf.ref_col  # name of the column with the references
         self._nb_point_graph = conf.nb_point_graph
+        self._interp_lim = conf.interp_lim
 
         # data
         self.db_price, self._units = self._load_price_data()
         self._techno_list = list(self.db_price.keys())
+
+        # silence warning
+        warnings.filterwarnings('ignore', conf.warning_ignore)
 
     def get_technology_available(self):
         """
@@ -71,15 +80,13 @@ class Price:
 
         return self._units[techno_correct]
 
-    def get_price(self, techno_choice, price_choice, size_unit=1, interp_choice=1, param_lim_inter=None, bounds=None):
+    def get_price(self, techno_choice, price_choice, unit_size=1, interp_choice=1, param_lim_inter=None, bounds=None):
         """
         This function compute the price of the different technology.
 
-        todo : is interp_choice ok with different type or should I create three functions?
-
         :param techno_choice: string - the name of the technology of interest
         :param price_choice: string - the type of price (CAPEX, OPEX, etc)
-        :param size_unit: float - the size of unit (only one unit)
+        :param unit_size: float - the size of unit (only one unit)
         :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
                [log, spline] or a function
         :param param_lim_inter: list of float, optional - the computed parameters for the interpolations, used if the
@@ -97,30 +104,30 @@ class Price:
             lim_param = param_lim_inter[1]
 
         # check size
-        if size_unit < lim_param[0] or size_unit > lim_param[1]:
-            raise Warning("The size given is out of the interpolation range.")
+        if unit_size < lim_param[0]*(1-self._interp_lim) or unit_size > lim_param[1]*(1+self._interp_lim):
+            raise Warning("The size given is out of the interpolation range ({},{})".format(lim_param[0], lim_param[1]))
 
         # get price
         if isinstance(interp_choice, int):
-            price = np.polyval(param_inter, size_unit)
+            price = np.polyval(param_inter, unit_size)
         elif interp_choice == 'spline':
-            price = interpolate.splev(size_unit, param_inter)
-        elif interp_choice == 'log':
-            price = func_log(size_unit, *param_inter[0])
+            price = interpolate.splev(unit_size, param_inter)
+        elif interp_choice == 'logarithm':
+            price = func_logarithm(unit_size, *param_inter[0])
         elif callable(interp_choice):  # if function
-            price = interp_choice(size_unit, *param_inter[0])
+            price = interp_choice(unit_size, *param_inter[0])
         else:
             raise ValueError("The interpolation choice {} is not known.".format(str(interp_choice)))
 
         return np.float(price)
 
-    def get_price_for_many_units(self, techno_choice, price_choice, size_units, interp_choice=1, bounds=None):
+    def get_price_for_many_units(self, techno_choice, price_choice, unit_size, interp_choice=1, bounds=None):
         """
         This function compute the price of the different technology for a list of units size.
 
         :param techno_choice: string - the name of the technology of interest
         :param price_choice: string - the type of price (CAPEX, OPEX, etc)
-        :param size_units: list of float - the size of units
+        :param unit_size: list of float - the size of units
         :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
                [log, spline] or a function
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
@@ -132,7 +139,7 @@ class Price:
 
         # compute price for each size without re-computing the interpolation parameters
         all_price = []
-        for s in size_units:
+        for s in unit_size:
             price_here = self.get_price(techno_choice, price_choice, s, interp_choice, [param_inter, lim_param])
             all_price.append(price_here)
 
@@ -141,12 +148,12 @@ class Price:
     def _get_interpolation_param(self, techno_choice, price_choice, interp_choice=1, bounds=None):
         """
         This function returns the parameter for the interpolation. The interpolation choice can be an int if polynomial,
-        a function (least-square fitting) or the string "spline" or "log"
+        a function (least-square fitting) or the string "spline" or "logarithm"
 
         :param techno_choice: string - the name of the technology of interest
         :param price_choice: string - the type of price (CAPEX, OPEX, etc)
         :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
-               [log, spline] or a function
+               [logarithm, spline] or a function
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
         :return: a list with the interpolation parameters, a list with the range of the interpolation
         """
@@ -169,8 +176,8 @@ class Price:
             if len(list(set(unit_here))) != len(unit_here):
                 raise ValueError("Spline interpolation needs unique values.")
             param_inter = interpolate.splrep(unit_here, price_here, k=order_spline)
-        elif interp_choice == 'log':  # logarithmic
-            param_inter = curve_fit(func_log, unit_here, price_here, bounds=([-np.inf, 0, -np.inf], np.inf))
+        elif interp_choice == 'logarithm':  # logarithmic
+            param_inter = curve_fit(func_logarithm, unit_here, price_here, bounds=([-np.inf, 0, -np.inf], np.inf))
         elif callable(interp_choice):  # custom function
             if bounds:
                 param_inter = curve_fit(interp_choice, unit_here, price_here, bounds=bounds)
@@ -215,7 +222,7 @@ class Price:
         :param techno_choice: string - the name of the technology of interest
         :param price_choice: string - the type of price (CAPEX, OPEX, etc)
         :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
-               [log, spline] or a function
+               [logarithm, spline] or a function
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
         :param show: bool - If True, show the figure one screen and pause the execution
         :return: the matplotlib figure
@@ -228,9 +235,17 @@ class Price:
         size_units = np.linspace(lim_param[0], lim_param[1], self._nb_point_graph)
         prices_inter = self.get_price_for_many_units(techno_choice, price_choice, size_units, bounds=bounds)
 
+        # get correlation parameter
+        techno_correct, price_correct = self._get_techno_and_price(techno_choice, price_choice)
+        db_techno = self.db_price[techno_correct]
+        prices_ini = db_techno[price_correct].dropna()
+        prices_inter_r2 = self.get_price_for_many_units(techno_choice, price_choice, prices_ini.index, bounds=bounds)
+        r2 = rsquared(prices_ini, prices_inter_r2)
+
         # plot the price
         figprice = self.create_fig_price(techno_choice, price_choice, False)
         plt.plot(size_units, prices_inter)
+        plt.text(max(size_units)/20, max(prices_inter), "R^2: "+str(r2))
         if show:
             plt.show()
 
@@ -244,7 +259,11 @@ class Price:
         :param price_choice: string - the type of price (CAPEX, OPEX, etc)
         :return:
         """
+
         techno_correct = find_string(techno_choice, self._techno_list, self._cutoff)
+        if price_choice == 'OPEX':
+            price_choice = conf.opex_name
+
         price_type = [c for c in self.db_price[techno_correct].columns if c not in self._column_not_print]
         price_correct = find_string(price_choice, price_type, self._cutoff)
 
@@ -252,17 +271,34 @@ class Price:
 
     def _load_price_data(self):
         """
-        This function loads the Excel file which contain the data about the price.
-        :return: A ordered dict of DataFrame with the price data. One Dataframe by technology.
+        This function loads the sqlite database  which contain the data about the price.
+        :return: A ordered dict of DataFrame with the price data. One dataframe by technology.
                  + A dict with the technology as keys and the units as values.
         """
 
-        list_techno = pd.read_excel(os.path.join(self._data_folder, self._basename_price), sheet_name=0, index_col=0)
-        units = list_techno.iloc[:, 0].to_dict()
+        db_price = OrderedDict()
+        units = {}
 
-        # keep the two sheetname to make it run with pandas version < 0.21.0
-        db_price = pd.read_excel(os.path.join(self._data_folder, self._basename_price), sheet_name=None, index_col=0,
-                                 sheetname=None)
-        del db_price[list(db_price.keys())[0]]
+        # open database
+        db_base = sqlite3.connect(os.path.join(self._data_folder, self._basename_price))
+        cursor = db_base.cursor()
+        # read table name
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = cursor.fetchall()
+        for table_name in tables:
+            # read the whole table data and column name
+            table_name = table_name[0]
+            cursor.execute("SELECT * from {}".format(table_name))
+            table = cursor.fetchall()
+            col_name = list(map(lambda x: x[0], cursor.description))
+            # manage null before we create a pandas dataframe with mixed colmun types
+            table = [tuple((np.nan if item=='NULL' else item) for item in t) for t in table]
+            table = pd.DataFrame(data=table, columns=col_name)
+            if table_name != self._name_tableunit:
+                table = table.drop([self._myind], axis=1)
+                table.set_index(table.columns[0], inplace=True)
+                db_price[table_name] = table
+            else:
+                units = pd.Series(table.iloc[:, 1].values,index=table.iloc[:, 0]).to_dict()
 
         return db_price, units
