@@ -107,8 +107,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# Excel
-*.xlsx
+
 osem_env/
 
- .idea/workspace.xml
+.idea/workspace.xml
