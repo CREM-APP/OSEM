@@ -17,6 +17,11 @@ and different swiss political objectives will also be developed.
 
 OSEM is currently under developement and is expected to be ready for production in 2019.
 
+## Example
+
+https://github.com/CREM-APP/OSEM-example/blob/master/get_meteo_data.ipynb
+
+#TODO write requirements
 
 ## Getting Started
 
@@ -42,4 +47,9 @@ You test this module using Pytest (https://docs.pytest.org/en/latest/)
 
 You should have received a copy of the Apache License Version 2.0 along with this program.
 If not, see http://www.apache.org/licenses/LICENSE-2.0.
+
+#TODO write requirements
+
+#TODO how to intall osem
+
 
