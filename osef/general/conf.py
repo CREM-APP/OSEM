@@ -79,7 +79,7 @@ p_atm = 101325
 scaling = 1
 min_p_pa = 0.022E5
 mat_default = 'steel'
-corr_pnom = 0.85  # the ratio between the max pressure (p_nom) and the average pressure of the network
+corr_pnom = 1 # the ratio between the max pressure (p_nom) and the average pressure of the network
 
 default_solver_option= {'tol_mat_mass': 1e-10,
                         'tol_mat_pres': 1e-10,
