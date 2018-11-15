@@ -109,3 +109,6 @@ venv.bak/
 
 # Excel
 *.xlsx
+osem_env/
+
+ .idea/workspace.xml
