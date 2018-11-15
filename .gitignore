@@ -8,6 +8,7 @@ __pycache__/
 
 # PyCharm
 .idea
+.idea/*
 
 # Distribution / packaging
 .Python
@@ -106,5 +107,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# Excel
-*.xlsx
+
+osem_env/
+
+.idea/workspace.xml
