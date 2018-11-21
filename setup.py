@@ -13,9 +13,9 @@ setup(
 
     packages=find_packages(),
 
-    author="Pablo Puerto",
+    author="CREM",
 
-    author_email="osef@crem.ch",
+    author_email="osem@crem.ch",
 
     description="Open Source Energy Features: dedicated tools and methods for energy related models and applications",
 
