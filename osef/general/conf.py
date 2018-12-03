@@ -93,3 +93,6 @@ default_solver_option= {'tol_mat_mass': 1e-10,
 
 filename_info_solver = 'pandangas_info_solver_option.json'
 
+# initial conditions for the minimisation, need to be global to be stopped during the run
+global solution_minimisation
+

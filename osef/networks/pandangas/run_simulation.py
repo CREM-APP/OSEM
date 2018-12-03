@@ -18,9 +18,9 @@ import osef.networks.pandangas.network_creation as net_create
 import osef.networks.pandangas.simulation_tool as simtool
 
 # initial conditions for the minimisation, need to be global to be stopped during the run
-global sol0
+global solution_minimisation
 
-
+#TODO change
 def runpg(net, solver_option=None):
     """
     This is the main function used to run a pandangas simulation
@@ -95,7 +95,7 @@ def _run_sim_by_level(net, level):
 
     # get one solution to the equation representing mass conservation
     res = lsqr(mat_all, m_dot_nodes, atol=net.solver_option['tol_mat_mass'], btol=net.solver_option['tol_mat_mass'])
-    sol0 = res[0]
+    solution_minimisation = res[0]
     if net.solver_option['disp']:
         print('find null space for the mass equation: done.')
 
@@ -109,7 +109,7 @@ def _run_sim_by_level(net, level):
     # if we have more than one possibility as solution, minimize
     if nullity_mass > 0:
         m0 = np.random.rand(nullity_mass)
-        args_mass = (z_i_mat, sol0, net.v_max, diam, row0, col0, leng, roughness, fluid_type,
+        args_mass = (z_i_mat, solution_minimisation, net.v_max, diam, row0, col0, leng, roughness, fluid_type,
                      net.solver_option, pinv_pres, p_noms, mat_pres, mat_all, m_dot_nodes)
         options = {'maxiter': net.solver_option['maxiter'], 'gtol': net.solver_option['gtol'],
                    'disp': net.solver_option['disp']}
@@ -120,11 +120,11 @@ def _run_sim_by_level(net, level):
             res = minimize(_compute_mass_and_pres, m0, method='BFGS', args=args_mass, options=options)
             # all solution are the  "basic" solution + residual, cf. linear algebra.
             print(res)
-            sol = sol0 + z_i_mat.dot(res.x)
+            sol = solution_minimisation + z_i_mat.dot(res.x)
         except SmallEnoughGoodException:
-            sol = sol0 + z_i_mat.dot(res.x)
+            sol = solution_minimisation + z_i_mat.dot(res.x)
     else:
-        sol = sol0
+        sol = solution_minimisation
 
     # separate the result
     m_dot_pipes = sol[:col0]
