@@ -1,11 +1,10 @@
 import numpy as np
 from scipy.integrate import odeint
-from osef.models.base import Model, tau_model
+from osem.models.base import Model, tau_model
 
 
 class HeatPump(Model):
     """Model class of a HP dynamic model based on a ratio of the theoretical COP of Carnot"""
-    #TODO DevMaster: need a clear name for the parameters the purpose is to be understood by everyone missing documentation
 
     def __init__(self, p_max, t_snk, t_src, n_th=0.4, tau=60.0, io_init=0.0, start="1/1/2000"):
         super().__init__(start)

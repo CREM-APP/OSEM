@@ -1,9 +1,8 @@
-from osef.models.base import Model
+from osem.models.base import Model
 
 
 class Hysteresis(Model):
     """Model class of a hysteresis controller"""
-    #TODO DevMaster: What is the purpose of this class missing documentation
 
     def __init__(self, x_max=1.0, x_min=0.0, y_init=0, start="1/1/2000"):
         super().__init__(start)

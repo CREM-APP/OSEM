@@ -1,9 +1,9 @@
 
 
-"""
-This script calls the gas simulation for the different pressure levels. It starts with the lower levels and
-run through each level. It also manage the output from the simulation.
-"""
+
+# This script calls the gas simulation for the different pressure levels. It starts with the lower levels and
+# run through each level. It also manage the output from the simulation.
+
 
 import fluids
 from thermo.chemical import Chemical
@@ -13,21 +13,21 @@ from numpy.linalg import pinv
 import operator
 import numpy as np
 
-import osef.networks.pandangas.utilities as uti
-import osef.networks.pandangas.network_creation as net_create
-import osef.networks.pandangas.simulation_tool as simtool
+import osem.networks.pandangas.utilities as uti
+import osem.networks.pandangas.network_creation as net_create
+import osem.networks.pandangas.simulation_tool as simtool
 
 # initial conditions for the minimisation, need to be global to be stopped during the run
 global sol0
 
-
 def runpg(net, solver_option=None):
     """
-    This is the main function used to run a pandangas simulation
-    :param net: A pandangas network
-    :param solver_option: the option for the solver
-    :return:
-    """
+    used to run a pandangas simulation. In other word, this is the main function to call to use this module after having created a natural gas network.
+
+	:param net: A pandangas network
+	:param solver_option: the option for the solver (dict)
+	:return: a pandangas network
+	"""
 
     # prepare simulation
     net = uti.erase_results(net)
@@ -53,7 +53,8 @@ def runpg(net, solver_option=None):
 
 def _run_sim_by_level(net, level):
     """
-    This function computes the gas simulation for one level
+    computes the gas simulation for one pressure level.
+
     :param net: the pangandgas network
     :param level: the considered pressure level
     :return: a pandasgas network
@@ -111,17 +112,15 @@ def _run_sim_by_level(net, level):
         m0 = np.random.rand(nullity_mass)
         args_mass = (z_i_mat, sol0, net.v_max, diam, row0, col0, leng, roughness, fluid_type,
                      net.solver_option, pinv_pres, p_noms, mat_pres, mat_all, m_dot_nodes)
-        options = {'maxiter': net.solver_option['maxiter'], 'gtol': net.solver_option['gtol'],
-                   'disp': net.solver_option['disp']}
+        options = {'maxiter': net.solver_option['maxiter'], 'disp': net.solver_option['disp']}
         _compute_mass_and_pres.niter = 0  # attach a variable to a function
 
         try:
             # As we have more than on solution, we test many of them to find the one which fits the pressure equ.
-            res = minimize(_compute_mass_and_pres, m0, method='BFGS', args=args_mass, options=options)
+            res = minimize(_compute_mass_and_pres, m0, method='SLSQP', args=args_mass, options=options)
             # all solution are the  "basic" solution + residual, cf. linear algebra.
-            print(res)
             sol = sol0 + z_i_mat.dot(res.x)
-        except SmallEnoughGoodException:
+        except _SmallEnoughGoodException:
             sol = sol0 + z_i_mat.dot(res.x)
     else:
         sol = sol0
@@ -134,7 +133,6 @@ def _run_sim_by_level(net, level):
     v, load_pipes = simtool._v_from_m_dot(diam, m_dot_pipes, fluid_type, net.v_max)
 
     # copmute pressure
-    print(m_dot_pipes)
     p_loss = simtool._dp_from_m_dot_vec(m_dot_pipes, leng, diam, roughness, fluid_type)*(-1)
     p_loss = np.append(p_loss, p_noms)
     p_nodes = pinv_pres.dot(p_loss)
@@ -178,7 +176,7 @@ def _compute_mass_and_pres(m0, *args):
     """
     This function compute the mass, knowning a first solution to the equation and the null of the modified incidence
     maxtrix. It return the man of the pressure loss which is minimized.
-    :return:
+
     """
     z_i_mat, sol1, v_max, diam, row0, col0, leng, roughness, fluid_type, solver_option, pinv_pres, p_noms, \
     mat_pres,mat_all, m_dot_nodes= args
@@ -200,13 +198,13 @@ def _compute_mass_and_pres(m0, *args):
     _compute_mass_and_pres.niter+=1
 
     if abs(residual) < solver_option['min_residual']:
-        # raise SmallEnoughGoodException
+        # raise _SmallEnoughGoodException
         return residual
     else:
         return residual
 
 
-class SmallEnoughGoodException(Warning):
+class _SmallEnoughGoodException(Warning):
     """
     The scipy.minimize function cannot be stopped if the function value reach a certain level considered small enough
     (like 100% load for example). So this is a hack to be able to do this anyway. So this class is not an exception, it

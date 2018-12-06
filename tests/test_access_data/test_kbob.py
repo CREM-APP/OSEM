@@ -1,6 +1,6 @@
 import pytest
 import os
-from osef.access_data import Kbob
+from osem.access_data import Kbob
 
 
 def test_check_language():
@@ -26,10 +26,10 @@ def test_get_value():
 
 def test_get_units():
     kbob = Kbob()
-    assert kbob.get_units(choice_col="EP renew") == "kWh_oil_eq"
+    assert kbob.get_units(indicator="EP renew") == "kWh_oil_eq"
 
     with pytest.raises(Exception):
-        kbob.get_units(choice_col="nabila")
+        kbob.get_units(indicator="nabila")
 
 
 def test_get_available_technologies():

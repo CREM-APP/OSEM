@@ -55,15 +55,20 @@ month_name = ['january', 'february', 'march', 'april', 'may', 'june','july', 'au
 # default value for the plot
 
 # plot kpi
-xlabel = 'Years'
 ylabelco2 = 'CO$_{2}$ emission [kg]'
 ylabelfinal = 'Final Energy [kWh]'
 ylabelprimary = 'Primary Energy [kWh]'
 ylabelrenew = 'Primary Energy [kWh]'
 renew_colname = ['years', 'scenarios','renewable', 'non-renewable']
-fontsize =12
-width = 0.2
-figsize = (8,8)
+opt_plot = {'fontsize': 12,
+            'width_scenario': 0.2,  # width for plot with many bar
+            'width_pres': 0.9,  # width for plot with one bar
+            'figsize': (8, 8),
+            'xlabel_scenario' : 'Years',
+            'xlabel_pres': '',
+            'ylabel': None,
+            'color': None,
+            'title_name': ''}
 
 
 #############################################################
@@ -84,7 +89,6 @@ corr_pnom = 1 # the ratio between the max pressure (p_nom) and the average press
 default_solver_option= {'tol_mat_mass': 1e-10,
                         'tol_mat_pres': 1e-10,
                         'maxiter': 1e7,
-                        'gtol': 1e-5,
                         'round_num': 5,
                         'disp' : False,
                         'min_residual': 3,

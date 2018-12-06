@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 import warnings
 
-from osef.general.helper import find_string, func_logarithm, rsquared
-import osef.general.conf as conf
+from osem.general.helper import find_string, func_logarithm, rsquared
+import osem.general.conf as conf
 
 
 class Price:
     """
-    This class loads and interpolate the price data
+    This class loads and interpolates the price data.
     """
 
     def __init__(self):
@@ -40,14 +40,15 @@ class Price:
 
     def get_technology_available(self):
         """
-        This function return the list of technology available
+        returns the list of technologies available.
         """
         return self._techno_list
 
     def get_type_of_price_available(self, techno_choice):
         """
-        This function return the type of price (installation, CAPEX, maintenance, etc.) available for the technology
-        :param techno_choice: string - the name of the technology of interest
+        returns the type of price (installation, CAPEX, maintenance, etc.) available for the technology chosen.
+
+        :param techno_choice: the name of the technology of interest (string)
         """
         techno_correct = find_string(techno_choice, self._techno_list, self._cutoff)
         price_type = [c for c in self.db_price[techno_correct].columns if c not in self._column_not_print]
@@ -56,9 +57,10 @@ class Price:
 
     def get_reference_for_price(self, techno_choice, price_choice):
         """
-        This function return the references used to compute the price
-        :param techno_choice: string - the name of the technology of interest
-        :param price_choice: string - the type of price (CAPEX, OPEX, etc)
+        returns the references used to compute the price.
+
+        :param techno_choice: the name of the technology of interest (string)
+        :param price_choice: the type of price (CAPEX, OPEX, etc. - string)
         :return: a Series with the unit size as key and reference as values
         """
         # find correct string
@@ -71,9 +73,10 @@ class Price:
 
     def get_units(self, techno_choice):
         """
-        This function returns the type of units for each technology. In other words, is the price given by m2, by kW or
+        returns the type of units for each technology. In other words, is the price given by m2, by kW or
         by m, etc.
-        :param techno_choice: string - the name of the technology of interest
+
+        :param techno_choice: the name of the technology of interest (string)
         :return: a string representing the unit
         """
         techno_correct = find_string(techno_choice, self._techno_list, self._cutoff)
@@ -82,15 +85,15 @@ class Price:
 
     def get_price(self, techno_choice, price_choice, unit_size=1, interp_choice=1, param_lim_inter=None, bounds=None):
         """
-        This function compute the price of the different technology.
+        computes the price of the different technologies.
 
-        :param techno_choice: string - the name of the technology of interest
-        :param price_choice: string - the type of price (CAPEX, OPEX, etc)
-        :param unit_size: float - the size of unit (only one unit)
-        :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
-               [log, spline] or a function
-        :param param_lim_inter: list of float, optional - the computed parameters for the interpolations, used if the
-               same computation is done many times.
+        :param techno_choice: the name of the technology of interest (string)
+        :param price_choice: the type of price (CAPEX, OPEX, etc - string)
+        :param unit_size: the size of unit (float)
+        :param interp_choice: the type of interpolation, can be polynomial (int) or the strings
+               [log, spline] or a function (string/int/function)
+        :param param_lim_inter: the computed parameters for the interpolations, used if the
+               same computation is done many times (list of float, optional)
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
         :return: the price as float
         """
@@ -123,13 +126,13 @@ class Price:
 
     def get_price_for_many_units(self, techno_choice, price_choice, unit_size, interp_choice=1, bounds=None):
         """
-        This function compute the price of the different technology for a list of units size.
+        computes the price of the different technologies for a list of units size.
 
-        :param techno_choice: string - the name of the technology of interest
-        :param price_choice: string - the type of price (CAPEX, OPEX, etc)
-        :param unit_size: list of float - the size of units
-        :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
-               [log, spline] or a function
+        :param techno_choice: the name of the technology of interest (string)
+        :param price_choice: the type of price (CAPEX, OPEX, etc - string)
+        :param unit_size: the size of units (list of float)
+        :param interp_choice: the type of interpolation, can be polynomial (int) or the strings
+               [log, spline] or a function (string/int/function)
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
         :return: list of float with the price
         """
@@ -147,13 +150,13 @@ class Price:
 
     def _get_interpolation_param(self, techno_choice, price_choice, interp_choice=1, bounds=None):
         """
-        This function returns the parameter for the interpolation. The interpolation choice can be an int if polynomial,
+        returns the parameter for the interpolation. The interpolation choice can be an int if polynomial,
         a function (least-square fitting) or the string "spline" or "logarithm"
 
-        :param techno_choice: string - the name of the technology of interest
-        :param price_choice: string - the type of price (CAPEX, OPEX, etc)
-        :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
-               [logarithm, spline] or a function
+        :param techno_choice: the name of the technology of interest (string)
+        :param price_choice: the type of price (CAPEX, OPEX, etc) - (string)
+        :param interp_choice: the type of interpolation, can be polynomial (int) or the strings
+               [logarithm, spline] or a function (string/int/function)
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
         :return: a list with the interpolation parameters, a list with the range of the interpolation
         """
@@ -193,11 +196,12 @@ class Price:
 
     def create_fig_price(self, techno_choice, price_choice, show=True):
         """
-        This function creates a figure which shows the unit (x-axis) and price (y-axis) to help to prepare the user
-        for the interpolation.
-        :param techno_choice: string - the name of the technology of interest
-        :param price_choice: string - the type of price (CAPEX, OPEX, etc)
-        :param show: Bool - If True, show the figure one screen and pause the execution
+        creates a figure which shows the unit (x-axis) and price (y-axis) to investigate the data 
+        before the interpolation.
+
+        :param techno_choice: the name of the technology of interest (string)
+        :param price_choice:  the type of price (CAPEX, OPEX, etc - string)
+        :param show: If True, show the figure one screen and pause the execution (boolean)
         :return: the matplotlib figure
         """
         # find correct string
@@ -217,14 +221,15 @@ class Price:
 
     def create_fig_interpolation(self, techno_choice, price_choice, interp_choice, show=True, bounds=None):
         """
-        This function creates a figure which shows the unit (x-axis) and price (y-axis) with the interpolation
-        to judge the quality of the interpolation
-        :param techno_choice: string - the name of the technology of interest
-        :param price_choice: string - the type of price (CAPEX, OPEX, etc)
-        :param interp_choice: string/int/function - the type of interpolation, can be polynomial (int) or the strings
-               [logarithm, spline] or a function
+        creates a figure which shows the unit (x-axis) and price (y-axis) with the interpolation
+        to judge the quality of the interpolation.
+
+        :param techno_choice: the name of the technology of interest (string)
+        :param price_choice:  the type of price (CAPEX, OPEX, etc - string)
+        :param interp_choice: the type of interpolation, can be polynomial (int) or the strings
+               [logarithm, spline] or a function (string/int/function)
         :param bounds: 2-tuple of array_like, optional - lower and upper bounds on parameters.
-        :param show: bool - If True, show the figure one screen and pause the execution
+        :param show: If True, show the figure one screen and pause the execution (boolean)
         :return: the matplotlib figure
         """
 
@@ -253,10 +258,11 @@ class Price:
 
     def _get_techno_and_price(self, techno_choice, price_choice):
         """
-        This function takes the string from the user with his/her choice of technology and price and return them in the
-        correct form
-        :param techno_choice: string - the name of the technology of interest
-        :param price_choice: string - the type of price (CAPEX, OPEX, etc)
+        takes the string from the user with his/her choice of technology and type of price and returns them in the
+        correct form.
+
+        :param techno_choice: the name of the technology of interest (string)
+        :param price_choice: the type of price (CAPEX, OPEX, etc. - string)
         :return:
         """
 
@@ -272,6 +278,7 @@ class Price:
     def _load_price_data(self):
         """
         This function loads the sqlite database  which contain the data about the price.
+
         :return: A ordered dict of DataFrame with the price data. One dataframe by technology.
                  + A dict with the technology as keys and the units as values.
         """

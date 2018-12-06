@@ -1,6 +1,6 @@
 import networkx as nx
 
-#TODO DevMaster: need a clear name for the parameters the purpose is to be understood by everyone missing documentation
+
 def create_edges_from_xy_df(df, from_x_key, from_y_key, to_x_key, to_y_key, dict_attr_key=None, g=None):
     if not g:
         g = nx.Graph()

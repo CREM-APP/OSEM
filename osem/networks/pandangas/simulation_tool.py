@@ -12,7 +12,8 @@ def _scaled_loads(net, load_level0, level):
     """
     This function passes the loads from kW to kg/s using the LHV parameter and add the load linked
     to the station of the lower pressure network
-    :param the pandangas network
+
+    :param net: the pandangas network
     :param load_level0: the load from this level in a Dataframe
     :param lhv: param to pass from kW to kg/s
     :param level: the gas level (string)
@@ -37,6 +38,7 @@ def _scaled_loads(net, load_level0, level):
 def _i_mat(graph):
     """
     the incidence matrix of the gas network for this pressure level
+
     :param graph: a networkx graphc
     """
     return np.asarray(nx.incidence_matrix(graph, oriented=True).todense())
@@ -77,8 +79,7 @@ def i_mat_for_pressure(i_mat, ind_feeder):
     """
     This function add to the matrix representing the equations of the pressure (saying that the pressure loss
     is equal to the pressure difference between two nodes) the "equations" saying that the feeder is at the nominal
-    pressure
-    :return:
+    pressure.
     """
     mat_pres = i_mat.T
 
@@ -108,8 +109,9 @@ def _create_node_mass(netnx, bus_level, load_level):
     """
     This function create the mass for the node and add nan if the mass is to be found (feeder).
     It also return the index where the feeder/station is and the sum of the load
+
     :param netnx: the networkx graph for this pressure level
-    :param bus_level: the bus ofr this level
+    :param bus_level: the bus for this level
     :param load_level: the load for this level
     :return:
     """
@@ -131,7 +133,8 @@ def _create_node_mass(netnx, bus_level, load_level):
 
 def _v_from_m_dot(diameter, m_dot, fluid, v_max):
     """
-    get the velocity and the load in the pipe (lod in %)
+    get the velocity and the load in the pipe (load in %)
+
     :param diameter: the diamter of the pipe
     :param m_dot: the mass in the pipe
     :param fluid: the characterisitc of the fluid
@@ -146,6 +149,7 @@ def _v_from_m_dot(diameter, m_dot, fluid, v_max):
 def _eq_mass_pipe(m_dot_nodes, i_mat, tol_mat_mass):
     """
     compute the mass in the pipes knowning the mass in the nodes assuming i_mat is sparse
+
     :param m_dot_nodes: the mass at the node (full, so with an hyopthesis on the mass at the feeder)
     :param i_mat: incidence matrix
     :param m_dot_pipes: np.array - the mass in the pipe
@@ -173,6 +177,7 @@ def _dp_from_m_dot_vec(m_dot, l, d, e, fluid):
 def _print_minimize_state(p_nodes, residual, iter):
     """
     This function print the current state of the minimization for the pressure equation
+
     :param p_nodes: the pressure in the nodes
     :param residual: the resiudal of the pressure equation
     :param iter: the current iteration

@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
-from osef.access_data import Price
-from osef.general.helper import func_logarithm
+from osem.access_data import Price
+from osem.general.helper import func_logarithm
 
 
 def test_get_info_price():

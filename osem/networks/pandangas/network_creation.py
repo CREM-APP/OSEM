@@ -1,45 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-    This script contains the class definition of a gas network and the function used to create this network
-    and its components.
 
-    Usage:
-
-    import osef.pandangas as pg
-
-    net = pg.create_empty_network()
-
-    busf = pg.create_bus(net, level="MP", name="BUSF")
-    bus0 = pg.create_bus(net, level="MP", name="BUS0")
-
-    bus1 = pg.create_bus(net, level="BP", name="BUS1")
-    bus2 = pg.create_bus(net, level="BP", name="BUS2")
-    bus3 = pg.create_bus(net, level="BP", name="BUS3")
-
-    pg.create_load(net, bus2, p_kW=10.0, name="LOAD2")
-    pg.create_load(net, bus3, p_kW=13.0, name="LOAD3")
-
-    pg.create_pipe(net, busf, bus0, length_m=100, diameter_m=0.05, name="PIPE0")
-    pg.create_pipe(net, bus1, bus2, length_m=400, diameter_m=0.05, name="PIPE1")
-    pg.create_pipe(net, bus1, bus3, length_m=500, diameter_m=0.05, name="PIPE2")
-    pg.create_pipe(net, bus2, bus3, length_m=500, diameter_m=0.05, name="PIPE3")
-
-    pg.create_station(net, bus0, bus1, p_lim_kW=50, p_Pa=0.025E5, name="STATION")
-    pg.create_feeder(net, busf, p_lim_kW=50, p_Pa=0.9E5, name="FEEDER")
-
-"""
 import pandas as pd
 import os
 import json
-import osef.general.conf as conf
+import osem.general.conf as conf
 
 
 class _Network:
-    """"
-    A class which define a pandangas network
     """
+    A class which defines a pandangas network.
+	
+    This script contains the class definition of a gas network and the functions used to create this network
+    and its components.
+
+"""
+
     def __init__(self):
 
         # data
@@ -72,7 +49,7 @@ class _Network:
 
     def _load_solver_info(self):
         """
-        This function load a json file which details the information realted to the solver option
+        load a json file which details the information realted to the solver option
         :return: the info in a string
         """
 
@@ -135,7 +112,7 @@ def _change_bus_type(net, bus, bus_type):
 
 def _try_existing_bus(net, bus):
     """
-    Check if a bus exist on a given network, raise ValueError and log an error if not
+    Checks if a bus exist on a given network, raise ValueError and log an error if not
 
     :param net: the given network
     :param bus: the bus to check existence
@@ -178,7 +155,34 @@ def _check_level(net, bus_a, bus_b, same=True):
 
 def create_empty_network():
     """
-    Create an empty network
+    Creates an empty network.
+
+    Here is an example of usage to fill in this empty network:
+
+    .. highlight:: python
+    .. code-block:: python
+    
+        import osef.pandangas as pg
+
+        net = pg.create_empty_network()
+
+        busf = pg.create_bus(net, level="MP", name="BUSF")
+        bus0 = pg.create_bus(net, level="MP", name="BUS0")
+
+        bus1 = pg.create_bus(net, level="BP", name="BUS1")
+        bus2 = pg.create_bus(net, level="BP", name="BUS2")
+        bus3 = pg.create_bus(net, level="BP", name="BUS3")
+
+        pg.create_load(net, bus2, p_kW=10.0, name="LOAD2")
+        pg.create_load(net, bus3, p_kW=13.0, name="LOAD3")
+
+        pg.create_pipe(net, busf, bus0, length_m=100, diameter_m=0.05, name="PIPE0")
+        pg.create_pipe(net, bus1, bus2, length_m=400, diameter_m=0.05, name="PIPE1")
+        pg.create_pipe(net, bus1, bus3, length_m=500, diameter_m=0.05, name="PIPE2")
+        pg.create_pipe(net, bus2, bus3, length_m=500, diameter_m=0.05, name="PIPE3")
+
+        pg.create_station(net, bus0, bus1, p_lim_kW=50, p_Pa=0.025E5, name="STATION")
+        pg.create_feeder(net, busf, p_lim_kW=50, p_Pa=0.9E5, name="FEEDER")
 
     :return: a Network object that will later contain all the buses, pipes, etc.
     """
@@ -187,7 +191,7 @@ def create_empty_network():
 
 def create_bus(net, level, name, zone=None, check=True):
     """
-    Create a bus on a given network
+    Creates a bus on a given network
 
     :param net: the given network
     :param level: nominal pressure level of the bus
@@ -211,7 +215,7 @@ def create_bus(net, level, name, zone=None, check=True):
 def create_pipe(net, from_bus, to_bus, length_m, diameter_m, name, material=conf.mat_default, in_service=True, check=True):
 
     """
-    Create a pipe between two existing buses on a given network
+    Creates a pipe between two existing buses on a given network
 
     :param net: the given network
     :param from_bus: the name of the already existing bus where the pipe starts
@@ -238,7 +242,7 @@ def create_pipe(net, from_bus, to_bus, length_m, diameter_m, name, material=conf
 
 def create_load(net, bus, p_kW, name, min_p_pa=conf.min_p_pa, scaling=conf.scaling):
     """
-    Create a load attached to an existing bus in a given network
+    Creates a load attached to an existing bus in a given network
 
     :param net: the given network
     :param bus: the existing bus
@@ -257,7 +261,7 @@ def create_load(net, bus, p_kW, name, min_p_pa=conf.min_p_pa, scaling=conf.scali
 
 def change_load(net, name_load_bus, p_kW, add=False, bybusname=False):
     """
-    this function add a load to an existing load. For example, it
+    adds a load to an existing load. For example, it
     can be used if more than one house is connected to a network end.
     If add is True, the load is added to the old load and not directly changed.
 
@@ -282,7 +286,7 @@ def change_load(net, name_load_bus, p_kW, add=False, bybusname=False):
 
 def create_feeder(net, bus, p_lim_kW, p_Pa, name):
     """
-    Create a feeder attached to an existing bus in a given network
+    Creates a feeder attached to an existing bus in a given network
 
     :param net: the given network
     :param bus: the existing bus
@@ -300,7 +304,7 @@ def create_feeder(net, bus, p_lim_kW, p_Pa, name):
 
 def create_station(net, bus_high, bus_low, p_lim_kW, p_Pa, name):
     """
-    Create a pressure station between two existing buses on different pressure level in a given network
+    Creates a pressure station between two existing buses on different pressure level in a given network
 
     :param net: the given network
     :param bus_high: the existing bus with higher nominal pressure
@@ -324,21 +328,22 @@ def create_station(net, bus_high, bus_low, p_lim_kW, p_Pa, name):
 
 def set_pressure_level(net, levels):
     """
-    This function set the pressure levels of pandangas network. The pressure levels are in Pascal.
+    sets the pressure levels of pandangas network. The pressure levels are in Pascal.
+
     :param net: a pandangas network
     :param levels: a dictionnary where the keys are the name of the pressure level and the keys the value.
-           default_level = {"HP": 5.0E5, "MP": 1.0E5, "BP+": 0.1E5, "BP": 0.025E5}
     """
 
     net.levels = levels
 
 
-def set_temperature(net, temp, celsius=True):
+def set_temperature(net, temp, celsius=False):
     """
-    This function set the exterior temperature of the network
+    sets the exterior temperature of the network
+
     :param net: a pandangas network
-    :param temp: the tempeature in Celsius or Kelvin
-    :param celsius: if True, the temperature is in Celsius otherwise in Kelvin
+    :param temp: the temperature in Celsius or Kelvin
+    :param celsius: if True, the temperature is in Celsius,  otherwise it is in Kelvin
     """
     if celsius:
         net.temperature = temp + 273.15
@@ -348,17 +353,19 @@ def set_temperature(net, temp, celsius=True):
 
 def set_pressure(net, p_atm):
     """
-    This function set the exterior pressure of the network in Pascal
+    sets the exterior pressure of the network in Pascal
+
     :param net: a pandangas network
-    :param p_atm:
+    :param p_atm: the exterio pression (Pa)
     """
     net.p_atm = p_atm
 
 
 def set_solver_option(net, solver_option=None):
     """
-    The function to set the solver option used to solve the equations
-    :param net: the pandasgaz network
+    sets the solver option used to solve the equations.
+
+    :param net: the pandangas network
     :param solver_option: the dict given by the user with custom options or none
     """
 
@@ -369,8 +376,9 @@ def set_solver_option(net, solver_option=None):
 
 def get_solver_info(net):
     """
-    This function print the information related to the solver option
-    :param net:
+     prints the information related to the solver option.
+
+    :param net: the pandangas network
     """
     print('Here are the current solver options: ')
     print(net.solver_option)

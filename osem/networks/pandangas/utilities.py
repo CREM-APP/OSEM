@@ -10,16 +10,17 @@ import operator
 import fluids
 from thermo.chemical import Chemical
 
-import osef.networks.pandangas.network_creation as net_create
-import osef.networks.pandangas.simulation_tool as simtool
+import osem.networks.pandangas.network_creation as net_create
+import osem.networks.pandangas.simulation_tool as simtool
 
 
 def check_network_result(net, lim_mass=1e-4, lim_pres=2):
     """
-    This functions check if the result of a simulation makes sens. to this end, mass conservation and
-    pressure conservation are computed
+    checks if the result of a simulation makes sense. To this end, mass conservation and
+    pressure conservation are computed.
+
     :param net: A pandagas network which have been simulated (so net.res_bus exists)
-    :param lim_mass: An accecptable error on the mass
+    :param lim_mass: An acceptable error on the mass
     :return: True if network satisfy the conditions of mass and pressure conservation , False otherwise
     """
 
@@ -66,10 +67,11 @@ def check_network_result(net, lim_mass=1e-4, lim_pres=2):
 
 def check_for_empty_load(net, default_load=0):
     """
-    Pandangas do not function if there are pipe which are at the network end without a load. This function
-    check that all end pipes have a load. If not, it changes these end pipes to a loaf of the default_load values.
+    Checks if there are pipes which are at the network ends without a load. If not, it changes these end pipes to a
+    load of the default_load values. It can be useful to stabilize the solver.
+
     :param net: a pandangaz network
-    :param default_load: the load to add to "alone" pipe
+    :param default_load: the load to add to end pipes without a load
     :return: net: an updated pandangas network with no end pipe without a load
     """
     # get all pipe at the end of the network
@@ -90,8 +92,9 @@ def check_for_empty_load(net, default_load=0):
 
 def check_duplicates(net):
     """
-    This function check for duplicate names in a pandasgas network. It raise an error if there is duplcate names
-    :param net: a pandasgas network
+    checks for duplicate names in a pandasgas network. It raise an error if there is duplicate names.
+
+    :param net: a pandangas network
     :return: None
     """
     if np.any(net.bus.index.duplicated()):
@@ -106,9 +109,10 @@ def check_duplicates(net):
 
 def erase_results(net):
     """
-    This function erase the result of a simulation. Automatically done at a start of a new simulation.
+    erases the result of a simulation. Automatically done at a start of a new simulation.
+
     :param net: a pandangas network
-    :return the same network with empty result
+    :return: the same network with empty result
     """
     net.res_bus.drop(net.res_bus.index, inplace=True)
     net.res_pipe.drop(net.res_pipe.index, inplace=True)
@@ -161,7 +165,8 @@ def create_nxgraph(net, level=None, only_in_service=True, directed=True):
 
 def _get_data_by_edge(netnx, data_type):
     """
-    This function return the data ordered as the edge of the network
+    returns the data ordered as the edge of the network
+
     :param netnx: the graph
     :param data_type: the type of data need
     :return: an np.array iwht the data ordered as in the edge
@@ -173,7 +178,8 @@ def _get_data_by_edge(netnx, data_type):
 
 def _create_empty_result(net):
     """
-    This function creates a list of dataframe with all result value set to zeros
+    creates a list of dataframe with all result value set to zeros
+
     :param net:
     :return: a net with res_bus, res_pipe, res_feeder and res_station at a value of zeros
     """
@@ -188,7 +194,8 @@ def _create_empty_result(net):
 
 def draw_network_gas(net, pos=None, show=True):
     """
-    This function plot a gas network created by pandangaz.
+    plots a gas network created by pandangaz.
+
     :param net: A network created by pandangaz
     :param pos: The coordinates of the node (optional)
     :param show: If True, it will show the figure now
@@ -228,10 +235,11 @@ def draw_network_gas(net, pos=None, show=True):
 
 def draw_results(net, pos=None, show=True, maxloading=300):
     """
-    This function plot the output from a pandas gaz models. No plt.show() in the function.
+    plot the outputs from a pandangaz model.
+
     :param net: A network created by pandangaz
     :param pos: The coordinates of the node (optional)
-    :param show: If Tue, the result are shown
+    :param show: If True, the result are shown
     :param maxloading: for the colorbar, the max of the load (sometimes there are short pipe with high load)
     """
     # prepare a network for plotting
@@ -323,9 +331,10 @@ def draw_results(net, pos=None, show=True, maxloading=300):
 
 def save_pandangas_net(net, netname, pathdir=None, save_result=False):
     """
-    This function save a pandangaz network to csv files (one csv by dataframe in a folder)
+    saves a pandangaz network to csv files (one csv by dataframe in a folder)
+
     :param net: the pandasgas network
-    :param netname: the name of thei network (string)
+    :param netname: the name of the network (string)
     :param pathdir: the path where to save the file (by default current path)
     :param save_result: If True, save the model result also
     """
@@ -402,7 +411,8 @@ def save_pandangas_net(net, netname, pathdir=None, save_result=False):
 
 def load_pandangaz_net(pathdir, get_initial_cond=False):
     """
-    Load a pandasngas network which was created though the save_pandangas_net() function.
+    Load a pandangas network which was created though the save_pandangas_net() function.
+
     :param pathdir: the path to the folder
     :return: a pandasgas network and the initial condition (if get_initial cond is True)
     """
@@ -430,7 +440,8 @@ def load_pandangaz_net(pathdir, get_initial_cond=False):
 
 def check_for_connectivity(net, pos=None, show=True):
     """
-    This function check if all the nodes of a pandangaz network are connected. No check for pressure.
+    This function checks if all the nodes of a pandangaz network are connected. No check for pressure.
+
     :param net: A pandangas network
     :param show: If True, show an image with the different network when more than one network.
     :return: True if all connectec, False otherwise

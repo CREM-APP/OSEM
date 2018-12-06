@@ -1,12 +1,12 @@
 import os
 import pandas as pd
-from osef.general.helper import find_string
-import osef.general.conf as conf
+from osem.general.helper import find_string
+import osem.general.conf as conf
 
 
 class PoliticalObjective:
     """
-    This class loads the political objectives
+    This class loads and manages data related to political objectives.
     """
 
     def __init__(self):
@@ -25,10 +25,11 @@ class PoliticalObjective:
     def get_objective(self, politic_type, objective_type, return_year=True):
 
         """
-        This function return the political objective
-        :param objective_type: string - the type of objective (C02 emisson, primary energy, etc.)
-        :param politic_type: string - the name of the political frame work
-        :param return_year: bool- if True return the reference and objective year
+        returns quantitative goals for different political objectives.
+
+        :param objective_type:  the type of objective (C02 emisson, primary energy, etc. - string)
+        :param politic_type: the name of the political framework (string)
+        :param return_year: if True return the reference and objective year (boolean)
         """
 
         # match the strings proposed by the user
@@ -49,12 +50,12 @@ class PoliticalObjective:
 
     def get_politic_framework(self):
         """
-        This function get the available political framework
+        gets the list of available political frameworks
         """
         return list(self.db_obj.index.values)
 
     def get_all_objectives(self):
         """
-        This function get the type of objective available
+        gets the type of objective available (C02 emisson, primary energy, etc.)
         """
         return list(self._name_objective)

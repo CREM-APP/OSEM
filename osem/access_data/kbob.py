@@ -1,13 +1,13 @@
 import os
 import pandas as pd
 
-from osef.general.helper import find_string
-import osef.general.conf as conf
+from osem.general.helper import find_string
+import osem.general.conf as conf
 
 
 class Kbob:
     """
-    This class loads and manipulate the kbob data
+    This class loads and manipulates the kbob data.
     """
 
     LANG = ["ENG", "FRA", "GER"]
@@ -31,12 +31,12 @@ class Kbob:
 
     def get_value(self, techno, indicator, language="ENG", ener_type=None):
         """
-        This function load one value of the kbob as a function of the user choice
+        loads one value of the kbob as a function of the user choice.
 
-        :param techno: string - the technology chosen
-        :param indicator: string - the requested indicator
-        :param language: string - the requested language
-        :return: float - the value of the indicator
+        :param techno: the technology chosen (string)
+        :param indicator: the requested indicator (string)
+        :param language: the requested language (string)
+        :return: the value of the indicator (float)
         """
         self._check_language(language)
 
@@ -55,22 +55,26 @@ class Kbob:
 
         return self.data.loc[self.data[language] == tech_found, indi_found].values[0]
 
-    def get_units(self, choice_col):
+    def get_units(self, indicator):
         """
-        This function return the units of the different data type
+        returns the units of the different data type.
+
+        :param indicator: the requested indicator (string)
         :return: the unit as string
         """
-        name_found = find_string(choice_col, self.data.columns, self._cutoff)
+        name_found = find_string(indicator, self.data.columns, self._cutoff)
         if not name_found:
-            raise ValueError("The requested data {} does not match any entry.".format(choice_col))
+            raise ValueError("The requested data {} does not match any entry.".format(indicator))
 
         return self.unit[name_found].values[0]
 
     def get_available_technologies(self, language="ENG", ener_type=None):
         """
-        The function return the available technology
-        :param language: string - the requested language
-        :return a list of available technology
+        returns the available technologies.
+
+        :param language: the requested language (string)
+		:param ener_type: If given, only use data from kbob based on primary energy or final energy.
+        :return: a list of available technologies
         """
         self._check_language(language)
 
@@ -83,7 +87,9 @@ class Kbob:
 
     def get_available_indicators(self, language="ENG"):
         """
-        Give access to the names of the available indicators in different language
+        give access to the names of the available indicators in different language.
+
+        :param language: the requested language (string)
         :return: a list of available indicators
         """
         self._check_language(language)
@@ -91,28 +97,30 @@ class Kbob:
 
     def get_kbob_version(self):
         """
-        Return the version (year) of the kbob used
+        returns the version (year) of the kbob used
         """
 
         return self.version
 
     def change_to_default_version(self):
         """
-        Restore the loaded kbob to the default version
+        restores the loaded kbob to the default version
         """
         self.version = self._version_default
         self.data, self.unit, self.index_translation = self._load_kbob()
 
     def change_version(self, version_new):
         """
-        Change the loaded kbob to the version chosen
+        changes the loaded kbob to the version chosen.
+
+        :param version_new: the name of the version needed (string/int)
         """
         self.version = str(version_new)
         self.data, self.unit, self.index_translation = self._load_kbob()
 
     def get_filenames(self):
         """
-        Return the namre of the files used to load the kbob (dict of string)
+        returns the name of the files used to load the kbob (dict of string).
         """
         filename_kbob = os.path.join(self._data_folder, self._basename_kbob + self.version + '.csv')
         filename_unit = os.path.join(self._data_folder, self._basename_unit + self.version + '.json')
@@ -122,7 +130,7 @@ class Kbob:
 
     def _load_kbob(self):
         """
-        This function loads the kbob data and the units related to it
+        This function loads the kbob data and the units related to it.
         """
 
         filenames_kbob = self.get_filenames()

@@ -2,14 +2,14 @@ import pandas as pd
 import numpy as np
 import os
 
-import osef.general.conf as conf
-from osef.access_data.kbob import Kbob
-from osef.access_data.price import Price
-from osef.general.helper import find_string
+import osem.general.conf as conf
+from osem.access_data.kbob import Kbob
+from osem.access_data.price import Price
+from osem.general.helper import find_string
 
 class Kpi:
     """
-    Ths class compute different kpi
+    Ths class computes different Key Parameter Index (KPI).
     """
 
     def __init__(self):
@@ -31,7 +31,7 @@ class Kpi:
 
     def _load_efficiency_data(self):
         """
-        This function load the efficiency data
+        loads the efficiency data used to computes final energy from primary energy.
         """
 
         filename_eff = os.path.join(self._data_folder, self._filename_eff)
@@ -41,7 +41,8 @@ class Kpi:
 
     def get_co2_emission(self, data_heating):
         """
-        This function compute c02 emission of different heating technology based on useful energy
+        computes Co2 emission of different heating technologies based on useful energy in kWh.
+
         :param data_heating: A dataframe with the following columns: scenario, year, <technology 1>, <technology 2>,...
         :return: a Dataframe with the c02 emission by technology by year by scenarios in kg
         """
@@ -56,7 +57,8 @@ class Kpi:
 
     def get_renewable_part(self, data_heating):
         """
-        The function computes the part of renewable energy from different technology based on useful energy.
+        computes the part of renewable energy from different technology based on useful energy in kWh.
+
         :param data_heating: A dataframe with the following columns: scenario, year, <technology 1>, <technology 2>,...
         :return: a Dataframe with the renewable energy by technology by year by scenarios in kWh
         """
@@ -72,12 +74,12 @@ class Kpi:
 
     def get_energy_final(self, data_heating, temp_building=None):
         """
-        This function return the final energy from the useful energy. For an heat pump, the efficiency accounts
-         for the building temperature through Carnot.
+        computes the final energy based on the useful energy for different technologies in kWh. For heat pumps, the efficiency accounts for the building temperature through Carnot coefficient.
+
         :param data_heating: A dataframe with the following columns: scenario, year, <technology 1>, <technology 2>,...
-        :param temp_build: the temperature of the buildings in the form
+        :param temp_build: The temperature of the buildings in the form
                [[Percent building1, Percent building2,...], [T1, T2,...]] in Celsius.
-        :return: a dataframe with the final energy
+        :return: a dataframe with the final energy in kWh
         """
         # temperature of the building
         if temp_building is not None:
@@ -106,9 +108,10 @@ class Kpi:
 
     def get_energy_primary(self, data_heating):
         """
-       The function computes the primary energy from different technology based on useful energy.
+       computes the primary energy from different technology based on useful energy in kWh.
+
        :param data_heating: A dataframe with the following columns: scenario, year, <technology 1>, <technology 2>,...
-       :return: a Dataframe with the primary energy by technology by year by scenarios in kWh
+       :return: a Dataframe with the primary energy in kWh
        """
 
         # create the output dataframe
@@ -122,8 +125,9 @@ class Kpi:
 
     def get_capex(self,data_heating_power, interp=1):
         """
-        The function return the CAPEX of the heating data based on the installed power in kW. CAPEX is capital cost.
-        Careful the other function needs primary energy as input. This one needs power.
+        return	the CAPEX of the heating data based on the installed power in kW. CAPEX is capital cost.
+        This function needs power (and not useful energy) as input.
+
         :param data_heating_power: A dataframe with the following columns: scenario, year, <technology 1>, <technology 2>,...
         :param interp: the interpolation method for the price database
         :return: a dataframe with operational cost.
@@ -143,10 +147,10 @@ class Kpi:
 
     def get_opex(self, data_heating_power, interp=1):
         """
-        The function return the OPEX of the heating data based on the installed power in kW. OPEX is operational cost.
-        Careful the other functions need primary energy as input. This one needs power.
+        returns the OPEX of the heating data based on the installed power in kW. OPEX is operational cost.
+        This function needs power (and not useful energy) as input.
 
-        The estimation of matenance is not precise. It contains the price tpo buy the fuel but it is not corrected for
+        The estimation of maintenance cost is not precise. It contains the price to buy the fuel but it is not corrected for
         the real consumption. So it is just a rough estimation.
 
         :param data_heating_power: A dataframe with the following columns: scenario, year, <technology 1>, <technology 2>,...
@@ -168,7 +172,8 @@ class Kpi:
 
     def set_ext_temp(self, temp_ext):
         """
-        To set the exterior temperature for the efficiency of the heat pumps
+        sets the exterior temperature for the efficiency of the heat pumps.
+
         :param temp_ext: the exteriot temperature in Celsius
         """
         self._temp_ext = temp_ext
@@ -178,7 +183,8 @@ class Kpi:
 def _create_empty_output(data_heating):
     """
     This function create an empty dataframe with years and scenario which is used to return kpi data after the
-    commutation
+    commutation.
+
     :param data_heating: A dataframe with the following columns: scenario, year, <technology 1>, <technology 2>,...
     :return: a Dataframe with empty column and one column with the year and one column with the scenarios
     """
