@@ -18,7 +18,7 @@ class PlotKpi:
         self.opt_plot = conf.opt_plot
 
     def plot_c02(self, data_kpi, fig_name, title_name='', ylabel=conf.ylabelco2, color=None, xlabel=None,
-                 fontsize=None, width=None, figsize=None, show=True):
+                 fontsize=None, width=None, figsize=None, tech_name_for_plot=None, show=True):
         """
         This function creates a stacked bar plot with bar grouped by scenarios for different years. It is used to plot
         c02 emission.
@@ -34,6 +34,8 @@ class PlotKpi:
         :param xlabel: the label for the xaxis
         :param fontsize: the size of the font
         :param width: the width of the bar
+        :param tech_name_for_plot: Usually the name on the plot are the title of the excel column, it can be
+               changed here in case of
         :param figsize: the size of the figure (height,length)
         :param show: If True the figure is shown otherwise not
         """
@@ -42,7 +44,7 @@ class PlotKpi:
         co2emission = self.mykpi.get_co2_emission(data_kpi)
 
         # change plot parameter
-        self._set_plot_param(title_name, ylabel, color, xlabel, fontsize, width, figsize)
+        self._set_plot_param(title_name, ylabel, color, xlabel, fontsize, width, figsize, tech_name_for_plot)
     
         # create figure only for present situation
         if len(data_kpi) == 1:
@@ -52,7 +54,7 @@ class PlotKpi:
             self._scenarios_kpi_plot(co2emission, fig_name, show)
 
     def plot_final_energy(self, data_kpi, fig_name, title_name='', ylabel=conf.ylabelfinal, color=None,
-                          xlabel=None, fontsize=None, width=None, figsize=None, show=True):
+                          xlabel=None, fontsize=None, width=None, figsize=None, tech_name_for_plot=None, show=True):
         """
         This function creates a stacked bar plot with bar grouped by scenarios for different years. It is used to plot
         the final energy.
@@ -69,6 +71,8 @@ class PlotKpi:
         :param fontsize: the size of the font
         :param width: the width of the bar
         :param figsize: the size of the figure (height,length)
+        :param tech_name_for_plot: Usually the name on the plot are the title of the excel column, it can be
+               changed here in case of
         :param show: If True the figure is shown otherwise not
             """
     
@@ -76,7 +80,7 @@ class PlotKpi:
         final_energy = self.mykpi.get_energy_final(data_kpi)
 
         # change plot parameter
-        self._set_plot_param(title_name, ylabel, color, xlabel, fontsize, width, figsize)
+        self._set_plot_param(title_name, ylabel, color, xlabel, fontsize, width, figsize, tech_name_for_plot)
 
         # create figure only for present situation
         if len(data_kpi) == 1:
@@ -86,7 +90,7 @@ class PlotKpi:
             self._scenarios_kpi_plot(final_energy, fig_name, show)
 
     def plot_primary_energy(self, data_kpi, fig_name, title_name='', ylabel=conf.ylabelprimary, color=None,
-                            xlabel=None, fontsize=None, width=None, figsize=None, show=True):
+                            xlabel=None, fontsize=None, width=None, figsize=None, tech_name_for_plot=None, show=True):
         """
         This function creates a stacked bar plot with bar grouped by scenarios for different years. It is used to plot
         primary energy.
@@ -103,13 +107,15 @@ class PlotKpi:
         :param fontsize: the size of the font
         :param width: the width of the bar
         :param figsize: the size of the figure (height,length)
+        :param tech_name_for_plot: Usually the name on the plot are the title of the excel column, it can be
+               changed here in case of
         :param show: If True the figure is shown otherwise not
         """
         # compute value
         primary_energy = self.mykpi.get_energy_primary(data_kpi)
 
         # change plot parameter
-        self._set_plot_param(title_name, ylabel, color, xlabel, fontsize, width, figsize)
+        self._set_plot_param(title_name, ylabel, color, xlabel, fontsize, width, figsize, tech_name_for_plot)
 
         # create figure only for present situation
         if len(data_kpi) == 1:
@@ -119,7 +125,8 @@ class PlotKpi:
             self._scenarios_kpi_plot(primary_energy, fig_name, show)
 
     def plot_renewable_energy(self, data_kpi, fig_name, title_name='', ylabel=conf.ylabelrenew, color=None,
-                              xlabel=None, fontsize=None, width=None, figsize=None, show=True):
+                              xlabel=None, fontsize=None, width=None, figsize=None, tech_name_for_plot= None,
+                              show=True):
         """
         This function creates a stacked bar plot with bar grouped by scenarios for different years. It is used to plot
         primary emission.
@@ -136,6 +143,8 @@ class PlotKpi:
         :param fontsize: the size of the font
         :param width: the width of the bar
         :param figsize: the size of the figure (height,length)
+        :param tech_name_for_plot: Usually the name on the plot are the title of the excel column, it can be
+               changed here in case of
         :param show: If True the figure is shown otherwise not
         """
         # create renewable dataframe
@@ -154,7 +163,7 @@ class PlotKpi:
         renew_out.iloc[:, 3] = primary_energy - renew_data
 
         # change plot parameter
-        self._set_plot_param(title_name, ylabel, color, xlabel, fontsize, width, figsize)
+        self._set_plot_param(title_name, ylabel, color, xlabel, fontsize, width, figsize, tech_name_for_plot)
 
         # create figure only for present situation
         if len(data_kpi) == 1:
@@ -189,7 +198,10 @@ class PlotKpi:
         plt.figure(figsize=self.opt_plot['figsize'])
 
         plt.bar(ind_for_bar_plot, data_kpi_here, color=self.opt_plot['color'], width=self.opt_plot['width_pres'])
-        plt.xticks(ind_for_bar_plot, tech_name)
+        if self.opt_plot['tech_name_for_plot'] is None:
+            plt.xticks(ind_for_bar_plot, tech_name)
+        else:
+            plt.xticks(ind_for_bar_plot, self.opt_plot['tech_name_for_plot'])
         if len(self.opt_plot['title_name']) == 0:
             plt.title('KPI for the year ' + str(year))
         else:
@@ -257,8 +269,11 @@ class PlotKpi:
                 else:
                     plt.bar(year_ind, data_sce_t, width=width * 0.9, color=color[:, i], bottom=bottom_col)
                 bottom_col += data_sce_t
-        plt.legend(tech_name)
-    
+        if self.opt_plot['tech_name_for_plot'] is None:
+            plt.legend(tech_name)
+        else:
+            plt.legend(self.opt_plot['tech_name_for_plot'])
+
         # Set second x-axis
         plt.xlim(0, len(year_ind))
         ax1.set_xticks(pos_sce)
@@ -281,7 +296,7 @@ class PlotKpi:
         if show:
             plt.show()
 
-    def _set_plot_param(self, title_name, ylabel, color, xlabel, fontsize, width, figsize):
+    def _set_plot_param(self, title_name, ylabel, color, xlabel, fontsize, width, figsize, tech_name_for_plot):
         """
         This function set the plot parameters.
 
@@ -292,12 +307,13 @@ class PlotKpi:
         :param fontsize: the fond size
         :param width: the width of the bar
         :param figsize: the size of the figure
-
+        :param tech_name_for_plot: Usually the name on the plot are the title of the excel column, it can be
+               changed here in case of
         """
 
-        attributes_to_be_saved = [width, width, figsize, fontsize, xlabel, xlabel, title_name, color]
+        attributes_to_be_saved = [width, width, figsize, fontsize, xlabel, xlabel, title_name, color, tech_name_for_plot]
         name_attribute = ['width_scenario', 'width_pres', 'figsize', 'fontsize', 'xlabel_pres',
-                          'xlabel_scenario', 'title_name', 'color']
+                          'xlabel_scenario', 'title_name', 'color', 'tech_name_for_plot']
 
         for i, att in enumerate(attributes_to_be_saved):
             if att is None:

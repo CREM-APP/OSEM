@@ -59,9 +59,9 @@ class Meteo:
         # get data by month
         data_month = []
         jan_ind = datam.columns.get_loc(conf.month_name[0])
-        if isinstance(months, list):
+        if isinstance(months, list) or isinstance(months,np.ndarray):
             for m in months:
-                if isinstance(m, float) or isinstance(m, int):
+                if isinstance(m, float) or isinstance(m, int) or isinstance(m, np.int32):
                     data_month.append(float(datam.loc[datam['station_name'] == station,:].iloc[:, jan_ind + m]))
                 else:
                     m_name = find_string(m, conf.month_name, self._cutoff)

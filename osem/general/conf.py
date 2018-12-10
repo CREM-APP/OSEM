@@ -68,7 +68,8 @@ opt_plot = {'fontsize': 12,
             'xlabel_pres': '',
             'ylabel': None,
             'color': None,
-            'title_name': ''}
+            'title_name': '',
+            'tech_name_for_plot': None}
 
 
 #############################################################

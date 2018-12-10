@@ -1,6 +1,7 @@
 # test for the module to load the meteo data
 
 from osem.access_data import Meteo
+import numpy as np
 
 meteo = Meteo()
 assert(meteo.get_closest_station('precipitation',
@@ -13,5 +14,7 @@ assert(meteo.get_meteo_data_annual('precipitation', station='Aadorf/ Tän') == 1
 
 assert(meteo.get_meteo_data_monthly('precipitation', station='Aadorf / Tänikon', months=['january'])[0] == 76.5)
 assert(meteo.get_meteo_data_monthly('precipitation', station='Aadorf / Tänikon', months=[0, 1])[1] == 73.0)
+assert(meteo.get_meteo_data_monthly('precipitation', station='Aadorf / Tänikon', months=np.arange(12))[1] == 73.0)
+
 assert(meteo.get_unit('precipitation') == 'millimètre')
 
