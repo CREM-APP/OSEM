@@ -145,8 +145,9 @@ class SimulationNetwork():
         """
 
         # pass from kWh to kg/sec
-        self.load_level.loc[:, 'load_kg_s'] = \
-            (self.load_level.loc[:, "scaling"] * self.load_level.loc[:, "p_kW"]) / self.net.lhv
+        load_level = self.load_level.copy()  # avoid annoying pandas warning
+        load_level.loc[:, 'load_kg_s'] = (load_level.loc[:, "scaling"] * load_level.loc[:, "p_kW"]) / self.net.lhv
+        self.load_level = load_level
 
         # add load from the stations
         for _, row in self.net.res_station.iterrows():

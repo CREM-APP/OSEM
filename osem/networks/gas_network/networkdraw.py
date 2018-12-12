@@ -1,7 +1,8 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib import colors as mcolors
-
+import numpy as np
+import networkx as nx
 
 class DrawNetwork():
 

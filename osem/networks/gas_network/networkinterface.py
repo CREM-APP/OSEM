@@ -190,9 +190,9 @@ def set_exterior_pressure(net, p_atm):
     sets the exterior pressure of the network in Pascal
 
     :param net: a pandangas network
-    :param p_atm: the exterio pression (Pa)
+    :param p_atm: the exterior pression (Pa)
     """
-    net.set_pressure_level(p_atm)
+    net.set_exterior_pressure(p_atm)
     return net
 
 
@@ -203,15 +203,15 @@ def set_solver_option(net, solver_option=None):
     :param solver_option: the dict given by the user with custom options, no need to give all options.
     """
 
-    net.solver_option(solver_option)
+    net.set_solver_option(solver_option)
     return net
 
 
-def get_solver_info(self):
+def get_solver_info(net):
     """
      prints the information related to the solver options.
     """
-    print(self.solver_option)
+    print(net.solver_option)
 
 
 def check_network(net, type_of_check, *args,**kwargs):

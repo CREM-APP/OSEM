@@ -1,7 +1,7 @@
 import pytest
 
-import osem.networks.pandangas.network_for_test as network_for_test
-import osem.networks.pandangas.network_creation as pg
+import network_for_test
+import osem.networks.gas_network.networkinterface as pg
 
 
 def test_len_of_created_df():
@@ -61,6 +61,21 @@ def test_station_creation_same_level_raise_exception():
         assert e_info.value.message == msg
     assert len(net.station.index) == 1
 
+def test_set_param():
+    net = network_for_test.model_gas_test()
+
+    pg.set_pressure_level(net, {'MP': 1e5, 'BP': 1e4})
+    assert net.levels == {'MP': 1e5, 'BP': 1e4}
+
+    pg.set_temperature(net, 25, celsius=False)
+    assert net.temperature == 25
+
+    pg.set_exterior_pressure(net, 1e5)
+    assert net.p_atm == 1e5
+
+    myopt = {'round_num': 15}
+    pg.set_solver_option(net, solver_option=myopt)
+    assert net.solver_option['round_num'] == 15
 
 def test_network_repr():
     net =  network_for_test.model_gas_test()
