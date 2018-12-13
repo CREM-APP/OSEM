@@ -1,7 +1,7 @@
 import json
 from osem.general.enerapi.common.IoC import *
 
-from osem.general.enerapi.Base.Base import Base
+from osem.general.enerapi.base.base import Base
 from osem.general.enerapi.common.Guard import *
 
 

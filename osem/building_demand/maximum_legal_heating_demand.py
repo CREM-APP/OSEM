@@ -2,7 +2,7 @@ import json
 
 from osem.general.enerapi.common.IoC import *
 
-from osem.general.enerapi.Base.Base import Base
+from osem.general.enerapi.base.base import Base
 from osem.general.enerapi.common.Guard import *
 
 
@@ -50,7 +50,7 @@ class MaximumLegalHeatingDemand(Base):
 
         super(MaximumLegalHeatingDemand, self).__init__(args)
 
-        with open('Edata/enerapi_data/Data_Project_Nature.json') as data_file:
+        with open('data/enerapi_data/Data_Project_Nature.json') as data_file:
             project_nature_dict  = json.load(data_file)
         with open('data/enerapi_data/Data_Qhli.json') as data_file:
             data_qhli_dict  = json.load(data_file)

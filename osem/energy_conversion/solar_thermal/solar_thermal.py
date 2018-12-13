@@ -174,7 +174,7 @@ class SolarThermal(Base):
             Kb = ((IAMcurve[index+1] - IAMcurve[index])/5)*(t-index*5) + IAMcurve[index]
 
         # Kd calculation (for incidentAngle = 60)
-        Kd = IAMcurve[60/5]
+        Kd = IAMcurve[int(60/5)]
 
         # Mean water temperature in collector
         Tm = (float(self.args["Tin"]) + float(self.args["Tout"])) / 2.0

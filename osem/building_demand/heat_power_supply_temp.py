@@ -2,7 +2,7 @@ import json
 from pprint import pprint
 
 from osem.general.enerapi.common.IoC import *
-from osem.general.enerapi.Base.Base import Base
+from osem.general.enerapi.base.base import Base
 from .specific_energy_requirements import SpecificEnergyRequirements
 from osem.general.enerapi.common.Guard import *
 

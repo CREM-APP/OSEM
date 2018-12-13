@@ -41,7 +41,7 @@ class BoilerBehaviour(Base):
         
         super(BoilerBehaviour, self).__init__(args)
 
-        with open('Ener/data/boiler_techno.json') as data_file:
+        with open('data/enerapi_data/boiler_techno.json') as data_file:
             techno_data  = json.load(data_file)
 
 
