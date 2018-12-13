@@ -1,6 +1,6 @@
 # this script lists the pandasgas network used to test this module
 
-import osef.networks.pandangas.network_creation as pg
+import osem.networks.pandangas.network_creation as pg
 
 
 def model_gas_test():

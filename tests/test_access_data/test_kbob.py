@@ -1,6 +1,6 @@
 import pytest
 import os
-from osef.access_data import Kbob
+from osem.access_data import Kbob
 
 
 def test_check_language():

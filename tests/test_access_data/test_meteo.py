@@ -1,6 +1,6 @@
 # test for the module to load the meteo data
 
-from osef.access_data import Meteo
+from osem.access_data import Meteo
 
 meteo = Meteo()
 assert(meteo.get_closest_station('precipitation',

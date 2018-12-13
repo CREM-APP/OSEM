@@ -4,8 +4,8 @@ This functions plot different kpi
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import osef.general.conf as conf
-from osef.access_data import kpi
+import osem.general.conf as conf
+from osem.access_data import kpi
 
 
 def plot_c02(data_kpi, fig_name, title_name='', ylabel=conf.ylabelco2, color=None, xlabel=conf.xlabel,

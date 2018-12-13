@@ -1,7 +1,7 @@
 import pytest
 
-import osef.networks.pandangas.network_for_test as network_for_test
-import osef.networks.pandangas.network_creation as pg
+import osem.networks.pandangas.network_for_test as network_for_test
+import osem.networks.pandangas.network_creation as pg
 
 
 def test_len_of_created_df():

@@ -4,8 +4,8 @@ import pandas as pd
 import os
 import time
 
-import osef.general.conf as conf
-from osef.plot import plot_kpi
+import osem.general.conf as conf
+from osem.plot import plot_kpi
 
 # load test data
 filename_test = 'kpi_example_c02.xlsx'

@@ -1,7 +1,7 @@
 import pandas as pd
 import os
-from osef.access_data import Kpi
-import osef.general.conf as conf
+from osem.access_data import Kpi
+import osem.general.conf as conf
 
 
 # load test data

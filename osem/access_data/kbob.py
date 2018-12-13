@@ -1,8 +1,8 @@
 import os
 import pandas as pd
 
-from osef.general.helper import find_string
-import osef.general.conf as conf
+from osem.general.helper import find_string
+import osem.general.conf as conf
 
 
 class Kbob:

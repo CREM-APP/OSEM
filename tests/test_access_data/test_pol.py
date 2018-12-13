@@ -1,5 +1,5 @@
 import pytest
-from osef.access_data import PoliticalObjective
+from osem.access_data import PoliticalObjective
 
 
 def test_pol():

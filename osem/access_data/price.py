@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 import warnings
 
-from osef.general.helper import find_string, func_logarithm, rsquared
-import osef.general.conf as conf
+from osem.general.helper import find_string, func_logarithm, rsquared
+import osem.general.conf as conf
 
 
 class Price:
