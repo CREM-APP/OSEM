@@ -1,4 +1,4 @@
-from osef.models.base import Model
+from osem.models.base import Model
 
 
 class Hysteresis(Model):

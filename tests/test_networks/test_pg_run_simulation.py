@@ -1,8 +1,8 @@
 
 
-import osef.networks.pandangas.run_simulation as pg_run
-import osef.networks.pandangas.network_for_test as network_for_test
-import osef.networks.pandangas.utilities as pg_uti
+import osem.networks.pandangas.run_simulation as pg_run
+import osem.networks.pandangas.network_for_test as network_for_test
+import osem.networks.pandangas.utilities as pg_uti
 
 def test_runpg():
     net = network_for_test.model_gas_test()

@@ -10,8 +10,8 @@ import operator
 import fluids
 from thermo.chemical import Chemical
 
-import osef.networks.pandangas.network_creation as net_create
-import osef.networks.pandangas.simulation_tool as simtool
+import osem.networks.pandangas.network_creation as net_create
+import osem.networks.pandangas.simulation_tool as simtool
 
 
 def check_network_result(net, lim_mass=1e-4, lim_pres=2):

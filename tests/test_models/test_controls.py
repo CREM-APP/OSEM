@@ -1,5 +1,5 @@
 import pytest
-from osef.models import Hysteresis
+from osem.models import Hysteresis
 
 
 @pytest.fixture()

@@ -3,13 +3,13 @@
 
 from setuptools import setup, find_packages
 
-import osef
+import osem
 
 setup(
 
     name='osef',
 
-    version=osef.__version__,
+    version=osem.__version__,
 
     packages=find_packages(),
 

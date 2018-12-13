@@ -13,9 +13,9 @@ from numpy.linalg import pinv
 import operator
 import numpy as np
 
-import osef.networks.pandangas.utilities as uti
-import osef.networks.pandangas.network_creation as net_create
-import osef.networks.pandangas.simulation_tool as simtool
+import osem.networks.pandangas.utilities as uti
+import osem.networks.pandangas.network_creation as net_create
+import osem.networks.pandangas.simulation_tool as simtool
 
 # initial conditions for the minimisation, need to be global to be stopped during the run
 global sol0

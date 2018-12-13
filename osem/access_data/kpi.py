@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 import os
 
-import osef.general.conf as conf
-from osef.access_data.kbob import Kbob
-from osef.access_data.price import Price
-from osef.general.helper import find_string
+import osem.general.conf as conf
+from osem.access_data.kbob import Kbob
+from osem.access_data.price import Price
+from osem.general.helper import find_string
 
 class Kpi:
     """
