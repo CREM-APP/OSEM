@@ -1,0 +1,14 @@
+One important step:
+	Set an environment variable "ENERAPI_DATA_DIR" with the absolute path to this directory
+
+
+Put all data files in here. Whenever you need a file, use this syntax:
+	cache = RequiredFeature('Cache', HasMethods('get_file', 'get_object'))
+
+Then, you can use the cache to load raw text files with:
+	content_text = cache.get_file('myfile.txt')
+
+Alternatively, you can get the json-parsed content with:
+	content_dict = cache.get_object('myfile.json')
+
+For a deeper understanding on how the IoC container works, see the IoC.py file (common package)
