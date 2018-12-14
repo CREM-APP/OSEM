@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.integrate import odeint
-from osef.models.base import Model, tau_model
+from osem.models.base import Model, tau_model
 
 
 class HeatPump(Model):

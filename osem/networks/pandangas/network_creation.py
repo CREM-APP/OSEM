@@ -33,7 +33,7 @@
 import pandas as pd
 import os
 import json
-import osef.general.conf as conf
+import osem.general.conf as conf
 
 
 class _Network:

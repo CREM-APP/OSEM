@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.integrate import odeint
 from thermo.chemical import Chemical
-from osef.models.base import Model
+from osem.models.base import Model
 
 #TODO DevMaster: need a clear name for the parameters the purpose is to be understood by everyone missing documentation
 class Bath(Model):

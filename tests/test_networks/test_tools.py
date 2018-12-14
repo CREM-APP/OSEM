@@ -2,11 +2,11 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from osef.networks import create_edges_from_xy_df
-from osef.networks import transfer_nodes_attribute
-from osef.networks import transfer_edges_attributes
-from osef.networks import create_directed_tree_from_source
-from osef.networks import get_leaves
+from osem.networks import create_edges_from_xy_df
+from osem.networks import transfer_nodes_attribute
+from osem.networks import transfer_edges_attributes
+from osem.networks import create_directed_tree_from_source
+from osem.networks import get_leaves
 
 
 # GRAPH

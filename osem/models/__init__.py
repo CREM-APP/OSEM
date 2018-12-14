@@ -6,6 +6,6 @@
 """
 
 
-from osef.models.heatpump import HeatPump
-from osef.models.controls import Hysteresis
-from osef.models.industrial import Bath
+from osem.models.heatpump import HeatPump
+from osem.models.controls import Hysteresis
+from osem.models.industrial import Bath
