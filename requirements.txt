@@ -1,4 +1,10 @@
 pandas
 scipy
+thermo
+networkx
 numpy
 thermo
+xlrd
+fluid
+mpmath
+sympy

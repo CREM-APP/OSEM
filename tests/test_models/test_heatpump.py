@@ -1,5 +1,5 @@
 import pytest
-from osef.models import HeatPump
+from osem.models import HeatPump
 
 
 @pytest.fixture()

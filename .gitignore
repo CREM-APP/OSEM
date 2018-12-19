@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# PyCharm
+.idea
+.idea/*
+
 # Distribution / packaging
 .Python
 build/
@@ -102,6 +106,15 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.cache
+#pytest
+.pytest_cache/
 
-# Excel
-*.xlsx
+# image for test
+*.png
+
+
+osem_env/
+
+.idea/workspace.xml
+.idea/inspectionProfiles/Project_Default.xml

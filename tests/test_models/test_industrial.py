@@ -1,5 +1,5 @@
 import pytest
-from osef.models import Bath
+from osem.models import Bath
 
 
 @pytest.fixture()

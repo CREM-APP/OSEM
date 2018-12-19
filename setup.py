@@ -3,24 +3,25 @@
 
 from setuptools import setup, find_packages
 
-import osef
+import osem
 
 setup(
 
     name='osef',
 
-    version=osef.__version__,
+    version=osem.__version__,
 
     packages=find_packages(),
 
-    author="Pablo Puerto",
+    author="CREM",
 
-    author_email="osef@crem.ch",
+    author_email="osem@crem.ch",
 
     description="Open Source Energy Features: dedicated tools and methods for energy related models and applications",
 
     long_description=open('README.md').read(),
 
+    # TODO: read from requirements.txt (or read/fill requirements.txt from steup.py ?)
     install_requires=["pandas"],
 
     include_package_data=True,
