@@ -5,9 +5,7 @@ networkx
 numpy
 thermo
 xlrd
-sqlite3
 fluid
 mpmath
 sympy
-aniso8601==1.1.0
-data
+
