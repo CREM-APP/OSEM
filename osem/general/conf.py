@@ -6,7 +6,7 @@ import json
 # default variables for all the modules
 # data_folder = "data"
 dir_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-data_folder = os.path.join(dir_path, 'data')
+data_folder = os.path.join(dir_path, 'osem/general/data')
 cutoff = 0.45  # used to compare string, 1 is a perfect match on the string, with 0 all string match.
 
 ##############################################################
@@ -93,3 +93,9 @@ default_solver_option= {'tol_mat_mass': 1e-10,
 
 filename_info_solver = 'pandangas_info_solver_option.json'
 
+#############################
+data_folder_enerapi = os.path.join(data_folder, 'enerapi_data')
+file_per = 'period_RegBL.json'
+file_affect = 'affect_RegBL.json'
+file_ratio = 'ratio_base.json'
+year_period = [1,1919,1946,1961,1971,1981,1986,1991,1996,2001,2006,2011,2015]

@@ -59,10 +59,10 @@ class StaticHeatingCoolingPower(Base):
 
         super(StaticHeatingCoolingPower, self).__init__(args)
 
-        with open('data/enerapi_data/Construct_Bat.json') as data_file:
+        with open('osem/general/data/enerapi_data/Construct_Bat.json') as data_file:
             construct_bat  = json.load(data_file)
 
-        with open('data/enerapi_data/data_SIA_380-1.json') as data_file:
+        with open('osem/general/data/enerapi_data/data_SIA_380-1.json') as data_file:
             sia_ref  = json.load(data_file)
 
 

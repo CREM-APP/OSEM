@@ -49,15 +49,30 @@ class TestSpecNeedsHFC():
 
 
     def test_the_estimation_should_be_correct_case3(self):
-            args = {"affectation": 1, "period": 8020, "standard": "MinergieP", "refurbished": True}
-            expected = {
-                "hS": 46.420,
-                "hW": 21,
-                "elec": 28,
-                "h_full_ch": 2300
-            }
-            actual = SpecificEnergyRequirements(args).calculate()
-            assert expected["hS"] == actual["hS"]
-            assert expected["hW"] == actual["hW"]
-            assert expected["elec"] == actual["elec"]
-            assert expected["h_full_ch"] == actual["h_full_ch"]
+        args = {"affectation": 1, "period": 8020, "standard": "MinergieP", "refurbished": True}
+        expected = {
+            "hS": 46.420,
+            "hW": 21,
+            "elec": 28,
+            "h_full_ch": 2300
+        }
+        actual = SpecificEnergyRequirements(args).calculate()
+        assert expected["hS"] == actual["hS"]
+        assert expected["hW"] == actual["hW"]
+        assert expected["elec"] == actual["elec"]
+        assert expected["h_full_ch"] == actual["h_full_ch"]
+
+    def test_get_period_from_year(self):
+        expected = {
+            "hS": 46.420,
+            "hW": 21,
+            "elec": 28,
+            "h_full_ch": 2300
+        }
+        args = {"affectation": 1, "year": 2003, "standard": "MinergieP", "refurbished": True}
+        actual = SpecificEnergyRequirements(args).calculate()
+
+        assert expected["hS"] == actual["hS"]
+        assert expected["hW"] == actual["hW"]
+        assert expected["elec"] == actual["elec"]
+        assert expected["h_full_ch"] == actual["h_full_ch"]

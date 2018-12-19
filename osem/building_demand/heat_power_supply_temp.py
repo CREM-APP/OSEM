@@ -68,9 +68,9 @@ class HeatPowerSupplyTemp(Base):
         super(HeatPowerSupplyTemp, self).__init__(args)
 
 
-        with open('data/enerapi_data/data_SIA_380-1.json') as data_file:
+        with open('osem/general/data/enerapi_data/data_SIA_380-1.json') as data_file:
             data_sia  = json.load(data_file)
-        with open('data/enerapi_data/em_system.json') as data_file:
+        with open('osem/general/data/enerapi_data/em_system.json') as data_file:
             data_em_sys  = json.load(data_file)
 
 

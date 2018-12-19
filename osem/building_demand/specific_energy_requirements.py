@@ -1,8 +1,11 @@
 import json
+import os
+import numpy as np
 from osem.general.enerapi.common.IoC import *
 
 from osem.general.enerapi.base.base import Base
 from osem.general.enerapi.common.Guard import *
+from osem.general import conf
 
 
 class SpecificEnergyRequirements(Base):
@@ -16,6 +19,8 @@ class SpecificEnergyRequirements(Base):
     PERIODS = range(8011, 8024)  # needs to be improved
     BUILDING_USAGES = range(1, 13)  # needs to be improved
     CONSTRUCTION_STANDARDS = ["SIA", "Minergie", "MinergieP"]  # needs to be improved
+
+
 
     @staticmethod
     def help():
@@ -48,13 +53,21 @@ class SpecificEnergyRequirements(Base):
 
         super(SpecificEnergyRequirements, self).__init__(args)
 
-        with open('data/enerapi_data/period_RegBL.json') as data_file:
+        self.data_folder_enerapi = conf.data_folder_enerapi
+        self.file_per = conf.file_per
+        self.file_affect = conf.file_affect
+        self.file_ratio = conf.file_ratio
+        self.year_period = conf.year_period
+
+        with open(os.path.join(self.data_folder_enerapi, self.file_per)) as data_file:
             periods  = json.load(data_file)
-        with open('data/enerapi_data/affect_RegBL.json') as data_file:
+        with open(os.path.join(self.data_folder_enerapi, self.file_affect)) as data_file:
             affects  = json.load(data_file)
-        with open('data/enerapi_data/ratio_base.json') as data_file:
+        with open(os.path.join(self.data_folder_enerapi, self.file_ratio)) as data_file:
             ratio_base  = json.load(data_file)
 
+        if 'year' in args.keys():
+            args["period"] = self._get_period_from_year(args['year'])
 
         period_list = []
         for key in periods.keys():
@@ -79,6 +92,7 @@ class SpecificEnergyRequirements(Base):
         args["periods"] = periods
         args["affects"] = affects
         args["ratio_base"] = ratio_base
+
 
         self.args = args
 
@@ -128,6 +142,7 @@ class SpecificEnergyRequirements(Base):
 
         """
 
+
         hs_ratio_aff = 0    # init
         hs_ratio_per = 0    # init
         hw_ratio = 0        # init
@@ -160,3 +175,13 @@ class SpecificEnergyRequirements(Base):
             "elec": round(elec, 2),
             "h_full_ch": h_full_ch
         }
+
+    def _get_period_from_year(self, year):
+        """
+        This function get the code of the construction period from the year of construciton
+        :param year: the construction year (int)
+        :return: the code construction from RegBL
+        """
+        years_start = np.array(self.year_period)
+        ind = np.searchsorted(years_start, year)
+        return self.PERIODS[ind - 1]

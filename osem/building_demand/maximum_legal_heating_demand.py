@@ -50,11 +50,11 @@ class MaximumLegalHeatingDemand(Base):
 
         super(MaximumLegalHeatingDemand, self).__init__(args)
 
-        with open('data/enerapi_data/Data_Project_Nature.json') as data_file:
+        with open('osem/general/data/enerapi_data/Data_Project_Nature.json') as data_file:
             project_nature_dict  = json.load(data_file)
-        with open('data/enerapi_data/Data_Qhli.json') as data_file:
+        with open('osem/general/data/enerapi_data/Data_Qhli.json') as data_file:
             data_qhli_dict  = json.load(data_file)
-        with open('data/enerapi_data/Meteo2028.json') as data_file:
+        with open('osem/general/data/enerapi_data/Meteo2028.json') as data_file:
             meteo_dict  = json.load(data_file)
 
 
