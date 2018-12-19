@@ -68,7 +68,6 @@ class SpecificEnergyRequirements(Base):
 
         if 'year' in args.keys():
             args["period"] = self._get_period_from_year(args['year'])
-            print(args['period'])
 
         period_list = []
         for key in periods.keys():
