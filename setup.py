@@ -7,7 +7,7 @@ import osem
 
 setup(
 
-    name='osef',
+    name='osem',
 
     version=osem.__version__,
 
@@ -22,17 +22,15 @@ setup(
     long_description=open('README.md').read(),
 
     # TODO: read from requirements.txt (or read/fill requirements.txt from steup.py ?)
-    install_requires=["pandas"],
+    install_requires=["pandas","scipy","thermo","networkx","numpy","thermo","xlrd","fluid","mpmath","sympy"],
 
     include_package_data=True,
 
-    url='',
+    url='https://www.crem.ch/',
 
     classifiers=[
         "Natural Language :: English",
-        "Operating GraphCreator :: OS Independent",
         "Programming Language :: Python :: 3.6",
-        "Topic :: Energy",
     ]
 
 )
