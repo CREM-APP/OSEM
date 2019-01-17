@@ -18,6 +18,8 @@ data_folder_kbob = os.path.join(data_folder, 'data_kbob')
 basename_unit = "kbob_unit"  # filename for the unit file: basename + version +'.csv'
 basename_kbob = "kbob_data"  # filename for the kbob file: basename + version +'.csv'
 filename_trans_ind = "kbob_translation_indicator.csv"   # name of the file with the translation data
+ref_kbob = "Friedli R., Gugerli H. «Plattform «Ökobilanzdaten im Baubereich» Gründungsdokument, Coordination Group " \
+           "for Construction and Property Service (KBOB).» 2011"
 
 # political objectives
 basename_pol = "political_obj.csv"
