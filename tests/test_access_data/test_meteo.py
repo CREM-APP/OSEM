@@ -15,3 +15,6 @@ assert(meteo.get_meteo_data_monthly('precipitation', station='Aadorf / Tänikon'
 assert(meteo.get_meteo_data_monthly('precipitation', station='Aadorf / Tänikon', months=[0, 1])[1] == 73.0)
 assert(meteo.get_unit('precipitation') == 'millimètre')
 
+reftext = "Département fédéral de l'intérieur DFI"
+assert(meteo.get_reference('precipitation')[:len(reftext)] == reftext)
+

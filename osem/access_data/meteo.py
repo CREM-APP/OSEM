@@ -18,7 +18,7 @@ class Meteo:
         self._col_name = conf.col_name
 
         # data
-        self._meteo_data, self._unit_data = self._load_meteo_data()
+        self._meteo_data, self._unit_data, self.reference = self._load_meteo_data()
 
         # other parameter
         self._cutoff = conf.cutoff
@@ -124,6 +124,14 @@ class Meteo:
         sta = pd.concat((sta, pd.Series(data=[dist_min], index=['distance_m']))) # avoid warning
         return sta[['station_name', 'elev_m', 'coordinates_CH', 'distance_m']]
 
+    def get_reference(self, met_param):
+        """
+        retrun the reference of the data for the meterological parameter of interest.
+        :param met_param: the type of meteorological parameter of interest
+        """
+
+        met_param = find_string(met_param, self._meteo_data.keys(), self._cutoff)
+        return self.reference[met_param]
 
     def _load_meteo_data(self):
         """
@@ -134,11 +142,13 @@ class Meteo:
 
         meteo_data = {}
         unit_data = {}
+        ref_data = {}
         for f in self._filenames:
 
             # load data
             key = os.path.splitext(f)[0]
-            datam = pd.read_csv(os.path.join(self._data_folder, f), header=self._nbline_header, sep='\t')
+            filename_here = os.path.join(self._data_folder, f)
+            datam = pd.read_csv(filename_here, header=self._nbline_header, sep='\t')
             datam.columns = self._col_name
 
             # correct the form of the coordinate
@@ -151,8 +161,18 @@ class Meteo:
                 content = f.readlines()
             unit_here = content[conf.line_with_unit].split('/')[1]
 
+            # get the reference
+
+            with open(filename_here, encoding='utf-8') as myfile:
+                ref_here = [next(myfile) for x in range(self._nbline_header)]
+            ref_here = " ".join(ref_here)
+
             # give it to the dict
             meteo_data[key] = datam
             unit_data[key] = unit_here
+            ref_data[key] = ref_here
 
-        return meteo_data, unit_data
+
+        return meteo_data, unit_data, ref_data
+
+
