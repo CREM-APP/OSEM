@@ -41,6 +41,7 @@ opex_name = 'maintenance'
 temp_building = [[50, 25, 25], [70, 60, 50]]  # # [[%percent building], [temperature]]
 filename_eff = 'kpi_efficiency_heating.csv'
 temp_ext = 22  # exterior temperature °C
+kpi_from_price = ['CAPEX', 'OPEX']
 
 # meteo data
 data_folder_meteo = os.path.join(data_folder, 'data_meteo_swiss')

@@ -40,4 +40,11 @@ assert sum(abs(kpi.get_capex(data_heating_power).iloc[:, -1] - [220656.071909, 2
                                                                 605697.602522, 644201.755584, 682705.908645,
                                                                 605697.602522, 644201.755584, 682705.908645])) < 1e-5
 
+#reference
+assert kpi.get_reference('co2emision') == "Friedli R., Gugerli H. «Plattform «Ökobilanzdaten im Baubereich»" \
+                                   " Gründungsdokument, Coordination Group for Construction and Property Service " \
+                                   "(KBOB).» 2011"
+assert kpi.get_reference('CAPEX', 'BoilerOil')[400] == "Planair, Thermoreseau de SATOM SA; Comparaison de prix de " \
+                                                       "chauffage,SATOM SA, 2015"
+
 

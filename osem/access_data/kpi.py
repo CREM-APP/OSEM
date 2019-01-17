@@ -29,6 +29,9 @@ class Kpi:
         self.temp_building = conf.temp_building  # might be more than one temperature
         self._temp_ext = conf.temp_ext
 
+        # kpi based on the price database
+        self.kpi_from_price = [i.lower() for i in conf.kpi_from_price]
+
     def _load_efficiency_data(self):
         """
         This function load the efficiency data
@@ -172,6 +175,19 @@ class Kpi:
         :param temp_ext: the exteriot temperature in Celsius
         """
         self._temp_ext = temp_ext
+
+    def get_reference(self, kpi, tech_name=''):
+        """"
+        get the reference for a kpi of interest.
+        :param kpi: a string with the name of the kpi
+        :param tech_name: the name of the technology of interest (necessary if the kpi is OPEX or CAPEX)
+        :return a string if the underlining data is linked with kpi.py, a Series if the data is linked with price.py
+        """
+
+        if kpi.lower() in self.kpi_from_price:
+            return self._price.get_reference_for_price(tech_name, kpi)
+        else:
+            return self._kbob.get_reference()
 
 
 
