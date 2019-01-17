@@ -1,5 +1,5 @@
 from osem.general.enerapi.base.base import Base
-
+from osem.general import conf
 from osem.general.enerapi.common.Guard import Guard
 
 __author__ = 'tbernhard'
@@ -114,3 +114,7 @@ class GeoThermal(Base):
             "Geothermal power": round(geothermal_power, 0),
             "Geothermal energy": round(geothermal_energy, 0)
         }
+
+    def get_reference(self):
+
+        return conf.ref_geothermal

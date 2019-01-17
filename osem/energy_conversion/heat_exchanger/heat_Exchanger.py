@@ -1,3 +1,4 @@
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from mpmath import exp
 from sympy import Symbol
@@ -166,3 +167,8 @@ class HeatExchanger(Base):
             "t_out_hot": t_out_hot,
             "t_out_cold": t_out_cold
         }
+
+
+    def get_reference(self):
+
+        return conf.ref_heat_exchanger

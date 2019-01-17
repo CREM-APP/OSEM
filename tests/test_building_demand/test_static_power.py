@@ -66,3 +66,13 @@ class TestICT():
         assert expected["Ptot_cooling"][1]  == actual["Ptot_cooling"][1]
 
 
+    def test_reference(self):
+        args = {"period": 8011, "affectation": 2, "sre": 200, "s_wall": 255, "s_window": 45, "s_roof": 100,
+                "s_floor": 100, "esa": 45, "t_ext": [15, 30], "irr_south": [100, 200]}
+
+        actual = StaticHeatingCoolingPower(args).get_reference()
+
+        assert actual == "D. Perez. A framework to model and simulate the disaggregated energy flows " \
+                                   "supplying buildings in urban areas . PhD thesis, LESO-PB EPFL, Lausanne, 2014 and " \
+                                   "Catalogue des ponts thermiques, OFEN "
+

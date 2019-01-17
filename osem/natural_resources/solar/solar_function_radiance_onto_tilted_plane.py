@@ -3,7 +3,7 @@ from math import cos
 from math import radians
 
 from osem.general.enerapi.base.base import Base
-
+from osem.general import conf
 from osem.general.enerapi.common.Guard import *
 
 __author__ = 'VincentRoch'
@@ -170,3 +170,7 @@ class SolarFunctionRadianceOntoTiltedPlane(Base):
             "GdiffuseTiltedPlane": Gdt,
             "GtotalTiltedPlane": Gtt
         }
+
+    def get_reference(self):
+
+        return conf.ref_solar_function_onto_tilted_plane

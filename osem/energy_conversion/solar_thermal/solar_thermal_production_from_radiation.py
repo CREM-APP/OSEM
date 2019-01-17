@@ -1,4 +1,5 @@
 # coding=utf-8
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from osem.energy_conversion.solar_thermal.solar_thermal import SolarThermal
 from osem.natural_resources.solar.solar_function_incident_angle import SolarFunctionIncidentAngle
@@ -195,3 +196,11 @@ class SolarThermalProductionFromRadiation(Base):
             "IAMbeam": SolarThermalOutput["IAMbeam"],
             "IAMdiffuse": SolarThermalOutput["IAMdiffuse"]
         }
+
+
+    def get_reference(self):
+        """
+        get the scientific reference for this module
+        """
+
+        return conf.ref_thermal_solar_pv

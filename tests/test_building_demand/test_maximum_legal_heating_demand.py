@@ -24,3 +24,9 @@ class TestQhli():
 
         assert expected["Qhli"] == actual["Qhli"]
 
+
+    def test_get_reference(self):
+        args = {"Ath": 450, "Ae": 150, "Affect": 1, "Weather_Station": 5, "project_nature": 4}
+        actual = MaximumLegalHeatingDemand(args).get_reference()
+        assert actual == "SIA 380/1 Norm, heating thermal energy in buildings, edition 2009"
+

@@ -214,3 +214,11 @@ class HeatPowerSupplyTemp(Base):
             "t_return": t_ret,
             "p_installed": round(p_nom, 1)
         }
+
+    def get_reference(self):
+        """
+        return the reference for this module. In this particularcase, no reference is present as the method
+        was developed internally.
+        """
+
+        return None

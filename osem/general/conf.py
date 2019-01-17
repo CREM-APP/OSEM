@@ -96,3 +96,52 @@ default_solver_option= {'tol_mat_mass': 1e-10,
 
 filename_info_solver = 'pandangas_info_solver_option.json'
 
+########################################################################
+#reference
+
+ref_girardin = "L.Girardin, A GIS-based Methodology for the Evaluation of Integrated Energy Systems in Urban Area, " \
+               "PhD thesis, EPFL, Lausanne, 2012"
+
+ref_static_heating_cooling_power = "D. Perez. A framework to model and simulate the disaggregated energy flows " \
+                                   "supplying buildings in urban areas . PhD thesis, LESO-PB EPFL, Lausanne, 2014 and " \
+                                   "Catalogue des ponts thermiques, OFEN "
+
+ref_energy_requirement = "Novatlantis, Steps towards a sustainable development, a White Book for R&D of energy-efficient " \
+                         "technologies, February 2004 and " + ref_girardin
+
+ref_maximum_legal_heating_demand = "SIA 380/1 Norm, heating thermal energy in buildings, edition 2009"
+
+ref_heat_network = "C. Weber. Multi-Objective Design and Optimization of District Energy Systems Including " \
+                   "Polygeneration Energy Conversion Technologies, PhD thesis, Lausanne, 2008"
+
+ref_heat_exchanger = "F.P. Incropera and D.P. DeWitt, 1990, Fundamentals of Heat and Mass Tranfert, 3rd edition, " \
+                     "pp. 658-660, Wiley, New York"
+
+ref_solar_pv = " EMD international A/S, Solar Collectors and Photovolotaic in energyPro, 2013 and A. Luque " \
+               "and S. Hegedus, Eds., Handbook of photovoltaic science and engineering. Hoboken, NJ: Wiley, 2003."
+
+ref_thermal_solar_pv = "Fischer, W. Heidemann, H. Muller-Steinhagen, B. Perers, P. Bergquist, and B. Hellstrom, " \
+                       "Collector test method under quasi-dynamic conditions according to the European " \
+                       "Standard EN 12975-2 Solar Energy, vol. 76, no. 1-3, pp. 117-123, Jan. 2004 and " \
+                       "SPF, Institut Fur SolarTechnik, Collectors, http://www.spf.ch/index.php?id=111&L=6&no_cache=1"
+
+ref_geothermal = "Agence Qualite Construction. Maugard, Alain. Pompes a chaleur geothermiques - Les operations de" \
+                 " forage et limite de prestations. Paris, France. Programme d'action pour la qualite de la" \
+                 " construction et la transition energetique. 2014-07."
+
+ref_solar_function_incident_angle = "Duffie,J.A. and Beckman W.A. Solar Engineering of Thermal Processes (4th edition), " \
+                                    "chapter 1.6 and B. Perers, P. Kovacs, M. Olsson, and M. P. U. Pettersson, " \
+                                    "A Tool for Standardized Collector Performance Calculations including PVT" \
+                                    " Energy Procedia, vol. 30, pp. 1354-1364, 2012."
+
+ref_solar_function_onto_tilted_plane = "B. Perers, P. Kovacs, M. Olsson, and M. P. U. Pettersson, A Tool for " \
+                                       "Standardized Collector Performance Calculations including PVT Energy Procedia," \
+                                       " vol. 30, pp. 1354-1364, 2012."
+
+ref_hot_water_tank =  "Rejane De Cesaro Oliveski, Arno Krenzinger, Horacio A. Vielmo, Comparison between models for the" \
+                      " simulation of hot water storage tanks, Solar Energy, Volume 75, Issue 2, August 2003, " \
+                      "Pages 121-134"
+
+ref_statified_dyn = " I. Dincer, M. Rosen: Thermal Energy Storage : Systems and Applications, Wiley and Sons Inc, 2002, " \
+                    "pp. 276 - 287 and W.A. Beckman, J.A. Duffie: Solar Engineering of Thermal Processes, second " \
+                    "edition, Wiley and Sons Inc, 1991, pp. 379-384"

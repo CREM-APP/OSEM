@@ -52,3 +52,13 @@ class TestHeatExchanger():
             assert th_exp == th_act
             assert tc_exp == tc_act
 
+    def test_get_reference(self):
+
+        args = {"u": 25, "area": 15,
+                "flow_hot": [0.0005, 0.001], "t_in_hot": [100, 100],
+                "flow_cold": [0.0005, 0.001], "t_in_cold": [20, 20]}
+
+        actual = HeatExchanger(args).get_reference()
+
+        assert actual == "F.P. Incropera and D.P. DeWitt, 1990, Fundamentals of Heat and Mass Tranfert, 3rd edition, " \
+                     "pp. 658-660, Wiley, New York"

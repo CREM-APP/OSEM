@@ -39,3 +39,12 @@ class TestHeatPump():
 
             assert c == ac
             assert r == ar
+
+
+    def test_get_reference(self):
+        args = {"t_hot": [55, 50, 45], "t_cold": [0, 5, 10], "reversible": [False, False, True]}
+
+        actual = HeatPump(args).get_reference()
+
+        assert actual == "L.Girardin, A GIS-based Methodology for the Evaluation of Integrated Energy Systems in Urban Area, " \
+               "PhD thesis, EPFL, Lausanne, 2012"

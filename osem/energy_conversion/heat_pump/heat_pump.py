@@ -1,5 +1,5 @@
 from osem.general.enerapi.base.base import Base
-
+from osem.general import conf
 from osem.general.enerapi.common.Guard import *
 
 
@@ -134,3 +134,10 @@ class HeatPump(Base):
             "cop_carnot": cop_carnot,
             "cop_real": cop_real
         }
+
+
+    def get_reference(self):
+        """
+        return the scientific reference for this module
+        """
+        return conf.ref_girardin

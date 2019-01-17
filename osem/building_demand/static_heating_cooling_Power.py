@@ -2,6 +2,7 @@ import json
 
 from osem.general.enerapi.common.IoC import *
 
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from osem.general.enerapi.common.Guard import *
 
@@ -64,7 +65,6 @@ class StaticHeatingCoolingPower(Base):
 
         with open('data/enerapi_data/data_SIA_380-1.json') as data_file:
             sia_ref  = json.load(data_file)
-
 
 
 
@@ -232,3 +232,9 @@ class StaticHeatingCoolingPower(Base):
             "Ptot_heating": pTotHeat,
             "Ptot_cooling": pTotCool
         }
+
+    def get_reference(self):
+        """
+        return the reference
+        """
+        return conf.ref_static_heating_cooling_power

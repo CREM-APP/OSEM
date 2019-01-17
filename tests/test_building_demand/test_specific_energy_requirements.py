@@ -61,3 +61,10 @@ class TestSpecNeedsHFC():
             assert expected["hW"] == actual["hW"]
             assert expected["elec"] == actual["elec"]
             assert expected["h_full_ch"] == actual["h_full_ch"]
+            
+    def test_get_reference(self):
+        args = {"affectation": 1, "period": 8020, "standard": "MinergieP", "refurbished": True}
+        actual = SpecificEnergyRequirements(args).get_reference()
+        assert actual == "Novatlantis, Steps towards a sustainable development, a White Book for R&D of energy-efficient " \
+                         "technologies, February 2004 and L.Girardin, A GIS-based Methodology for the Evaluation of " \
+                         "Integrated Energy Systems in Urban Area, PhD thesis, EPFL, Lausanne, 2012"

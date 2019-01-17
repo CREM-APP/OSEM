@@ -2,6 +2,7 @@ import json
 
 from osem.general.enerapi.common.IoC import *
 
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from osem.general.enerapi.common.Guard import *
 
@@ -146,3 +147,7 @@ class MaximumLegalHeatingDemand(Base):
         return {
             'Qhli': correct_qhli, 'kWh_per_m2': correct_qhli / 3.6
         }
+
+    def get_reference(self):
+
+        return conf.ref_maximum_legal_heating_demand

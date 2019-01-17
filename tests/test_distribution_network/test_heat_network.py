@@ -77,3 +77,12 @@ class TestHeatNetwork():
         assert expected["p_supply"] == actual["p_supply"]
         assert expected["fluid_flow"] == actual["fluid_flow"]
         assert expected["inner_diameter_min"] == actual["inner_diameter_min"]
+
+    def test_reference(self):
+
+        args = {"len_tot": 10000, "t_cons_max": 90, "p_cons_tot": 10000, "t_return_fixed": 20, "v_max": 1.8}
+
+        actual = HeatNetwork(args).get_reference()
+
+        assert actual == "C. Weber. Multi-Objective Design and Optimization of District Energy Systems Including " \
+                   "Polygeneration Energy Conversion Technologies, PhD thesis, Lausanne, 2008"

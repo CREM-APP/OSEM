@@ -1,6 +1,7 @@
 import json
 from osem.general.enerapi.common.IoC import *
 
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from osem.general.enerapi.common.Guard import *
 
@@ -160,3 +161,10 @@ class SpecificEnergyRequirements(Base):
             "elec": round(elec, 2),
             "h_full_ch": h_full_ch
         }
+
+
+    def get_reference(self):
+        """
+        return the reference for this module
+        """
+        return conf.ref_energy_requirement
