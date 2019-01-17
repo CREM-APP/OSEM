@@ -58,3 +58,11 @@ class PoliticalObjective:
         This function get the type of objective available
         """
         return list(self._name_objective)
+
+    def get_reference(self,politic_type):
+        """Obtain a reference for the political objective of interest.
+        :param politic_type: string - the name of the political frame work
+        """
+
+        politic_found = find_string(politic_type, self.db_obj.index, self._cutoff)
+        return self.db_obj.loc[politic_found, "reference"].iloc[0]
