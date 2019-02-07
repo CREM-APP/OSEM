@@ -1,11 +1,9 @@
 import json
-import os
-import numpy as np
 from osem.general.enerapi.common.IoC import *
-
+import os
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from osem.general.enerapi.common.Guard import *
-from osem.general import conf
 
 
 class SpecificEnergyRequirements(Base):
@@ -19,8 +17,6 @@ class SpecificEnergyRequirements(Base):
     PERIODS = range(8011, 8024)  # needs to be improved
     BUILDING_USAGES = range(1, 13)  # needs to be improved
     CONSTRUCTION_STANDARDS = ["SIA", "Minergie", "MinergieP"]  # needs to be improved
-
-
 
     @staticmethod
     def help():
@@ -51,19 +47,20 @@ class SpecificEnergyRequirements(Base):
         }}
         """
 
+
         super(SpecificEnergyRequirements, self).__init__(args)
 
-        self.data_folder_enerapi = conf.data_folder_enerapi
-        self.file_per = conf.file_per
-        self.file_affect = conf.file_affect
-        self.file_ratio = conf.file_ratio
-        self.year_period = conf.year_period
+        self._data_folder_enerapi = conf.data_folder_enerapi
+        self._file_per = conf.file_per
+        self._file_affect = conf.file_affect
+        self._file_ratio = conf.file_ratio
 
-        with open(os.path.join(self.data_folder_enerapi, self.file_per)) as data_file:
+
+        with open(os.path.join(self._data_folder_enerapi, conf.file_per)) as data_file:
             periods  = json.load(data_file)
-        with open(os.path.join(self.data_folder_enerapi, self.file_affect)) as data_file:
+        with open(os.path.join(self._data_folder_enerapi, conf.file_affect)) as data_file:
             affects  = json.load(data_file)
-        with open(os.path.join(self.data_folder_enerapi, self.file_ratio)) as data_file:
+        with open(os.path.join(self._data_folder_enerapi, conf.file_ratio)) as data_file:
             ratio_base  = json.load(data_file)
 
         if 'year' in args.keys():
@@ -92,7 +89,6 @@ class SpecificEnergyRequirements(Base):
         args["periods"] = periods
         args["affects"] = affects
         args["ratio_base"] = ratio_base
-
 
         self.args = args
 
@@ -142,7 +138,6 @@ class SpecificEnergyRequirements(Base):
 
         """
 
-
         hs_ratio_aff = 0    # init
         hs_ratio_per = 0    # init
         hw_ratio = 0        # init
@@ -176,12 +171,9 @@ class SpecificEnergyRequirements(Base):
             "h_full_ch": h_full_ch
         }
 
-    def _get_period_from_year(self, year):
+
+    def get_reference(self):
         """
-        This function get the code of the construction period from the year of construciton
-        :param year: the construction year (int)
-        :return: the code construction from RegBL
+        return the reference for this module
         """
-        years_start = np.array(self.year_period)
-        ind = np.searchsorted(years_start, year)
-        return self.PERIODS[ind - 1]
+        return conf.ref_energy_requirement

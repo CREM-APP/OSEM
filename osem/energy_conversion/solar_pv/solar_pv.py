@@ -1,6 +1,6 @@
 # coding=utf-8
 from osem.general.enerapi.base.base import Base
-
+from osem.general import conf
 from osem.general.enerapi.common.Guard import *
 
 __author__ = 'VincentRoch'
@@ -141,3 +141,10 @@ class SolarPV(Base):
         return {
             "ElectricOutputPower": ElectricOutputPower
         }
+
+
+    def get_reference(self):
+        """
+        get the scientific reference for this module
+        """
+        return conf.ref_solar_pv

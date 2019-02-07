@@ -1,5 +1,6 @@
 from math import sqrt, pi
 
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from sympy import symbols
 from sympy.solvers import solve
@@ -195,3 +196,10 @@ class HeatNetwork(Base):
                 "fluid_flow": None,
                 "inner_diameter_min": None
             }
+
+
+    def get_reference(self):
+        """
+        get the reference for this module
+        """
+        return conf.ref_heat_network

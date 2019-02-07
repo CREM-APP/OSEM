@@ -2,7 +2,7 @@ from __future__ import division
 
 from System import System
 from osem.general.enerapi.base.base import Base
-
+from osem.general import conf
 from osem.general.enerapi.common.Guard import *
 
 
@@ -241,3 +241,12 @@ class StratifiedDynamic(Base):
         system.layer_to_step()
 
         return {"temperatures_layer": system.results, "temperatures_step": system.results_step}
+
+
+    def get_reference(self):
+        """
+        obtain the scientific reference for this module
+        :return:
+        """
+
+        conf.ref_statified_dyn

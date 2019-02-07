@@ -28,6 +28,7 @@ class Kbob:
         else:
             self.version = self._version_default
         self.data, self.unit, self.index_translation = self._load_kbob()
+        self.ref_kbob = conf.ref_kbob
 
     def get_value(self, techno, indicator, language="ENG", ener_type=None):
         """
@@ -119,6 +120,12 @@ class Kbob:
         filename_trans = os.path.join(self._data_folder, self._filename_trans_ind)
 
         return {'kbob': filename_kbob, 'unit': filename_unit, 'translation': filename_trans}
+
+    def get_reference(self):
+        """
+        return the reference paper for the kbob database
+        """
+        return self.ref_kbob
 
     def _load_kbob(self):
         """

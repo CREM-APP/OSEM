@@ -34,3 +34,9 @@ class TestBoilerBehaviour():
         actual = BoilerBehaviour(args).calculate()
         assert expected["p_supplied"] == actual["p_supplied"]
         assert expected["p_consumed"] == actual["p_consumed"]
+
+    def test_get_reference(self):
+        args = {"p_consumed": 100, "techno_id": 7203}
+        actual = BoilerBehaviour(args).get_reference()
+        assert actual == "L.Girardin, A GIS-based Methodology for the Evaluation of Integrated Energy Systems in Urban Area, " \
+               "PhD thesis, EPFL, Lausanne, 2012"

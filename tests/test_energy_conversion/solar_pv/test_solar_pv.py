@@ -95,3 +95,10 @@ class TestSolarPV():
         actual = SolarPV(args).calculate()
 
         assert expected["ElectricOutputPower"] == actual["ElectricOutputPower"]
+
+    def test_get_reference(self):
+        args = {"Pmax": 270, "GtotalTiltedPlane": 800, "Ta": 21}
+        actual = SolarPV(args).get_reference()
+
+        assert actual == " EMD international A/S, Solar Collectors and Photovolotaic in energyPro, 2013 and A. Luque " \
+               "and S. Hegedus, Eds., Handbook of photovoltaic science and engineering. Hoboken, NJ: Wiley, 2003."

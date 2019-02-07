@@ -5,6 +5,7 @@ from numpy import linspace, pi
 from scipy.integrate import odeint
 
 from osem.general.enerapi.common.Guard import *
+from osem.general import conf
 
 
 class HotWaterTank(Base):
@@ -161,3 +162,10 @@ class HotWaterTank(Base):
         return {
             "t": t_tank
         }
+
+    def get_reference(self):
+        """
+        get the scientific reference for htis module
+        :return:
+        """
+        return conf.ref_hot_water_tank

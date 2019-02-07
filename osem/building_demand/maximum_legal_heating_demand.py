@@ -1,7 +1,8 @@
 import json
 
 from osem.general.enerapi.common.IoC import *
-
+import os
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from osem.general.enerapi.common.Guard import *
 
@@ -50,11 +51,14 @@ class MaximumLegalHeatingDemand(Base):
 
         super(MaximumLegalHeatingDemand, self).__init__(args)
 
-        with open('osem/general/data/enerapi_data/Data_Project_Nature.json') as data_file:
+        self._data_folder_enerapi = conf.data_folder_enerapi
+
+
+        with open(os.path.join(self._data_folder_enerapi, conf.file_project_nature)) as data_file:
             project_nature_dict  = json.load(data_file)
-        with open('osem/general/data/enerapi_data/Data_Qhli.json') as data_file:
+        with open(os.path.join(self._data_folder_enerapi, conf.file_data_qhli)) as data_file:
             data_qhli_dict  = json.load(data_file)
-        with open('osem/general/data/enerapi_data/Meteo2028.json') as data_file:
+        with open(os.path.join(self._data_folder_enerapi, conf.file_meteo_2028)) as data_file:
             meteo_dict  = json.load(data_file)
 
 
@@ -146,3 +150,7 @@ class MaximumLegalHeatingDemand(Base):
         return {
             'Qhli': correct_qhli, 'kWh_per_m2': correct_qhli / 3.6
         }
+
+    def get_reference(self):
+
+        return conf.ref_maximum_legal_heating_demand

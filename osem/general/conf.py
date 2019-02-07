@@ -18,6 +18,8 @@ data_folder_kbob = os.path.join(data_folder, 'data_kbob')
 basename_unit = "kbob_unit"  # filename for the unit file: basename + version +'.csv'
 basename_kbob = "kbob_data"  # filename for the kbob file: basename + version +'.csv'
 filename_trans_ind = "kbob_translation_indicator.csv"   # name of the file with the translation data
+ref_kbob = "Friedli R., Gugerli H. «Plattform «Ökobilanzdaten im Baubereich» Gründungsdokument, Coordination Group " \
+           "for Construction and Property Service (KBOB).» 2011"
 
 # political objectives
 basename_pol = "political_obj.csv"
@@ -39,6 +41,7 @@ opex_name = 'maintenance'
 temp_building = [[50, 25, 25], [70, 60, 50]]  # # [[%percent building], [temperature]]
 filename_eff = 'kpi_efficiency_heating.csv'
 temp_ext = 22  # exterior temperature °C
+kpi_from_price = ['CAPEX', 'OPEX']
 
 # meteo data
 data_folder_meteo = os.path.join(data_folder, 'data_meteo_swiss')
@@ -93,9 +96,75 @@ default_solver_option= {'tol_mat_mass': 1e-10,
 
 filename_info_solver = 'pandangas_info_solver_option.json'
 
+########################################################################
+#reference
+
+ref_girardin = "L.Girardin, A GIS-based Methodology for the Evaluation of Integrated Energy Systems in Urban Area, " \
+               "PhD thesis, EPFL, Lausanne, 2012"
+
+ref_static_heating_cooling_power = "D. Perez. A framework to model and simulate the disaggregated energy flows " \
+                                   "supplying buildings in urban areas . PhD thesis, LESO-PB EPFL, Lausanne, 2014 and " \
+                                   "Catalogue des ponts thermiques, OFEN "
+
+ref_energy_requirement = "Novatlantis, Steps towards a sustainable development, a White Book for R&D of energy-efficient " \
+                         "technologies, February 2004 and " + ref_girardin
+
+ref_maximum_legal_heating_demand = "SIA 380/1 Norm, heating thermal energy in buildings, edition 2009"
+
+ref_heat_network = "C. Weber. Multi-Objective Design and Optimization of District Energy Systems Including " \
+                   "Polygeneration Energy Conversion Technologies, PhD thesis, Lausanne, 2008"
+
+ref_heat_exchanger = "F.P. Incropera and D.P. DeWitt, 1990, Fundamentals of Heat and Mass Tranfert, 3rd edition, " \
+                     "pp. 658-660, Wiley, New York"
+
+ref_solar_pv = " EMD international A/S, Solar Collectors and Photovolotaic in energyPro, 2013 and A. Luque " \
+               "and S. Hegedus, Eds., Handbook of photovoltaic science and engineering. Hoboken, NJ: Wiley, 2003."
+
+ref_thermal_solar_pv = "Fischer, W. Heidemann, H. Muller-Steinhagen, B. Perers, P. Bergquist, and B. Hellstrom, " \
+                       "Collector test method under quasi-dynamic conditions according to the European " \
+                       "Standard EN 12975-2 Solar Energy, vol. 76, no. 1-3, pp. 117-123, Jan. 2004 and " \
+                       "SPF, Institut Fur SolarTechnik, Collectors, http://www.spf.ch/index.php?id=111&L=6&no_cache=1"
+
+ref_geothermal = "Agence Qualite Construction. Maugard, Alain. Pompes a chaleur geothermiques - Les operations de" \
+                 " forage et limite de prestations. Paris, France. Programme d'action pour la qualite de la" \
+                 " construction et la transition energetique. 2014-07."
+
+ref_solar_function_incident_angle = "Duffie,J.A. and Beckman W.A. Solar Engineering of Thermal Processes (4th edition), " \
+                                    "chapter 1.6 and B. Perers, P. Kovacs, M. Olsson, and M. P. U. Pettersson, " \
+                                    "A Tool for Standardized Collector Performance Calculations including PVT" \
+                                    " Energy Procedia, vol. 30, pp. 1354-1364, 2012."
+
+ref_solar_function_onto_tilted_plane = "B. Perers, P. Kovacs, M. Olsson, and M. P. U. Pettersson, A Tool for " \
+                                       "Standardized Collector Performance Calculations including PVT Energy Procedia," \
+                                       " vol. 30, pp. 1354-1364, 2012."
+
+ref_hot_water_tank =  "Rejane De Cesaro Oliveski, Arno Krenzinger, Horacio A. Vielmo, Comparison between models for the" \
+                      " simulation of hot water storage tanks, Solar Energy, Volume 75, Issue 2, August 2003, " \
+                      "Pages 121-134"
+
+ref_statified_dyn = " I. Dincer, M. Rosen: Thermal Energy Storage : Systems and Applications, Wiley and Sons Inc, 2002, " \
+                    "pp. 276 - 287 and W.A. Beckman, J.A. Duffie: Solar Engineering of Thermal Processes, second " \
+                    "edition, Wiley and Sons Inc, 1991, pp. 379-384"
+
+
 #############################
 data_folder_enerapi = os.path.join(data_folder, 'enerapi_data')
 file_per = 'period_RegBL.json'
 file_affect = 'affect_RegBL.json'
 file_ratio = 'ratio_base.json'
+file_sia_380_1 ='data_SIA_380-1.json'
+file_em_system ='em_system.json'
+
+file_project_nature = 'Data_Project_Nature.json'
+file_boiler_techno = 'boiler_techno.json'
+file_construct_bat = 'Construct_Bat.json'
+file_data_qhli ='Data_Qhli.json'
+file_meteo_2028 ='Meteo2028.json'
+file_sse_coef_orient ='SSE_Coef_Orient.json'
+file_window_ratio ='WindowRatio.json'
+file_window_type_incident_rate ='WindowTypeIncidentRate.json'
+
+
+
+
 year_period = [1,1919,1946,1961,1971,1981,1986,1991,1996,2001,2006,2011,2015]

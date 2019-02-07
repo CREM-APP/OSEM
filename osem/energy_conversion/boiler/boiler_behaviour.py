@@ -1,5 +1,6 @@
 import json
-
+import os
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from osem.general.enerapi.common.DomainException import *
 from osem.general.enerapi.common.IoC import *
@@ -40,8 +41,10 @@ class BoilerBehaviour(Base):
         """
         
         super(BoilerBehaviour, self).__init__(args)
+        self._data_folder_enerapi = conf.data_folder_enerapi
 
-        with open('osem/general/data/enerapi_data/boiler_techno.json') as data_file:
+
+        with open(os.path.join(self._data_folder_enerapi, conf.file_boiler_techno)) as data_file:
             techno_data  = json.load(data_file)
 
 
@@ -125,3 +128,9 @@ class BoilerBehaviour(Base):
             "p_supplied": round(p_supp, 2),
             "p_consumed": round(p_cons, 2)
         }
+
+    def get_reference(self):
+        """
+        get the reference for this module
+        """
+        return conf.ref_girardin

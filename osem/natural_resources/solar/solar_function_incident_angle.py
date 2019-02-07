@@ -9,7 +9,7 @@ from math import sin
 from math import tan
 
 from osem.general.enerapi.base.base import Base
-
+from osem.general import conf
 from osem.general.enerapi.common.Guard import *
 
 
@@ -210,3 +210,7 @@ class SolarFunctionIncidentAngle(Base):
             "longIncidentAngle": tLon,
             "tranIncidentAngle": tTra
         }
+
+    def get_reference(self):
+
+        return conf.ref_solar_function_incident_angle

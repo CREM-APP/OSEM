@@ -118,3 +118,8 @@ osem_env/
 
 .idea/workspace.xml
 .idea/inspectionProfiles/Project_Default.xml
+
+  .idea/workspace.xml
+    tests/fig_test/co2emi.png
+    tests/fig_test/primary.png
+    tests/fig_test/renew.png

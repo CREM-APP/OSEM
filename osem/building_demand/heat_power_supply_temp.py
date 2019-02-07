@@ -1,7 +1,7 @@
 import json
 from pprint import pprint
-
-from osem.general.enerapi.common.IoC import *
+import os
+from osem.general import conf
 from osem.general.enerapi.base.base import Base
 from .specific_energy_requirements import SpecificEnergyRequirements
 from osem.general.enerapi.common.Guard import *
@@ -67,11 +67,16 @@ class HeatPowerSupplyTemp(Base):
         """
         super(HeatPowerSupplyTemp, self).__init__(args)
 
-
-        with open('osem/general/data/enerapi_data/data_SIA_380-1.json') as data_file:
+        self._data_folder_enerapi = conf.data_folder_enerapi
+        self._file_sia_380_1 = conf.file_sia_380_1
+        self._file_em_system = conf.file_em_system
+        with open(os.path.join(self._data_folder_enerapi, self._file_sia_380_1)) as data_file:
             data_sia  = json.load(data_file)
-        with open('osem/general/data/enerapi_data/em_system.json') as data_file:
+        with open(os.path.join(self._data_folder_enerapi, self._file_em_system)) as data_file:
             data_em_sys  = json.load(data_file)
+
+
+
 
 
         Guard.check_if_key_in_dict("affectation", args)
@@ -214,3 +219,11 @@ class HeatPowerSupplyTemp(Base):
             "t_return": t_ret,
             "p_installed": round(p_nom, 1)
         }
+
+    def get_reference(self):
+        """
+        return the reference for this module. In this particularcase, no reference is present as the method
+        was developed internally.
+        """
+
+        return None

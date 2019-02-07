@@ -58,3 +58,9 @@ def test_kbob_version():
     assert kbob.get_kbob_version() == '2222'
     kbob.change_to_default_version()
     assert kbob.get_kbob_version() == '2016'
+
+def test_kbob_reference():
+    kbob = Kbob()
+    assert kbob.get_reference() == "Friedli R., Gugerli H. «Plattform «Ökobilanzdaten im Baubereich»" \
+                                   " Gründungsdokument, Coordination Group for Construction and Property Service " \
+                                   "(KBOB).» 2011"

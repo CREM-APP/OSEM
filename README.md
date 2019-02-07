@@ -53,3 +53,14 @@ If not, see http://www.apache.org/licenses/LICENSE-2.0.
 #TODO how to intall osem
 
 
+##Update package to Pypi
+1 - build a version of package
+ ```python
+    python setup.py bdist_wheel
+  ```
+2  - upload the package 
+
+ ```python
+    twine upload --skip-existing dist/*
+  ```
+
